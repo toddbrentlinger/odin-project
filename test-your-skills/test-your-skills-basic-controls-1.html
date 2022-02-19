@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Your Skills: Basic Controls</title>
+</head>
+<body>
+    <h2>Basic Controls 1</h2>
+    <form>
+        <ul>
+            <li>
+                <label for="user_id">User ID: </label>
+                <input type="text" id="user_id" name="user_id">
+            </li>
+            <li>
+                <label for="pwd">Password: </label>
+                <input type="password" id="pwd" name="user_password">
+            </li>
+            <li>
+                <button type="submit">Log in</button>
+            </li>
+        </ul>
+    </form>
+
+    <h2>Basic Controls 2</h2>
+    <form>
+        <fieldset>
+            <legend>Who is your favorite pony?</legend>
+            <ul>
+                <li>
+                    <input type="radio" id="pinkie" name="fav_pony" value="pinkie" checked>
+                    <label for="pinkie">Pinkie Pie</label>
+    
+                </li>
+                <li>
+                    <input type="radio" id="rainbow" name="fav_pony" value="rainbow">
+                    <label for="rainbow">Rainbow Dash</label>
+                </li>
+                <li>
+                    <input type="radio" id="twilight" name="fav_pony" value="twilight">
+                    <label for="twilight">Twilight Sparkle</label>
+                </li>
+            </ul>
+        </fieldset>
+        <fieldset>
+            <legend>Hotdog preferences</legend>
+            <ul>
+                <li>
+                    <input type="checkbox" id="vegan" name="hotdog_pref" value="vegan">
+                    <label for="vegan">Vegan</label>
+                </li>
+                <li>
+                    <input type="checkbox" id="onions" name="hotdog_pref" value="onions">
+                    <label for="onions">Onions</label>
+                </li>
+                <li>
+                    <input type="checkbox" id="mustard" name="hotdog_pref" value="mustard">
+                    <label for="mustard">Mustard</label>
+                </li>
+                <li>
+                    <input type="checkbox" id="ketchup" name="hotdog_pref" value="ketchup">
+                    <label for="ketchup">Ketchup</label>
+                </li>
+            </ul>
+        </fieldset>
+        <button>Submit</button>
+    </form>
+    
+    <h2>Basic Controls 3</h2>
+    <form>
+        <ul>
+            <li>
+                <label for="gallery-img">Choose gallery images to upload</label>
+                <input type="file" id="gallery-img" name="gallery-img" accept=".jpg,.png" multiple>
+            </li>
+        </ul>
+        <button>Submit</button>
+    </form>
+</body>
+</html>
