@@ -7,21 +7,47 @@ body {
   width: 400px;
   background: #fff;
   margin: 16px auto;
+  /* Custom */
+  padding: 8px;
+}
+
+.card > * {
+  margin: 8px 0;
+}
+
+.card > *:first-child {
+  margin-top: 0;
+}
+
+.card > *:last-child {
+  margin-bottom: 0;
 }
 
 .title {
   background: #e3f4ff;
+  /* Custom */
+  font-size: 16px;
+  padding: 8px;
 }
 
 .content {
   background: #e3f4ff;
+  /* Custom */
+  padding: 16px 8px;
 }
 
 .button-container {
   background: #e3f4ff;
+  /* Custom */
+  text-align: center;
+  padding: 8px;
 }
 
 button {
   background: white;
   border: 1px solid #eee;
+  /* Custom */
+  display: block;
+  margin: 0 auto;
+  padding: 8px 24px;
 }

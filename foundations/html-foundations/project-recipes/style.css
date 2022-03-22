@@ -1,4 +1,102 @@
+:root {
+    /* Background */
+    background-color: var(--main-bg-color);
+    background-image: url('https://cdn.pixabay.com/photo/2017/12/29/14/15/seamless-3047729_960_720.jpg');
+    background-repeat: repeat;
+    background-attachment: fixed; /* browser issues */
+    background-position: center top;
+}
+
+html {
+    box-sizing: border-box;
+    font-size: 62.5%; /* 62.5% of 16px base font size is 10px */
+    background-color: rgb(200, 200, 200);
+}
+
+*, *::before, *::after {
+    box-sizing: inherit;
+}
+
+body {
+    font-family: Roboto, Arial, sans-serif;
+    font-size: 1.6rem; /* Reset root font-size to 16px */
+    background-color: white;
+    margin: 0 10%;
+    padding: 2em;
+}
+
+h1 {
+    text-align: center;
+    font-weight: bolder;
+    font-size: 3.6rem;
+}
+
+ul li {
+    list-style: url('https://upload.wikimedia.org/wikipedia/commons/thumb/a/a4/Fork_%26_knife.svg/16px-Fork_%26_knife.svg.png');
+}
+
 img.recipe-thumbnail {
-    width: 50%;
-    height: auto;
+    display: block;
+    width: auto;
+    height: 30vh;
+    margin: 0 auto;
+}
+
+/* Rainbow Border Animated */
+
+.rainbow-border-animated-container {
+    /*background: radial-gradient(yellow, green, blue, violet, red, orange);
+    background: conic-gradient(
+        hsl(360, 100%, 50%),
+        hsl(315, 100%, 50%),
+        hsl(270, 100%, 50%),
+        hsl(225, 100%, 50%),
+        hsl(180, 100%, 50%),
+        hsl(135, 100%, 50%),
+        hsl(90, 100%, 50%),
+        hsl(45, 100%, 50%),
+        hsl(0, 100%, 50%)
+    );*/
+    background: conic-gradient(
+        hsl(360, 100%, 50%),
+        hsl(270, 100%, 50%) 90deg,
+        hsl(180, 100%, 50%) 180deg,
+        hsl(90, 100%, 50%) 270deg,
+        hsl(0, 100%, 50%) 360deg
+    );
+    animation-duration: 4s;
+    animation-name: rotate-clockwise;
+    animation-iteration-count: infinite;
+}
+
+@keyframes rotate-clockwise {
+    from {
+        background: conic-gradient(
+            hsl(360, 100%, 50%),
+            hsl(270, 100%, 50%) 90deg,
+            hsl(180, 100%, 50%) 180deg,
+            hsl(90, 100%, 50%) 270deg,
+            hsl(0, 100%, 50%) 360deg
+        );
+    }
+
+    to {
+        background: conic-gradient(
+            from 180deg,
+            hsl(360, 100%, 50%),
+            hsl(270, 100%, 50%) 90deg,
+            hsl(180, 100%, 50%) 180deg,
+            hsl(90, 100%, 50%) 270deg,
+            hsl(0, 100%, 50%) 360deg
+        );
+    }
+}
+
+.rainbow-border-animated-content {
+    border-color: yellow;
+    border-style: solid;
+    border-spacing: 0.5em;
+    transition-property: border-color;
+    transition-duration: 2s;
+    transition-delay: 1s;
 }
