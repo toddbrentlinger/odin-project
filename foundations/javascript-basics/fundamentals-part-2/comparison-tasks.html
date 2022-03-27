@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript Basics - Fundamentals Part 2 - JavaScript Comparison</title>
+</head>
+<body>
+    <script>
+        // Comparisons
+        console.log(5 > 4); // true
+        console.log("apple" > "pineapple"); // false - first character p is greater than a
+        console.log("2" > "12"); // true - since both operands are same type (string), each character is compared and first character '2' is greater than '1'
+        console.log(undefined == null); // true - equal to each other and do not equal any other value
+        console.log(undefined === null); // false - using strict equality, types are different (undefined is Number and null is object)
+        console.log(null == "\n0\n"); // false - null and undefined equal to each other and do not equal any other value
+        console.log(null === +"\n0\n"); // false - using strict equality, types are different (null is object and other is Number)
+    </script>
+</body>
+</html>

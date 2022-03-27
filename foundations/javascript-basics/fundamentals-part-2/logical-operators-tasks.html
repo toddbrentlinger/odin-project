@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript Basics - Fundamentals Part 2 - JavaScript Logical Operators</title>
+</head>
+<body>
+    <script>
+        // What's the result of OR?
+        alert( null || 2 || undefined ); // alert(2)
+
+        // What's the result of OR'ed alerts?
+        alert( alert(1) || 2 || alert(3) ); // alert(1) then alert(2)
+
+        // What is the result of AND?
+        alert( 1 && null && 2 ); // alert(null)
+
+        // What is the result of AND'ed alerts?
+        alert( alert(1) && alert(2) );
+        /* alert(1) runs first and returns undefined
+         * which evaluates to false, ending the conditional 
+         * and returning undefined into outer-most alert() call
+         * Result: alert(1) then alert(undefined)
+         */
+
+        // The result of OR AND OR
+        alert( null || 2 && 3 || 4 );
+        /* && has higher precedence than ||
+         * 2 && 3 -> Since neither operand is false, returns last operand 3
+         * null || 3 || 4 -> First true value is 3
+         * Result: alert(3) 
+         */
+
+        // Check the range between
+        function checkRangeBetween(age) {
+            if (age >=14 && age <=90) { 
+                console.log(`${age} is between 14 and 90 inclusive!`);
+            } else {
+                console.log(`${age} is NOT between 14 and 90 inclusive!`);
+            }
+        }
+
+        // Check the range outside
+        function checkRangeOutside(age) {
+            if (age < 14 || age > 90) {
+                console.log(`${age} is outside range [14,90]!`);
+            } else {
+                console.log(`${age} is inside range [14,90]!`);
+            }
+        }
+
+        function checkRangeOutside2(age) {
+            if (!(age >=14 && age <=90)) {
+                console.log(`${age} is outside range [14,90]!`);
+            } else {
+                console.log(`${age} is inside range [14,90]!`);
+            }
+        }
+
+        // A question about "if"
+        if (-1 || 0) alert( 'first' ); // if (-1) -> if (true) -> alert will execute
+        if (-1 && 0) alert( 'second' ); // if (0) -> if (false) -> alert will NOT execute
+        if (null || -1 && 1) alert( 'third' ); // if (null || 1) -> if (1) -> if (true) -> alert will execute
+
+        // Check the login
+        {
+            const user = prompt('Who\'s there?');
+            if  (user === 'Admin') {
+                const password = prompt('Password?');
+                if (password === 'TheMaster') {
+                    alert('Welcome');
+                } else if (password === '' || password === null) {
+                    alert('Canceled');
+                } else {
+                    alert('Wrong password');
+                }
+            } else if (user === '' || user === null) {
+                alert('Canceled');
+            } else {
+                alert('I don\'t know you');
+            }
+        }
+    </script>
+</body>
+</html>
