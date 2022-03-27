@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>If Else Tasks</title>
+</head>
+<body>
+    <script>
+        // If (a string with zero)
+        if ("0") {
+            alert( 'Hello' );
+        }
+        // Alert will be shown since an empty string returns false
+        // and a non-zero length string returns false.
+
+        // The name of JavaScript
+        {
+            const answer = prompt('What\'s the "official" name of JavaScript?');
+            if (answer === 'ECMAScript') {
+                alert('Right!');
+            } else {
+                alert('You don\'t know "ECMAScript"!');
+            }
+        }
+
+        // Show the sign
+        {
+            const answer = prompt('Enter a number: ');
+            if (+answer > 0) {
+                alert('Number is greater than zero!');
+            } else if (+answer < 0) {
+                alert('Number is less than zero');
+            } else {
+                alert('Number is zero');
+            }
+        }
+
+        // Rewrite 'if' into '?'
+        function rewriteIfIntoTernary(a, b) {
+            let result;
+            if (a + b < 4) {
+                result = 'Below';
+            } else {
+                result = 'Over';
+            }
+            console.log(result);
+        }
+
+        function rewriteIfIntoTernary2(a, b) {
+            let result = (a + b < 4) ? 'Below' : 'Over';
+            console.log(result);
+        }
+
+        rewriteIfIntoTernary(1,2);
+        rewriteIfIntoTernary(2,2);
+
+        rewriteIfIntoTernary2(1,2);
+        rewriteIfIntoTernary2(2,2);
+
+        // Rewrite 'if...else' into '?'
+        function rewriteIfElseIntoTernary(login) {
+            let message;
+
+            if (login == 'Employee') {
+              message = 'Hello';
+            } else if (login == 'Director') {
+                message = 'Greetings';
+            } else if (login == '') {
+              message = 'No login';
+            } else {
+               message = '';
+            }
+
+            console.log(message);
+        }
+
+        function rewriteIfElseIntoTernary2(login) {
+            let message = (login == 'Employee') ? 'Hello' :
+                (login == 'Director') ? 'Greetings' :
+                (login == '') ? 'No login' : '';
+
+            console.log(message);
+        }
+
+        rewriteIfElseIntoTernary('Employee');
+        rewriteIfElseIntoTernary('Director');
+        rewriteIfElseIntoTernary('');
+        rewriteIfElseIntoTernary();
+
+        rewriteIfElseIntoTernary2('Employee');
+        rewriteIfElseIntoTernary2('Director');
+        rewriteIfElseIntoTernary2('');
+        rewriteIfElseIntoTernary2();
+
+    </script>
+</body>
+</html>
