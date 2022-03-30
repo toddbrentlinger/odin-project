@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MDN - Test Your Skills: Functions</title>
+</head>
+<body>
+    <h2>Functions 1</h2>
+    <section id="functions-1"></section>
+
+    <h2>Functions 2</h2>
+    <canvas width="300" height="300"></canvas>
+
+    <h2>Functions 3</h2>
+    <section id="functions-3"></section>
+
+    <h2>Functions 4</h2>
+    <section id="functions-4"></section>
+
+    <script>
+        // Functions 1
+        let section = document.getElementById('functions-1');
+        {
+            const names = ['Chris', 'Li Kang', 'Anne', 'Francesca', 'Mustafa', 'Tina', 'Bert', 'Jada']
+            const para = document.createElement('p');
+
+            // Add your code here
+            function chooseName() {
+                para.textContent = names[Math.floor(Math.random() * names.length)];
+            }
+            chooseName();
+            // Don't edit the code below here!
+
+            section.innerHTML = ' ';
+
+            section.appendChild(para);
+        }
+
+        // Functions 2
+        {
+            const canvas = document.querySelector('canvas');
+            const ctx = canvas.getContext('2d');
+
+            const x = 50;
+            const y = 60;
+            const width = 100;
+            const height = 75;
+            const color = 'blue';
+
+            // Add your code here
+            function drawRectangle(x, y, width, height, color) {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                ctx.fillStyle = color;
+                ctx.fillRect(x, y, width, height);
+            }
+            drawRectangle(x, y, width, height, color);
+        }
+
+        // Functions 3
+        section = document.getElementById('functions-3');
+        {
+            const names = ['Chris', 'Li Kang', 'Anne', 'Francesca', 'Mustafa', 'Tina', 'Bert', 'Jada']
+            const para = document.createElement('p');
+
+            // Add your code here
+            function random(start, end) {
+                return start + Math.floor(Math.random() * (end - start));
+            }
+            function chooseName(namesArr) {
+                para.textContent = namesArr[random(0, names.length)];
+            }
+            chooseName(names);
+            // Don't edit the code below here!
+
+            section.innerHTML = ' ';
+
+            section.appendChild(para);
+        }
+
+        // Functions 4
+        section = document.getElementById('functions-4');
+        {
+            const names = ['Chris', 'Li Kang', 'Anne', 'Francesca', 'Mustafa', 'Tina', 'Bert', 'Jada'];
+            const para = document.createElement('p');
+
+            // function isShort(name) {
+            // return name.length < 5;
+            // }
+
+            const shortNames = names.filter(name => name.length < 5);
+            para.textContent = shortNames;
+
+            // Don't edit the code below here!
+
+            section.innerHTML = ' ';
+
+            section.appendChild(para);
+                
+        }
+    </script>
+</body>
+</html>

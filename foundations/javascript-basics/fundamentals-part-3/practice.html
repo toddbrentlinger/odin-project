@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript Fundamentals Part 3 - Practice</title>
+</head>
+<body>
+    <script>
+        // Problem 1
+        function add7(num) {
+            return num + 7;
+        }
+        console.assert(add7(10) === 17);
+
+        // Problem 2
+        function multiply(firstNum, secondNum) {
+            return firstNum * secondNum;
+        }
+        console.assert(multiply(3,7) === 21);
+
+        // Problem 3
+        function capitalize(str) {
+            // Return if str length is zero
+            if (!str) return;
+            // Convert first element to uppercase
+            // Convert rest of string to lowercase
+            return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
+        }
+        console.assert(capitalize('letter') === 'Letter');
+        console.assert(capitalize('LETTER') === 'Letter');
+        console.assert(capitalize('lEtTeR') === 'Letter');
+
+        // Problem 4
+        function lastLetter(str) {
+            // Return if str is empty
+            if (!str) return;
+            // Return character in last index
+            return str[str.length - 1];
+        }
+        console.assert(lastLetter('abcd') === 'd');
+    </script>    
+</body>
+</html>

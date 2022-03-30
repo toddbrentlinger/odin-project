@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Function Basics - Tasks</title>
+</head>
+<body>
+    <p></p>
+    <script>
+        'use strict';
+
+        // Is "else" required?
+        function checkAge(age) {
+            if (age > 18) {
+                return true;
+            } else {
+                // ...
+                return confirm('Did parents allow you?');
+            }
+        }
+        function checkage2(age) {
+            if (age > 18) {
+                return true;
+            }
+            // ...
+            return confirm('Did parents allow you?');
+        }
+        // No difference
+
+        // Rewrite the function using '?' or '||'
+        function checkAge3(age) {
+            return (age > 18) ? true : confirm('Did parents allow you?');
+        }
+        function checkAge4(age) {
+            return (age > 18) || confirm('Did parents allow you?');
+        }
+
+        // Function min(a,b)
+        function min(a, b) {
+            return a < b ? a : b;
+        }
+        console.assert(min(2,5) == 2);
+        console.assert(min(3,-1) == -1);
+        console.assert(min(1,1) == 1);
+
+        // Function pow(x,n)
+        function pow(x, n) {
+            // Return if n is NOT an integer or less than 1
+            if (!Number.isInteger(n) || n < 1) return;
+            return x**n;
+        }
+        console.assert(pow(3,2) == 9);
+        console.assert(pow(3,3) == 27);
+        console.assert(pow(1,100) == 1);
+
+        const para = document.querySelector('p');
+        const x = prompt('Enter x: ');
+        const n = prompt('Enter n: ');
+        para.textContent = `pow(${x}, ${n}) = ${pow(+x,+n)}`;
+    </script>
+</body>
+</html>
