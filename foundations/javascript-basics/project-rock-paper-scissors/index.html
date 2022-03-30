@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript Basics - Project: Rock Paper Scissors</title>
+</head>
+<body>
+    <script>
+        'use strict';
+
+        const CHOICES = ['Rock', 'Paper', 'Scissors'];
+        const ROUND_OUTCOMES = {'Won': 1, 'Lost': -1, 'Tied': 0};
+
+        function computerPlay() {
+            return CHOICES[Math.floor(Math.random() * 3)];
+        }
+
+        function playRound(playerSelection, computerSelection) {
+            // Check for tie
+            if (playerSelection === computerSelection) {
+                console.log(`You tied! Both selected ${computerSelection}`);
+                return ROUND_OUTCOMES['Tied'];
+            }
+            // Determine if Player has won
+            let hasPlayerWon = false;
+            switch (playerSelection) {
+                case 'Rock':
+                    if (computerSelection === 'Scissors')
+                        hasPlayerWon = true;
+                        break;
+                case 'Paper': 
+                    if (computerSelection === 'Rock')
+                        hasPlayerWon = true;
+                        break;
+                case 'Scissors': 
+                    if (computerSelection === 'Paper')
+                        hasPlayerWon = true;
+                        break;
+                default:
+                    console.error(`${playerSelection} NOT valid!`);
+            }
+            // Return display message
+            if (hasPlayerWon) {
+                console.log(`You win! ${playerSelection} beats ${computerSelection}`);
+                return ROUND_OUTCOMES['Won'];
+            } else {
+                console.log(`You lose! ${computerSelection} beats ${playerSelection}`);
+                return ROUND_OUTCOMES['Lost'];
+            }
+        }
+
+        function getValidPlayerChoice() {
+            let playerPrompt;
+            while (!playerPrompt) {
+                playerPrompt = prompt("Enter choice of 'Rock', 'Paper','Scissor': ");
+                // Match playerSelection with CHOICES. Account for no match.
+                playerPrompt = CHOICES.find(choice => choice.toUpperCase() === playerPrompt.toUpperCase());
+            }
+            return playerPrompt;
+        }
+
+        function game(numRounds = 5) {
+            let playerScore = 0;
+            let computerScore = 0;
+            let roundResult, playerSelection, computerSelection;
+            // Loop for each game round
+            for (let i = 0; i < numRounds; i++) {
+                // Play single round until get win or loss, repeating with a draw
+                roundResult = undefined
+                while (!roundResult) {
+                    // Prompt Player until receive valid input
+                    playerSelection = getValidPlayerChoice();
+                    computerSelection = computerPlay();
+                    roundResult = playRound(playerSelection, computerSelection);
+                }
+                // Change scores based on round results
+                // roundResult will be either 1 (Player won) or -1 (Player lost)
+                if (roundResult === 1) {
+                    playerScore++;
+                } else if (roundResult === -1) {
+                    computerScore++;
+                }
+                // Display updated scores
+                console.log(`Current Score:\n\tPlayer: ${playerScore}\n\tComputer: ${computerScore}`);
+            }
+            // Rounds have completed
+            // Display message depending on final scores
+            if (playerScore > computerScore) {
+                console.log(`Congratulations! You won the game!`);
+            } else {
+                console.log(`Sorry. You lost the game!`);
+            }
+            // Display final scores
+            console.log(`Final Score:\n\tPlayer: ${playerScore}\n\tComputer: ${computerScore}`);
+        }
+    </script>
+</body>
+</html>
