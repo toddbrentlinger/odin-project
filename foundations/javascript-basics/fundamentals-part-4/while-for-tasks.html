@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>While For Tasks</title>
+</head>
+<body>
+    <script>
+        // Last loop value
+        alert('Last loop value');
+        {
+            let i = 3;
+            while (i) alert(i--);
+            // Last value alerted by this code is 1. Varialbe i is decremented
+            // every loop, where every number other than 0 returns a value
+            // of true in the while loop. When i reaches 0, the condition
+            // returns false and the while loop ends.
+        }
+
+        // Which values does the while loop show?
+        alert('Which values does the while loop show?');
+        {
+            // 1
+            {
+                let i = 0;
+                while (++i < 5) alert(i);
+                /*
+                1
+                2
+                3
+                4
+                */
+            }
+            {
+                let i = 0;
+                while (i++ < 5) alert(i);
+                /*
+                1
+                2
+                3
+                4
+                5
+                */
+            }
+        }
+
+        // Which values get show by the "for" loop?
+        alert('Which values get show by the "for" loop?');
+        {
+            // 1
+            {
+                for (let i = 0; i < 5; i++) alert( i );
+                /*
+                0
+                1
+                2
+                3
+                4
+                */
+            }
+
+            // 2
+            for (let i = 0; i < 5; ++i) alert( i );
+            /*
+                0
+                1
+                2
+                3
+                4
+                */
+        }
+        
+        // Output even numbers in the loop
+        {
+            for (let i = 2; i <= 10; i+=2) {
+                console.log(i);
+            }
+        }
+
+        // Replace "for" with "while"
+        alert('Replace "for" with "while"');
+        {
+            for (let i = 0; i < 3; i++) {
+                alert(`number ${i}!`);
+            }
+
+            let i = 0;
+            while (i < 3) {
+                alert(`number ${i++}!`);
+            }
+        }
+
+        // Repeat until the input is correct
+        {
+            let value;
+            while (true) {
+                value = prompt('Enter number greater than 100', '');
+                if (value === '') break;
+                if (+value > 100) break;
+            }
+        }
+
+        // Output prime numbers 
+        {
+            function printPrimeNum(num) {
+                // Check if numbers are prime from 2-n
+                outer: for (let numToCheckPrime = 2; numToCheckPrime <= num; numToCheckPrime++) {
+                    // Check if numToCheckPrime is a prime number (divisible by 1 and iteself)
+                    // If numToCheckPrime is divisible by number between 1-n, NOT prime number
+                    for (let j = 2; j < numToCheckPrime; j++) {
+                        // If numToCheckPrime is divisible by j, NOT a prime number
+                        if (numToCheckPrime % j === 0) 
+                            continue outer;
+                    }
+                    // If reach this point, is is prime number
+                    console.log(numToCheckPrime);
+                }
+            }
+            printPrimeNum(10);
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Active Learning: Filling In A Guest List</title>
+    <style>
+        html {
+            font-family: sans-serif;
+        }
+    
+        h2 {
+            font-size: 16px;
+        }
+    
+        .a11y-label {
+            margin: 0;
+            text-align: right;
+            font-size: 0.7rem;
+            width: 98%;
+        }
+    
+        body {
+            margin: 10px;
+            background: #f5f9fa;
+        }
+    </style>
+</head>
+
+<body>
+    <h2>Editable code</h2>
+    <p class="a11y-label">Press Esc to move focus away from the code area (Tab inserts a tab character).</p>
+
+    <script>
+        'use strict';
+
+        const people = ['Chris', 'Anne', 'Colin', 'Terri', 'Phil', 'Lola', 'Sam', 'Kay', 'Bruce'];
+
+        const admitted = document.querySelector('.admitted');
+        const refused = document.querySelector('.refused');
+        admitted.textContent = 'Admit: ';
+        refused.textContent = 'Refuse: ';
+
+        for (const person of people) {
+            if (person === 'Phil' || person === 'Lola') {
+                refused.textContent += person + ', ';
+            } else {
+                admitted.textContent += person + ', ';
+            }
+        }
+        refused.textContent = refused.textContent.slice(0, refused.textContent.length - 2) + '.';
+        admitted.textContent = admitted.textContent.slice(0, admitted.textContent.length - 2) + '.';
+    </script>
+
+</body>
+
+</html>

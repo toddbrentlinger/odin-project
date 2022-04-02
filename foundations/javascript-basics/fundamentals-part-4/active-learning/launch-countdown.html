@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Active Learning: Launch Countdown</title>
+    <style>
+        html {
+            font-family: sans-serif;
+        }
+    
+        h2 {
+            font-size: 16px;
+        }
+    
+        .a11y-label {
+            margin: 0;
+            text-align: right;
+            font-size: 0.7rem;
+            width: 98%;
+        }
+    
+        body {
+            margin: 10px;
+            background: #f5f9fa;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h2>Live output</h2>
+    <div class="output" style="height: 410px;overflow: auto;"></div>
+
+    <h2>Editable code</h2>
+    <p class="a11y-label">Press Esc to move focus away from the code area (Tab inserts a tab character).</p>
+
+    <script>
+        let output = document.querySelector('.output');
+        output.innerHTML = '';
+        
+        for (let i = 10; i >= 0; i--) {
+            const para = document.createElement('p');
+            if (i === 10) {
+                para.textContent = 'Countdown 10';
+            } else if (i === 0) {
+                para.textContent = 'Blast Off!';
+            } else {
+                para.textContent = i;
+            }
+            output.appendChild(para);
+        }
+    </script>
+
+</body>
+
+</html>
