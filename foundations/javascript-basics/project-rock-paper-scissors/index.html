@@ -5,96 +5,97 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>JavaScript Basics - Project: Rock Paper Scissors</title>
+    <link rel="stylesheet" href="./styles.css">
+    <script defer src="./main.js"></script>
 </head>
 <body>
+    <div id="overlay" class="hide">
+        <div id="final-message">Congratulations! You Won!</div>
+        <button>Start New Game</button>
+    </div>
+
+    <header>
+        <h1>Rock, Paper, Scissors</h1>
+    </header>
+
+    <main>
+        <h2 id="round-number">Round 1</h2>
+
+        <p id="instruction-msg">Enter choice of 'Rock', 'Paper', or 'Scissors'</p>
+
+        <div id="choices-container">
+            <div data-key="Rock" class="choice">
+                <p>Rock</p>
+            </div>
+            <div data-key="Paper" class="choice">
+                <p>Paper</p>
+            </div>
+            <div data-key="Scissors" class="choice">
+                <p>Scissors</p>
+            </div>
+        </div>
+
+        <p id="results-msg">-</p>
+
+        <table id="scores">
+            <thead>
+                <tr>
+                    <th>Player</th>
+                    <th>Computer</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td id="player-score">0</td>
+                    <td id="computer-score">0</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div id="results-img-display">
+            <div id="player-result">
+                <img data-key="Rock" class="hide" src="./images/rock.png" />
+                <img data-key="Paper" class="hide" src="./images/paper.png" />
+                <img data-key="Scissors" class="hide" src="./images/scissors.png" />
+            </div>
+            <div id="computer-result">
+                <img data-key="Rock" class="hide" src="./images/rock.png" />
+                <img data-key="Paper" class="hide" src="./images/paper.png" />
+                <img data-key="Scissors" class="hide" src="./images/scissors.png" />
+            </div>
+        </div>
+
+    </main>
+
+    <footer>
+        <p>
+            <small>Source Code © <time id="copyright-current-year">2022</time> Todd Brentlinger, Santa Cruz, CA, USA. All Rights Reserved.</small>
+        </p>
+    </footer>
+
+    <!--
+    Citations:
+
+    rock-paper-scissors-sprite.png
+    Photo by https://www.vhv.rs/viewpic/hmwJmhm_rock-paper-scissors-png-transparent-png/
+
+    rock-paper-scissors-rules.png
+    Photo by https://www.vhv.rs/viewpic/hmwmRTh_rock-paper-scissors-rock-paper-scissors-rules-hd/
+    -->
+
     <script>
-        'use strict';
-
-        const CHOICES = ['Rock', 'Paper', 'Scissors'];
-        const ROUND_OUTCOMES = {'Won': 1, 'Lost': -1, 'Tied': 0};
-
-        function computerPlay() {
-            return CHOICES[Math.floor(Math.random() * 3)];
-        }
-
-        function playRound(playerSelection, computerSelection) {
-            // Check for tie
-            if (playerSelection === computerSelection) {
-                console.log(`You tied! Both selected ${computerSelection}`);
-                return ROUND_OUTCOMES['Tied'];
-            }
-            // Determine if Player has won
-            let hasPlayerWon = false;
-            switch (playerSelection) {
-                case 'Rock':
-                    if (computerSelection === 'Scissors')
-                        hasPlayerWon = true;
-                        break;
-                case 'Paper': 
-                    if (computerSelection === 'Rock')
-                        hasPlayerWon = true;
-                        break;
-                case 'Scissors': 
-                    if (computerSelection === 'Paper')
-                        hasPlayerWon = true;
-                        break;
-                default:
-                    console.error(`${playerSelection} NOT valid!`);
-            }
-            // Return display message
-            if (hasPlayerWon) {
-                console.log(`You win! ${playerSelection} beats ${computerSelection}`);
-                return ROUND_OUTCOMES['Won'];
-            } else {
-                console.log(`You lose! ${computerSelection} beats ${playerSelection}`);
-                return ROUND_OUTCOMES['Lost'];
-            }
-        }
-
-        function getValidPlayerChoice() {
-            let playerPrompt;
-            while (!playerPrompt) {
-                playerPrompt = prompt("Enter choice of 'Rock', 'Paper','Scissor': ");
-                // Match playerSelection with CHOICES. Account for no match.
-                playerPrompt = CHOICES.find(choice => choice.toUpperCase() === playerPrompt.toUpperCase());
-            }
-            return playerPrompt;
-        }
-
-        function game(numRounds = 5) {
-            let playerScore = 0;
-            let computerScore = 0;
-            let roundResult, playerSelection, computerSelection;
-            // Loop for each game round
-            for (let i = 0; i < numRounds; i++) {
-                // Play single round until get win or loss, repeating with a draw
-                roundResult = undefined
-                while (!roundResult) {
-                    // Prompt Player until receive valid input
-                    playerSelection = getValidPlayerChoice();
-                    computerSelection = computerPlay();
-                    roundResult = playRound(playerSelection, computerSelection);
+        function updateCopyright(initialYear) {
+            const copyright = document.getElementById('copyright-current-year');
+            if (copyright) {
+                const currYear = new Date().getFullYear();
+                if (currYear === initialYear) {
+                    copyright.textContent = initialYear;
+                } else if (currYear > initialYear) {
+                    copyright.textContent = `${initialYear}-${currYear}`;
                 }
-                // Change scores based on round results
-                // roundResult will be either 1 (Player won) or -1 (Player lost)
-                if (roundResult === 1) {
-                    playerScore++;
-                } else if (roundResult === -1) {
-                    computerScore++;
-                }
-                // Display updated scores
-                console.log(`Current Score:\n\tPlayer: ${playerScore}\n\tComputer: ${computerScore}`);
             }
-            // Rounds have completed
-            // Display message depending on final scores
-            if (playerScore > computerScore) {
-                console.log(`Congratulations! You won the game!`);
-            } else {
-                console.log(`Sorry. You lost the game!`);
-            }
-            // Display final scores
-            console.log(`Final Score:\n\tPlayer: ${playerScore}\n\tComputer: ${computerScore}`);
         }
+        updateCopyright(2022);
     </script>
 </body>
 </html>

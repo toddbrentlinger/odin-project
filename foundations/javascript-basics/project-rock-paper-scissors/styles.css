@@ -1,0 +1,162 @@
+html {
+    font-size: 62.5%; /* 1rem = 10px */
+    font-family: sans-serif;
+    box-sizing: border-box;
+    /* Background */
+    background-image: url(./images/fadedorangebackground.svg);
+    background-color: orange;
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+*, *:before, *:after {
+    box-sizing: inherit;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-size: 1.6rem; /* 16px */
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+#overlay {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+#overlay.hide {
+    display: none;
+}
+
+#overlay.winner {
+    background-color: rgba(255,255,255,0.65);
+    color: black;
+}
+
+#overlay.loser {
+    background-color: rgba(0, 0, 0, 0.65);
+    color: white;
+}
+
+#final-message {
+    padding: 2em;
+}
+
+#overlay button {
+    padding: 1em;
+    border: 2px solid black;
+    border-radius: 1em;
+    cursor: pointer;
+    transition: all ease-out 0.2s;
+    font-weight: inherit;
+    background-color: rgba(255,255,255,0.5);
+}
+
+#overlay button:hover {
+    transform: scale(1.1);
+    color: white;
+    background-color: rgba(50,50,50,0.5);
+}
+
+header {
+    text-align: center;
+    padding: 1.5em;
+}
+
+main {
+    margin: 0 auto;
+    padding: 0 0.5em;
+    text-align: center;
+    flex: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5em;
+    font-weight: bold;
+}
+
+footer {
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2em;
+}
+
+#choices-container {
+    display: flex;
+    justify-content: space-around;
+    gap: 1em;
+}
+
+.choice {
+    border: 2px solid black;
+    border-radius: 1em;
+    cursor: pointer;
+    transition: all ease-out 0.2s;
+}
+
+.choice:hover {
+    transform: scale(1.1);
+    color: white;
+    background-color: rgba(50,50,50,0.5);
+}
+
+.choice p {
+    padding: 1em;
+}
+
+#scores {
+    font-size: 2rem;
+}
+
+#results-img-display {
+    /* border: 2px solid black; */
+    display: flex;
+}
+
+#results-img-display > div {
+    flex: 1 1 50%;
+    width: 100%;
+    padding-top: 56.25%;
+    position: relative;
+}
+
+#results-img-display > div > img {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: auto;
+    height: 100%;
+}
+
+#results-img-display > div:first-child > img {
+    left: 0;
+}
+
+#results-img-display > div:last-child > img {
+    right: 0;
+}
+
+.hide {
+    display: none;
+}
