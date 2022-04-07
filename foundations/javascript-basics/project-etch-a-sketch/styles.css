@@ -1,0 +1,49 @@
+html {
+    font-size: 62.5%; /* 1rem = 10px */
+}
+
+body {
+    font-size: 1.6rem; /* 16px */
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+}
+
+main {
+    flex: 1;
+}
+
+.etch-a-sketch {
+    width: 50%;
+    min-width: 300px;
+    margin: 0 auto;
+}
+
+.square-board-container {
+    width: 100%;
+    padding-top: 100%;
+    position: relative;
+    border: 1px solid black;
+}
+
+.board {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.board-row {
+    flex: 1;
+    display: flex;
+}
+
+.board-square {
+    flex: 1;
+}

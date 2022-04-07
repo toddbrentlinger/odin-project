@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project: Etch-A-Sketch</title>
+    <link rel="stylesheet" href="./styles.css">
+    <script defer src="./main.js"></script>
+</head>
+<body>
+    <header>
+        <h1>Etch-a-Sketch</h1>
+    </header>
+    <main>
+        <div id="fade-to-black-etch-a-sketch" class="etch-a-sketch">
+            <h2>Fade To Black</h2>
+        </div>
+        <div id="rand-color-etch-a-sketch" class="etch-a-sketch">
+            <h2>Random Color</h2>
+        </div>
+        <div id="black-n-white-etch-a-sketch" class="etch-a-sketch">
+            <h2>Black-n-White</h2>
+        </div>
+    </main>
+    <footer>
+        <p>
+            <small>Source Code © <time id="copyright-current-year">2022</time> Todd Brentlinger, Santa Cruz, CA, USA. All Rights Reserved.</small>
+        </p>
+    </footer>
+
+    <script>
+        (function(initialYear) {
+            const copyright = document.getElementById('copyright-current-year');
+            if (copyright) {
+                const currYear = new Date().getFullYear();
+                if (currYear === initialYear) {
+                    copyright.textContent = initialYear;
+                } else if (currYear > initialYear) {
+                    copyright.textContent = `${initialYear}-${currYear}`;
+                }
+            }
+        })(2022);
+    </script>
+</body>
+</html>
