@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project: Calculator</title>
+    <link rel="stylesheet" href="./styles.css">
+    <script defer src="./main.js"></script>
+</head>
+<body>
+    <header>
+        <h1>Calculator</h1>
+    </header>
+
+    <main>
+        <div id="calculator">
+            <div id="calc-display-container">
+                <div id="calc-display-value">0</div>
+            </div>
+
+            <div id="calc-btn-container">
+                <div id="calc-other-btns">
+                    <div class="calc-btn">
+                        <span id="clear-btn">CLEAR</span>
+                    </div>
+                </div>
+
+                <div id="calc-operands">
+                    <div class="calc-btn">
+                        <span class="operand">7</span>
+                    </div>
+                    <div class="calc-btn">
+                        <span class="operand">8</span>
+                    </div>
+                    <div class="calc-btn">
+                        <span class="operand">9</span>
+                    </div>
+                    <div class="calc-btn">
+                        <span class="operand">4</span>
+                    </div>
+                    <div class="calc-btn">
+                        <span class="operand">5</span>
+                    </div>
+                    <div class="calc-btn">
+                        <span class="operand">6</span>
+                    </div>
+                    <div class="calc-btn">
+                        <span class="operand">1</span>
+                    </div>
+                    <div class="calc-btn">
+                        <span class="operand">2</span>
+                    </div>
+                    <div class="calc-btn">
+                        <span class="operand">3</span>
+                    </div>
+                    <div class="calc-btn">
+                        <span data-operand="0" class="operand">0</span>
+                    </div>
+                    <div class="calc-btn">
+                        <span class="operand">.</span>
+                    </div>
+                </div>
+
+                <div id="calc-operators-basic">
+                    <div class="calc-btn">
+                        <span data-operator="divide" class="operator-basic">&#247;</span>
+                    </div>
+                    <div class="calc-btn">
+                        <span data-operator="multiply" class="operator-basic">&#215;</span>
+                    </div>
+                    <div class="calc-btn">
+                        <span data-operator="minus" class="operator-basic">&#8722;</span>
+                    </div>
+                    <div class="calc-btn">
+                        <span data-operator="plus" class="operator-basic">&#43;</span>
+                    </div>
+                    <div class="calc-btn">
+                        <span data-operator="equal" class="operator-basic">&#61;</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>
+            <small>Source Code © <time id="copyright-current-year">2022</time> Todd Brentlinger, Santa Cruz, CA, USA. All Rights Reserved.</small>
+        </p>
+    </footer>
+
+    <script>
+        (function(initialYear) {
+            const copyright = document.getElementById('copyright-current-year');
+            if (copyright) {
+                const currYear = new Date().getFullYear();
+                if (currYear === initialYear) {
+                    copyright.textContent = initialYear;
+                } else if (currYear > initialYear) {
+                    copyright.textContent = `${initialYear}-${currYear}`;
+                }
+            }
+        })(2022);
+    </script>
+
+    <!--
+    References/Citations:
+
+    - CF Blackboard Font by CloutierFontes from https://www.fontspace.com/cf-blackboard-font-f32762
+
+    - Green Chalkboard Background Image by 123freevectors.com from https://publicdomainvectors.org/en/free-clipart/Green-Chalkboard/40881.html
+
+    - chalkboard-green.jpg by Piqsels.com from https://www.piqsels.com/en/public-domain-photo-flxlb
+    -->
+</body>
+</html>
