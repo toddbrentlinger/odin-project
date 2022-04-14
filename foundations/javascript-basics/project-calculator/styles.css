@@ -13,11 +13,11 @@ body {
     font-family: blackboard-font, monospace;
     color: white;
     background: linear-gradient(-45deg, lightgreen, darkgreen);
-    background-image: url(./chalkboard-green.jpg);
+    background-attachment: fixed;
+    background-image: url(./img/chalkboard-green.jpg);
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;
-    padding: 0;
     margin: 0;
     height: 100vh;
     display: flex;
@@ -46,6 +46,8 @@ footer {
     justify-content: center;
     align-items: center;
     background-color: hsl(44, 100%, 21%);
+    background-image: url('./img/TexturesCom_Wood_Worn3_256_albedo.png');
+    background-size: 256px;
     font-family: sans-serif;
 }
 
@@ -62,7 +64,8 @@ footer > p {
     border-radius: 1em;
     background: linear-gradient(-45deg, hsl(0, 0%, 30%), hsl(0, 0%, 10%));
     font-family: monospace;
-    font-size: 2rem;
+    font-size: 3rem;
+    box-shadow: 0px 0px 16px 10px black;
 }
 
 #calculator > .aspect-ratio-container {
@@ -94,6 +97,8 @@ footer > p {
 }
 
 .calc-btn > * {
+    cursor: pointer;
+    border-radius: 50%;
     /* Responsive square aspect ratio part 3/3 */
     position: absolute;
     top: 0;
@@ -120,8 +125,8 @@ footer > p {
     grid-template-columns: repeat(3, 1fr);
 }
 
-.operand[data-operand="0"] {
-    grid-column: 1 / span 2;
+.calc-btn[data-operand="0"] {
+    /* grid-column: 1 / span 2; */
 }
 
 #calc-operators-basic {

@@ -4,20 +4,25 @@
     const calculator = {
         // Properties
 
-        _displayValue: '0',
-        _inputOperand: '',
-        _inputOperator: '',
+        _prevOperand: null,
+        _currOperand: '0',
+        _inputOperator: null,
         _displayNode: document.getElementById('calc-display-value'),
 
         // Getter/Setter
 
-        get displayValue() { return this._displayValue; },
-        set displayValue(str) {
-            if (isNaN(str) && str !== '.') return;
-            this._inputOperand = +str;
-            this._displayValue = str;
-            this._displayNode.textContent = this.displayValue;
-            console.log(`Operand set to: ${this._inputOperand}`);
+        get prevOperand() {
+            return this._prevOperand;
+        },
+        set prevOperand(num) {
+            // If num is NOT a number, return
+            if (isNaN(num)) return;
+            // If num is a string, convert to number
+            if (typeof num === 'string')
+                num = +num;
+            // Num should be a number if reach this point
+            this._prevOperand = num;
+            console.log(`Prev Operand set to: ${this._prevOperand}`);
         },
 
         get inputOperator() { return this._inputOperator; },
@@ -43,36 +48,76 @@
                 operandNode.addEventListener('click', this.handleOperandClick.bind(this));
             });
             // Other Buttons
+            document.getElementById('clear-btn')
+                .addEventListener('click', this.handleClearClick.bind(this));
         },
 
         handleOperandClick(e) {
-            this.displayValue = e.target.textContent;
+            if (this._currOperand === null || this._currOperand === '0') {
+                if (e.target.textContent === '.')
+                    this._currOperand = '0.';
+                else
+                    this._currOperand = e.target.textContent;
+            } else {
+                if (e.target.textContent === '.' && this._currOperand.includes('.'))
+                    return;
+                this._currOperand += e.target.textContent;
+            }
+            this.setDisplayText(this._currOperand);
+
+            console.log(`prev: ${this._prevOperand} - curr: ${this._currOperand} - operator: ${this._inputOperator} - display: ${this._displayValue}`);
         },
 
         handleOperatorClick(e) {
-            this.inputOperator = e.target.dataset.operator;
+            if (this._inputOperator === null) {
+                if (this._prevOperand === null && this._currOperand !== null)
+                    this.prevOperand = this._currOperand;
+            } else {
+                const result = this.operate(this._inputOperator, this.prevOperand, this._currOperand);
+                if (result === undefined) return;
+                this.prevOperand = result;
+            }
+            this._inputOperator = e.target.dataset.operator !== 'equal' ? e.target.dataset.operator : null; 
+            this._currOperand = null;
+            this.setDisplayText(this._prevOperand);
+
+            console.log(`prev: ${this._prevOperand} - curr: ${this._currOperand} - operator: ${this._inputOperator} - display: ${this._displayValue}`);
+        },
+
+        /** Resets calculator to default state. */
+        handleClearClick() {
+            this._prevOperand = null;
+            this._currOperand = '0';
+            this._inputOperator = null;
+            this.setDisplayText(this._currOperand);
         },
 
         /**
-         * 
+         * Performs operation with operator and two operands. Returns the result or undefined.
          * @param {String} operator 
          * @param {Number} operand1 
          * @param {Number} operand2 
+         * @return {Number|undefined} Result of operation or undefined.
          */
         operate(operator, operand1, operand2) {
+            // Ensure each operand is a number
+            if (isNaN(operand1) || isNaN(operand2)) return;
+
+            // If operand is a string, convert to a number
+            if (typeof operand1 === 'string')
+                operand1 = +operand1;
+            if (typeof operand2 === 'string')
+                operand2 = +operand2;
+
             switch(operator) {
-                case 'add':
-                    this.add(operand1, operand2);
-                    break;
-                case 'subtract':
-                    this.subtract(operand1, operand2);
-                    break;
+                case 'plus':
+                    return this.add(operand1, operand2);
+                case 'minus':
+                    return this.subtract(operand1, operand2);
                 case 'multiply':
-                    this.multiply(operand1, operand2);
-                    break;
+                    return this.multiply(operand1, operand2);
                 case 'divide':
-                    this.divide(operand1, operand2);
-                    break;
+                    return this.divide(operand1, operand2);
                 default:
             }
         },
@@ -91,9 +136,20 @@
 
         divide(num1, num2) {
             // Check if dividing by 0
-            if (num2 === 0)
+            if (num2 === 0){
+                this.setDisplayText('Cannot divide by 0');
+                return;
+            }
 
             return num1 / num2;
         },
+        
+        /**
+         * Sets calculator display text.
+         * @param {String|Number} newText 
+         */
+        setDisplayText(newText) {
+            this._displayNode.textContent = newText;
+        }
     }.init();
 })();

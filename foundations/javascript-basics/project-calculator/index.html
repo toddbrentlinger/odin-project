@@ -22,7 +22,7 @@
             <div id="calc-btn-container">
                 <div id="calc-other-btns">
                     <div class="calc-btn">
-                        <span id="clear-btn">CLEAR</span>
+                        <span id="clear-btn">AC</span>
                     </div>
                 </div>
 
@@ -54,8 +54,8 @@
                     <div class="calc-btn">
                         <span class="operand">3</span>
                     </div>
-                    <div class="calc-btn">
-                        <span data-operand="0" class="operand">0</span>
+                    <div class="calc-btn" data-operand="0">
+                        <span class="operand">0</span>
                     </div>
                     <div class="calc-btn">
                         <span class="operand">.</span>
@@ -85,19 +85,19 @@
 
     <footer>
         <p>
-            <small>Source Code © <time id="copyright-current-year">2022</time> Todd Brentlinger, Santa Cruz, CA, USA. All Rights Reserved.</small>
+            <small>Source Code © <time id="copyright-year">2022</time> Todd Brentlinger, Santa Cruz, CA, USA. All Rights Reserved.</small>
         </p>
     </footer>
 
     <script>
         (function(initialYear) {
-            const copyright = document.getElementById('copyright-current-year');
+            const copyright = document.getElementById('copyright-year');
             if (copyright) {
                 const currYear = new Date().getFullYear();
-                if (currYear === initialYear) {
-                    copyright.textContent = initialYear;
-                } else if (currYear > initialYear) {
+                if (currYear > initialYear) {
                     copyright.textContent = `${initialYear}-${currYear}`;
+                } else {
+                    copyright.textContent = initialYear;   
                 }
             }
         })(2022);
@@ -111,6 +111,8 @@
     - Green Chalkboard Background Image by 123freevectors.com from https://publicdomainvectors.org/en/free-clipart/Green-Chalkboard/40881.html
 
     - chalkboard-green.jpg by Piqsels.com from https://www.piqsels.com/en/public-domain-photo-flxlb
+
+    - WORN-WOOD-SURFACE-PBR0609 by Textures.com from https://www.textures.com/download/PBR0843/139500
     -->
 </body>
 </html>
