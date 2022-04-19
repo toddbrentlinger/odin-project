@@ -1,5 +1,57 @@
 'use strict';
 
+/*
+Input Output
+	    0	prev=null curr=null operator=null display='0'=prev?
+  2	    2	prev=null curr='2'  operator=null display='2'=curr
+  x	    2	prev=2    curr=null operator='x'  display='2'=prev
+  6	    6	prev=2	  curr='6'  operator='x'  display='6'=curr
+  +	    12      prev=12   curr=null operator='+'  display='12'=prev
+  3	    3	prev=12	  curr='3'  operator='+'  display='3'=curr
+  =	    15	prev=15	  curr=null operator=null display='15'=prev
+  ... 
+  .	    0.	prev=15	  curr='0.'  operator=null display='0.'=curr
+  2	    0.2	prev=15	  curr='0.2' operator=null display='0.2'=curr
+  x	    0.2	prev=0.2  curr=null  operator='x'  display='0.2'=prev
+  3	    3	prev=0.2  curr='3'   operator='x'  display='3'=curr
+  +	    0.6	prev=0.6  curr=null  operator='+'  display='0.6'=prev
+  5	    5	prev=0.6  curr='5'   operator='+'  display='5'=curr
+  =	    5.6	prev=5.6  curr=null  operator=null display='5.6'=prev
+  ... 
+  -	    15	prev=15	  curr=null operator='-'  display='15'=prev
+  1	    1	prev=15	  curr='1'  operator='-'  display='1'=curr
+  0	    10	prev=15	  curr='10' operator='-'  display='10'=curr
+  =	    5	prev=5	  curr=null operator=null display='5'=prev
+  ... 
+  2	    2	prev=15   curr='2'  operator=null display='2'=curr
+  x	    2	prev=2	  curr=null operator='x'  display='2'=prev
+  3	    3	prev=2	  curr='3'  operator='x'  display='3'=curr
+  =	    6	prev=6    curr=null operator=null display='6'=prev
+
+Operator select(newOp)
+  If previous operator === null
+    If prev is null AND curr is NOT null
+      Set prev = curr
+  Else previous operator is NOT null, perform operation with prev and curr
+    result = operate(prev operator, prev, curr)
+    Set prev = result
+  Reset curr = null
+  Set operator = newOp
+  Set display = prev
+
+Operand select(n)
+  If curr === null OR curr === '0'
+    If n === '.'
+      curr = '0.'
+    Else n is a number
+    	Set curr to n
+  Else curr is NOT null AND NOT '0'
+    If n is '.' AND curr already contains '.'
+      return
+    Append n to curr
+  Set display = curr 
+*/
+
 (function() {
     const calculator = {
         // Properties
@@ -54,18 +106,18 @@
 
         handleOperandClick(e) {
             if (this._currOperand === null || this._currOperand === '0') {
-                if (e.target.textContent === '.')
+                if (e.currentTarget.dataset.operand === '.')
                     this._currOperand = '0.';
                 else
-                    this._currOperand = e.target.textContent;
+                    this._currOperand = e.currentTarget.dataset.operand;
             } else {
-                if (e.target.textContent === '.' && this._currOperand.includes('.'))
+                if (e.currentTarget.dataset.operand === '.' && this._currOperand.includes('.'))
                     return;
-                this._currOperand += e.target.textContent;
+                this._currOperand += e.currentTarget.dataset.operand;
             }
             this.setDisplayText(this._currOperand);
 
-            console.log(`prev: ${this._prevOperand} - curr: ${this._currOperand} - operator: ${this._inputOperator} - display: ${this._displayValue}`);
+            console.log(`prev: ${this._prevOperand} - curr: ${this._currOperand} - operator: ${this._inputOperator}`);
         },
 
         handleOperatorClick(e) {
@@ -77,11 +129,11 @@
                 if (result === undefined) return;
                 this.prevOperand = result;
             }
-            this._inputOperator = e.target.dataset.operator !== 'equal' ? e.target.dataset.operator : null; 
+            this._inputOperator = e.currentTarget.dataset.operator !== 'equal' ? e.currentTarget.dataset.operator : null; 
             this._currOperand = null;
             this.setDisplayText(this._prevOperand);
 
-            console.log(`prev: ${this._prevOperand} - curr: ${this._currOperand} - operator: ${this._inputOperator} - display: ${this._displayValue}`);
+            console.log(`prev: ${this._prevOperand} - curr: ${this._currOperand} - operator: ${this._inputOperator}`);
         },
 
         /** Resets calculator to default state. */

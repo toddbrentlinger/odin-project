@@ -41,6 +41,10 @@ header {
     letter-spacing: 0.4em;
 }
 
+h1 {
+    margin-bottom: 0;
+}
+
 footer {
     display: flex;
     justify-content: center;
@@ -56,84 +60,111 @@ footer > p {
 }
 
 #calculator {
-    width: 50%;
-    min-width: 300px;
     padding: 1em;
-    margin: 0 auto;
+    margin: 1em auto;
     border: 5px solid hsl(0, 0%, 50%);
     border-radius: 1em;
-    background: linear-gradient(-45deg, hsl(0, 0%, 30%), hsl(0, 0%, 10%));
+    background: linear-gradient(135deg, hsl(0, 0%, 20%), hsl(0, 0%, 10%));
     font-family: monospace;
     font-size: 3rem;
     box-shadow: 0px 0px 16px 10px black;
+    /* Limit size of calculator to within window dimensions without scrollbars appearing */
+    /* width: 50%;
+    min-width: 300px; */
+    height: calc(100% - 2em);
+    max-height: calc(100% - 2em);
+    aspect-ratio: 4/6;
+    /* Positions display and buttons in column with space around */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
-#calculator > .aspect-ratio-container {
+#aspect-ratio-container {
+    /* Responsive square aspect ratio part 1/3 */
+    position: relative;
 }
 
-#calc-display-container {
-    text-align: right;
+#aspect-ratio-container::before {
+    /* Responsive square aspect ratio part 2/3 */
+    content: '';
+    display: block;
+    padding-top: 150%;
 }
 
 #calc-btn-container {
     display: grid;
-    grid-template-rows: repeat(5, 1fr);
+    grid-template-rows: repeat(6, 1fr);
     grid-template-columns: repeat(4, 1fr);
-}
-
-.calc-btn::before {
-    /* Responsive square aspect ratio part 1/3 */
-    content: '';
-    display: block;
-    padding-top: 100%;
-}
-
-.calc-btn {
-    border-radius: 50%;
-    border: 1px solid black;
-    background-color: hsl(0, 0%, 50%);
-    /* Responsive square aspect ratio part 2/3 */
-    position: relative;
-}
-
-.calc-btn > * {
-    cursor: pointer;
-    border-radius: 50%;
     /* Responsive square aspect ratio part 3/3 */
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
+}
+
+.calc-btn {
+    border-radius: 100vh;
+    border: 1px solid black;
+    background-color: hsl(0, 0%, 50%);
+    cursor: pointer;
+    margin: 2px;
     /* Center numbers, letter, operators inside each calculator button. */
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
+.calc-btn:hover {
+    background-color: hsl(0, 0%, 30%);
+    transform: scale(1.1);
+    transition: transform 200ms ease;
+}
+
+#calc-display-container {
+    grid-area: 1 / 1 / 2 / 5;
+    text-align: right;
+    background-color: hsl(0, 0%, 0%);
+    margin-bottom: 0.3em;
+    /* Center display output in container */
+    display: flex;
+    align-items: center;
+}
+
+#calc-display-value {
+    flex: 1;
+    padding: 0.3em;
+}
+
 #calc-other-btns {
-    grid-area: 1 / 1 / 2 / 4;
+    grid-area: 2 / 1 / 3 / 4;
     display: grid;
     grid-template-rows: 1fr;
     grid-template-columns: repeat(3, 1fr);
 }
 
 #calc-operands {
-    grid-area: 2 / 1 / 6 / 4;
+    grid-area: 3 / 1 / 7 / 4;
     display: grid;
     grid-template-rows: repeat(4, 1fr);
     grid-template-columns: repeat(3, 1fr);
 }
 
 .calc-btn[data-operand="0"] {
-    /* grid-column: 1 / span 2; */
+    grid-column: 1 / span 2;
 }
 
 #calc-operators-basic {
-    grid-area: 1 / 4 / 6 / 5;
+    grid-area: 2 / 4 / 7 / 5;
     display: grid;
 }
 
-#calc-operators-basic > .calc-btn {
+#calc-operators-basic .operator-basic {
     background-color: orange;
+}
+
+#calc-operators-basic .operator-basic:hover {
+    background-color: hsl(0,0%,90%);
+    color: orange;
 }

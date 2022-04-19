@@ -5,6 +5,18 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Project: Calculator</title>
+
+    <!-- Favicon -->
+    <link rel="apple-touch-icon" sizes="180x180" href="./favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="./favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="./favicon/favicon-16x16.png">
+    <link rel="manifest" href="./favicon/site.webmanifest">
+    <link rel="mask-icon" href="./favicon/safari-pinned-tab.svg" color="#5bbad5">
+    <link rel="shortcut icon" href="./favicon/favicon.ico">
+    <meta name="msapplication-TileColor" content="#4cdbc4">
+    <meta name="msapplication-config" content="./favicon/browserconfig.xml">
+    <meta name="theme-color" content="#4cdbc4">
+
     <link rel="stylesheet" href="./styles.css">
     <script defer src="./main.js"></script>
 </head>
@@ -15,68 +27,74 @@
 
     <main>
         <div id="calculator">
-            <div id="calc-display-container">
+            <!-- <div id="calc-display-container">
                 <div id="calc-display-value">0</div>
-            </div>
+            </div> -->
 
-            <div id="calc-btn-container">
-                <div id="calc-other-btns">
-                    <div class="calc-btn">
-                        <span id="clear-btn">AC</span>
+            <div id="aspect-ratio-container">
+                <div id="calc-btn-container">
+                    <div id="calc-display-container">
+                        <div id="calc-display-value">0</div>
                     </div>
-                </div>
+                    
+                    <div id="calc-other-btns">
+                        <div class="calc-btn" id="clear-btn">
+                            <span>AC</span>
+                        </div>
+                    </div>
 
-                <div id="calc-operands">
-                    <div class="calc-btn">
-                        <span class="operand">7</span>
+                    <div id="calc-operands">
+                        <div class="calc-btn operand" data-operand="7">
+                            <span>7</span>
+                        </div>
+                        <div class="calc-btn operand" data-operand="8">
+                            <span>8</span>
+                        </div>
+                        <div class="calc-btn operand" data-operand="9">
+                            <span>9</span>
+                        </div>
+                        <div class="calc-btn operand" data-operand="4">
+                            <span>4</span>
+                        </div>
+                        <div class="calc-btn operand" data-operand="5">
+                            <span>5</span>
+                        </div>
+                        <div class="calc-btn operand" data-operand="6">
+                            <span>6</span>
+                        </div>
+                        <div class="calc-btn operand" data-operand="1">
+                            <span>1</span>
+                        </div>
+                        <div class="calc-btn operand" data-operand="2">
+                            <span>2</span>
+                        </div>
+                        <div class="calc-btn operand" data-operand="3">
+                            <span>3</span>
+                        </div>
+                        <div class="calc-btn operand" data-operand="0">
+                            <span>0</span>
+                        </div>
+                        <div class="calc-btn operand" data-operand=".">
+                            <span>.</span>
+                        </div>
                     </div>
-                    <div class="calc-btn">
-                        <span class="operand">8</span>
-                    </div>
-                    <div class="calc-btn">
-                        <span class="operand">9</span>
-                    </div>
-                    <div class="calc-btn">
-                        <span class="operand">4</span>
-                    </div>
-                    <div class="calc-btn">
-                        <span class="operand">5</span>
-                    </div>
-                    <div class="calc-btn">
-                        <span class="operand">6</span>
-                    </div>
-                    <div class="calc-btn">
-                        <span class="operand">1</span>
-                    </div>
-                    <div class="calc-btn">
-                        <span class="operand">2</span>
-                    </div>
-                    <div class="calc-btn">
-                        <span class="operand">3</span>
-                    </div>
-                    <div class="calc-btn" data-operand="0">
-                        <span class="operand">0</span>
-                    </div>
-                    <div class="calc-btn">
-                        <span class="operand">.</span>
-                    </div>
-                </div>
 
-                <div id="calc-operators-basic">
-                    <div class="calc-btn">
-                        <span data-operator="divide" class="operator-basic">&#247;</span>
-                    </div>
-                    <div class="calc-btn">
-                        <span data-operator="multiply" class="operator-basic">&#215;</span>
-                    </div>
-                    <div class="calc-btn">
-                        <span data-operator="minus" class="operator-basic">&#8722;</span>
-                    </div>
-                    <div class="calc-btn">
-                        <span data-operator="plus" class="operator-basic">&#43;</span>
-                    </div>
-                    <div class="calc-btn">
-                        <span data-operator="equal" class="operator-basic">&#61;</span>
+                    <div id="calc-operators-basic">
+                        <div class="calc-btn operator-basic" data-operator="divide">
+                            <span>&#247;</span>
+                        </div>
+                        <div class="calc-btn operator-basic" data-operator="multiply">
+                            <span>&#215;</span>
+                        </div>
+                        <div class="calc-btn operator-basic" data-operator="minus">
+                            <span>&#8722;</span>
+                        </div>
+                        <div class="calc-btn operator-basic" data-operator="plus">
+                            <span>&#43;</span>
+                        </div>
+                        <div class="calc-btn operator-basic" data-operator="equal">
+                            <span>&#61;</span>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -113,6 +131,8 @@
     - chalkboard-green.jpg by Piqsels.com from https://www.piqsels.com/en/public-domain-photo-flxlb
 
     - WORN-WOOD-SURFACE-PBR0609 by Textures.com from https://www.textures.com/download/PBR0843/139500
+
+    - Favicon by Boca Tutor from https://www.iconfinder.com/iconsets/tutor-icon-set
     -->
 </body>
 </html>
