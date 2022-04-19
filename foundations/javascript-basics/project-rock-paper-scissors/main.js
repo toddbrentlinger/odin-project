@@ -143,8 +143,8 @@ function resetGame() {
     // Hide overlay
     overlayNode.classList.add('hide');
     // Hide all result images
-    updateResultImages(playerStats.player.imgContainerNode);
-    updateResultImages(playerStats.computer.imgContainerNode);
+    updateResultImages(playerStats.player.imgContainerNode, 'Rock');
+    updateResultImages(playerStats.computer.imgContainerNode, 'Rock');
     // Set round number to 1
     setRoundNumber(1);
     // Set scores to 0
