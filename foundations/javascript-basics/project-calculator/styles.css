@@ -12,7 +12,7 @@ body {
     font-size: 1.6rem; /* 16px */
     font-family: blackboard-font, monospace;
     color: white;
-    background: linear-gradient(-45deg, lightgreen, darkgreen);
+    background-color: #034c45;
     background-attachment: fixed;
     background-image: url(./img/chalkboard-green.jpg);
     background-position: center;
@@ -60,7 +60,7 @@ footer > p {
 }
 
 #calculator {
-    padding: 1em;
+    padding: .5em;
     margin: 1em auto;
     border: 5px solid hsl(0, 0%, 50%);
     border-radius: 1em;
