@@ -14,7 +14,7 @@ body {
     color: white;
     background-color: #034c45;
     background-attachment: fixed;
-    background-image: url(./img/chalkboard-green.jpg);
+    background-image: url(./img/chalkboard-green_750x563.jpg);
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;
@@ -110,6 +110,7 @@ footer > p {
     background-color: hsl(0, 0%, 50%);
     cursor: pointer;
     margin: 2px;
+    transition: transform 200ms ease;
     /* Center numbers, letter, operators inside each calculator button. */
     display: flex;
     justify-content: center;
@@ -119,7 +120,6 @@ footer > p {
 .calc-btn:hover {
     background-color: hsl(0, 0%, 30%);
     transform: scale(1.1);
-    transition: transform 200ms ease;
 }
 
 #calc-display-container {
@@ -167,4 +167,31 @@ footer > p {
 #calc-operators-basic .operator-basic:hover {
     background-color: hsl(0,0%,90%);
     color: orange;
+}
+
+/* Typical Device Breakpoints */
+
+/* Extra small devices (phones, 600px and down) */
+@media only screen and (max-width: 600px) {}
+
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and (min-width: 600px) {
+}
+
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (min-width: 768px) {
+}
+
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (min-width: 992px) {
+    body {
+        background-image: url(./img/chalkboard-green_1500x1125.jpg);
+    }
+}
+
+/* Extra large devices (large laptops and desktops, 1200px and up) */
+@media only screen and (min-width: 1200px) {
+    body {
+        background-image: url(./img/chalkboard-green_3000x2250.jpg);
+    }
 }
