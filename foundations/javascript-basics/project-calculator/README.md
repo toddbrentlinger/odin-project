@@ -1,9 +1,11 @@
-<h1 style="text-align:center;">Calculator</h1>
+<h1 align="center">Calculator</h1>
 
-<a href="https://toddbrentlinger.github.io/odin-project/foundations/javascript-basics/project-calculator/" style="display: block; width: 25%; min-width: 10em; margin:0 auto; text-decoration: none; color:inherit; text-align:center; font-size:1.5em;">
-    <img src="./favicon/android-chrome-512x512.png" alt="Calculator icon." style="display:block; width:100%;"/>
-    <div>Click to see it in action!</div>
-</a>
+<p align="center">
+    <a href="https://toddbrentlinger.github.io/odin-project/foundations/javascript-basics/project-calculator/">
+        <img src="https://toddbrentlinger.github.io/odin-project/foundations/javascript-basics/project-calculator/favicon/android-chrome-192x192.png" width="25%" alt="Calculator icon."/>
+        <div align="center">Click to see it in action!</div>
+    </a>
+</p>
 
 ## Overview
 
@@ -29,10 +31,13 @@ to ultimately display `0.1 + 0.2 = 0.3`. The original number itself is unchanged
 
 - Keyboard functionality
 
-> Can use keyboard to enter numbers and operators. Equal button on calculator can be clicked with either `=` or `Enter` key.
+> Can use keyboard to enter numbers and operators. Equal button on calculator can be clicked with either <kbd>=</kbd> or <kbd>Enter</kbd> key.
 
 ## TO-DO List
 
 1. Add 'backspace' functionality to undo the last number input.
 1. Add plus/minus button to change the sign of the current number (multiply by -1)
 1. Add percentage button (divides by 100)
+
+- - -
+<p align="center">© 2022 Todd Brentlinger, Santa Cruz, CA, USA. All Rights Reserved.</p>
