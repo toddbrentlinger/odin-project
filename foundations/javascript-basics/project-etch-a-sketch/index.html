@@ -13,14 +13,39 @@
         <h1>Etch-a-Sketch</h1>
     </header>
     <main>
-        <div id="fade-to-black-etch-a-sketch" class="etch-a-sketch">
-            <h2>Fade To Black</h2>
-        </div>
-        <div id="rand-color-etch-a-sketch" class="etch-a-sketch">
-            <h2>Random Color</h2>
-        </div>
-        <div id="black-n-white-etch-a-sketch" class="etch-a-sketch">
-            <h2>Black-n-White</h2>
+        <div class="etch-a-sketch-container">
+            <div class="etch-a-sketch-input">
+                <div class="input-settings-container">
+                    <button data-key="clear">Clear</button>
+                    <div>
+                        <div>Draw On:</div>
+                        <button data-key="mouse-over">Mouse Over</button>
+                        <button data-key="mouse-down">Mouse Down</button>
+                    </div>
+                    <div>
+                        <label for="squares-per-side">Squares Per Side</label>
+                        <input type="range" min="1" max="100" value="16" id="squares-per-side"/>
+                    </div>
+                </div>
+                
+                <div class="input-color-container">
+                    <p>
+                        <input type="color" id="fg-color-picker" data-key="fg-color-picker">
+                        <label for="fg-color-picker">FG</label>
+                    </p>
+                    <p>
+                        <input type="color" id="bg-color-picker" data-key="bg-color-picker">
+                        <label for="bg-color-picker">BG</label>
+                    </p>
+
+                    <button data-key="random-color">Random Color</button>
+                    <button data-key="erase-color">Erase</button>
+                    
+                    <button data-key="darken">Darken</button>
+                    <button data-key="lighten">Lighten</button>
+                </div>
+            </div>
+            <div class="etch-a-sketch"></div>
         </div>
     </main>
     <footer>
@@ -42,5 +67,9 @@
             }
         })(2022);
     </script>
+
+    <!--
+        - Background image by PxHere from https://pxhere.com/en/photo/1402034
+    -->
 </body>
 </html>

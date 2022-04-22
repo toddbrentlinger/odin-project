@@ -1,32 +1,108 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
+:root {
+    --base-white-color: hsl(0, 0%, 85%);
+    --base-black-color: hsl(0, 0%, 15%);
+}
+
+*, *::before, *::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
 html {
     font-size: 62.5%; /* 1rem = 10px */
 }
 
 body {
     font-size: 1.6rem; /* 16px */
+    font-family: 'Roboto', sans-serif;
+    color: var(--base-black-color);
     margin: 0;
     padding: 0;
     min-height: 100vh;
     display: flex;
     flex-direction: column;
     text-align: center;
+    /* Background */
+    background-color: var(--base-white-color);
+    background-image: url('./img/abstract-sky-texture-purple-atmosphere-green-1402034-pxhere.com_440x330.jpg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+header, footer {
+    text-shadow: 0 0 0.5em var(--base-white-color);
+    padding: 0.5em;
 }
 
 main {
     flex: 1;
+    position: relative;
+}
+
+.etch-a-sketch-container {
+    /* position: absolute;
+    width: 100%;
+    height: 100%; */
+    /* display: flex;
+    flex-direction: column; */
+}
+
+.etch-a-sketch-input {
+    
+}
+
+.etch-a-sketch-input > * {
+    border: 2px solid var(--base-black-color);
+    background-color: var(--base-white-color);
+}
+
+.etch-a-sketch-input .input-color-container,
+.etch-a-sketch-input .input-settings-container {
+    display: grid;
+    grid-auto-columns: 1fr;
+    grid-auto-flow: column;
+}
+
+.etch-a-sketch-input input[type="color"] {
+    cursor: pointer;
+    border: none;
+    background: none;
+    width: 3em;
+    height: 3em;
+}
+
+.etch-a-sketch-input p {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.etch-a-sketch-input > button {
+    color: var(--base-black-color);
+    padding: 1em;
+    cursor: pointer;
+}
+
+.etch-a-sketch-input > button:hover,
+.etch-a-sketch-input > button:active {
+    background-color: var(--base-black-color);
+    color: var(--base-white-color);
 }
 
 .etch-a-sketch {
-    width: 50%;
-    min-width: 300px;
-    margin: 0 auto;
+    border: 2px solid var(--base-black-color);
+    height: 100%;
 }
 
 .square-board-container {
     width: 100%;
     padding-top: 100%;
     position: relative;
-    border: 1px solid black;
 }
 
 .board {
@@ -37,6 +113,8 @@ main {
     left: 0;
     display: flex;
     flex-direction: column;
+    background-color: white;
+    user-select: none;
 }
 
 .board-row {
@@ -46,4 +124,33 @@ main {
 
 .board-square {
     flex: 1;
+}
+
+/* Extra small devices (phones, 600px and down) */
+@media only screen and (max-width: 600px) {
+
+}
+
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and (min-width: 600px) {
+    
+}
+
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (min-width: 768px) {
+    body {
+        background-image: url('./img/abstract-sky-texture-purple-atmosphere-green-1402034-pxhere.com_880x660.jpg');
+    }
+}
+
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (min-width: 992px) {
+
+}
+
+/* Extra large devices (large laptops and desktops, 1200px and up) */
+@media only screen and (min-width: 1200px) {
+    body {
+        background-image: url('./img/abstract-sky-texture-purple-atmosphere-green-1402034-pxhere.com_1760x1320.jpg');
+    }
 }
