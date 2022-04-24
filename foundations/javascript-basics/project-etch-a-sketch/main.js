@@ -11,7 +11,7 @@ function EtchASketch(etchASketchContainerElement, numPerSide = 16) {
     this.selectedFGColor = '#000000';
     this.selectedBGColor = '#FFFFFF';
     this.bInteractOnMouseOver = true;
-    this.handleOnMouseOver = this.addSelectedFGColor;
+    this.handleOnMouseOver = this.randomColor;
     this.handleOnMouseDown = null;
 }
 
@@ -40,7 +40,6 @@ EtchASketch.prototype.init = function() {
         element.value = this.selectedFGColor;
         element.addEventListener('input', function(e) {
             this.selectedFGColor = e.target.value;
-            this.setActiveFunction(this.addSelectedFGColor);
         }.bind(this), false);
     }
 
@@ -53,6 +52,11 @@ EtchASketch.prototype.init = function() {
         }.bind(this), false);
     }
     
+    // Draw
+    this.setupInputButton('draw', 'click', function(e) {
+        this.setActiveFunction(this.addSelectedFGColor);
+    }.bind(this));
+
     // Random Color
     this.setupInputButton('random-color', 'click', this.randomColor);
     
@@ -70,7 +74,7 @@ EtchASketch.prototype.init = function() {
     }.bind(this));
     
     // Clear
-    this.setupInputButton('clear', 'click', this.handleClearBoard);
+    this.setupInputButton('clear', 'click', this.handleClearBoard, false);
     element = this.inputContainerElement.querySelector('[data-key="clear"]');
     if (element) {
         element.addEventListener('click', function() {
@@ -78,24 +82,19 @@ EtchASketch.prototype.init = function() {
         }.bind(this), false);
     }
 
-    // Mouse Over
-    this.setupInputButton('mouse-over', 'click', function() {
-        // If mouse-over is already set, return
-        if (this.bInteractOnMouseOver) return;
-        this.bInteractOnMouseOver = true;
-        this.handleOnMouseOver = this.handleOnMouseDown;
-        this.handleOnMouseDown = null;
-
-    }.bind(this));
-
-    // Mouse Down
-    this.setupInputButton('mouse-down', 'click', function() {
-        // If mouse-down is already set, return
-        if (!this.bInteractOnMouseOver) return;
-        this.bInteractOnMouseOver = false;
-        this.handleOnMouseDown = this.handleOnMouseOver;
-        this.handleOnMouseOver = null;
-    }.bind(this));
+    // Squares Per Side Slider
+    element = document.getElementById('squares-per-side');
+    if (element) {
+        element.addEventListener('change', function(e) {
+            console.log(e.target.value);
+            this.numPerSide = e.target.value;
+            this.createSquareGrid();
+            const displayElement = e.target.previousElementSibling.querySelector('span');
+            if (displayElement) {
+                displayElement.textContent = this.numPerSide;
+            }
+        }.bind(this), false);
+    }
 };
 
 /**
@@ -103,14 +102,31 @@ EtchASketch.prototype.init = function() {
  * @param {String} dataKey 
  * @param {String} type
  * @param {Function} listener 
+ * @param {Boolean} doSetBtnActive Should add 'selected' class to btn when clicked
  */
-EtchASketch.prototype.setupInputButton = function(dataKey, type, listener) {
+EtchASketch.prototype.setupInputButton = function(dataKey, type, listener, doSetBtnActive = true) {
     const element = this.inputContainerElement.querySelector(`[data-key="${dataKey}"]`);
     if (element) {
         element.addEventListener(type, function() {
+            if (doSetBtnActive)
+                this.setActiveBtn(element);
             this.setActiveFunction(listener);
         }.bind(this));
     }
+};
+
+/**
+ * 
+ * @param {Element} btnElement 
+ */
+EtchASketch.prototype.setActiveBtn = function(btnElement) {
+    // Clear all buttons of selected class
+    const selectedBtns = this.inputContainerElement.querySelectorAll('.input-color-container button.selected');
+    if (selectedBtns) {
+        selectedBtns.forEach(btn => btn.classList.remove('selected'));
+    }
+    // Add selected class to parameter element
+    btnElement.classList.add('selected');
 };
 
 /**

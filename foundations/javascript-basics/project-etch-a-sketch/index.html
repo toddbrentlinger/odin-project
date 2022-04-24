@@ -17,13 +17,8 @@
             <div class="etch-a-sketch-input">
                 <div class="input-settings-container">
                     <button data-key="clear">Clear</button>
-                    <div>
-                        <div>Draw On:</div>
-                        <button data-key="mouse-over">Mouse Over</button>
-                        <button data-key="mouse-down">Mouse Down</button>
-                    </div>
-                    <div>
-                        <label for="squares-per-side">Squares Per Side</label>
+                    <div class="squares-per-side-container">
+                        <label for="squares-per-side">Squares Per Side: <span>16</span></label>
                         <input type="range" min="1" max="100" value="16" id="squares-per-side"/>
                     </div>
                 </div>
@@ -38,7 +33,8 @@
                         <label for="bg-color-picker">BG</label>
                     </p>
 
-                    <button data-key="random-color">Random Color</button>
+                    <button data-key="draw">Draw</button>
+                    <button data-key="random-color" class="selected">Random</button>
                     <button data-key="erase-color">Erase</button>
                     
                     <button data-key="darken">Darken</button>

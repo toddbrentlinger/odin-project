@@ -34,25 +34,25 @@ body {
 }
 
 header, footer {
-    text-shadow: 0 0 0.5em var(--base-white-color);
+    text-shadow: 0 0 0.5em var(--base-black-color);
     padding: 0.5em;
+    color: var(--base-white-color);
 }
 
 main {
     flex: 1;
-    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-.etch-a-sketch-container {
-    /* position: absolute;
-    width: 100%;
-    height: 100%; */
-    /* display: flex;
-    flex-direction: column; */
-}
+/* .etch-a-sketch-container {} */
 
 .etch-a-sketch-input {
-    
+    display: grid;
+    grid-template-rows: repeat(2, 1fr);
+    grid-template-areas: "settings"
+                         "color-input";
 }
 
 .etch-a-sketch-input > * {
@@ -60,11 +60,32 @@ main {
     background-color: var(--base-white-color);
 }
 
-.etch-a-sketch-input .input-color-container,
 .etch-a-sketch-input .input-settings-container {
+    grid-area: settings;
     display: grid;
     grid-auto-columns: 1fr;
     grid-auto-flow: column;
+}
+
+.etch-a-sketch-input .input-settings-container .squares-per-side-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.etch-a-sketch-input .input-color-container {
+    grid-area: color-input;
+    display: grid;
+    grid-auto-columns: 1fr;
+    grid-auto-flow: column;
+}
+
+.etch-a-sketch-input .input-color-container .input-color-btn {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 .etch-a-sketch-input input[type="color"] {
@@ -82,14 +103,18 @@ main {
     align-items: center;
 }
 
-.etch-a-sketch-input > button {
-    color: var(--base-black-color);
-    padding: 1em;
+.etch-a-sketch-input button {
     cursor: pointer;
+    padding: 0 0.5em;
 }
 
-.etch-a-sketch-input > button:hover,
-.etch-a-sketch-input > button:active {
+.etch-a-sketch-input button:hover {
+    background-color: gray;
+    color: var(--base-white-color);
+}
+
+.etch-a-sketch-input button:active,
+.etch-a-sketch-input button.selected {
     background-color: var(--base-black-color);
     color: var(--base-white-color);
 }
