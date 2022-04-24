@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <title>Form validation: Task 1 & 2</title>
+    <style>
+        body {
+            background-color: #fff;
+            color: #333;
+            font: 1em / 1.4 Helvetica Neue, Helvetica, Arial, sans-serif;
+            padding: 1em;
+            margin: 0;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        form input:valid, 
+        form textarea:valid {
+            border: 2px solid green;
+        }
+
+        form input:invalid:focus:not(:placeholder-shown), 
+        form textarea:invalid:focus:not(:placeholder-shown) {
+            border: 2px dashed red;
+        }
+    </style>
+</head>
+
+<body>
+    <form>
+        <h2>Enter your support query</h2>
+        <ul>
+            <li>
+                <label for="uname">User name:</label>
+                <input type="text" name="uname" id="uname" 
+                    minlength="5" maxlength="20" 
+                    pattern="([a-z]\.[a-z0-9]{3,})"
+                    title="Username must be a single letter, followed by a dot, followed by three or more letters or numbers. All letters should be lowercase."
+                    placeholder="Ex: j.007" 
+                    autofocus
+                    required>
+            </li>
+            <li>
+                <label for="email">Email address:</label>
+                <input type="email" name="email" id="email" 
+                    pattern="([a-zA-Z0-9]+@bigcorp.eu)" 
+                    title='Email must be one or more letters (lower or upper case) or numbers, followed by "@bigcorp.eu".'
+                    placeholder="jb007@bigcorp.eu"
+                    required>
+            </li>
+            <li>
+                <label for="phone">Phone number:</label>
+                <input type="tel" name="phone" id="phone"
+                    pattern="(\d{3}[-\s.]?\d{3}[-\s.]?\d{4})"
+                    title="Phone number must be 10 digits in a row, or a pattern of three digits, three digits, then four digits, separated by either spaces, dashes, or dots."
+                    placeholder="123-456-7890"
+                    required>
+            </li>
+            <li>
+                <label for="comment">Comment:</label>
+                <textarea name="comment" id="comment" maxlength="200" placeholder="Enter comment here." required></textarea>
+            </li>
+            <li>
+                <button>Submit comment</button>
+            </li>
+        </ul>
+    </form>
+</body>
+
+</html>
