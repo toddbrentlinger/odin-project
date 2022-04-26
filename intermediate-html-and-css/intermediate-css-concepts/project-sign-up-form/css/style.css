@@ -1,0 +1,321 @@
+@font-face {
+  font-family: Norse-Bold;
+  src: url(../Norse-Bold.otf);
+}
+
+/* http://meyerweb.com/eric/tools/css/reset/ 
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+  display: block;
+}
+
+body {
+  line-height: 1;
+}
+
+ol, ul {
+  list-style: none;
+}
+
+blockquote, q {
+  quotes: none;
+}
+
+blockquote:before, blockquote:after,
+q:before, q:after {
+  content: '';
+  content: none;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+/* Custom SCSS */
+html {
+  /* 1rem = 10px */
+  font-size: 62.5%;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+*, *::before, *::after {
+  -webkit-box-sizing: inherit;
+          box-sizing: inherit;
+}
+
+body {
+  font-size: 1.6rem;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  font-weight: 600;
+  color: #1a1a1a;
+  height: 100vh;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  background-color: lightgrey;
+}
+
+header {
+  width: 35%;
+  color: #e6e6e6;
+  text-align: center;
+  /* Flex */
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  /* Background */
+  background-image: url(../img/pragii-pX829a6ObhE-unsplash_500x750.jpg);
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-color: #e6e6e6;
+}
+
+header #header-title-container {
+  height: 30vh;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: end;
+      -ms-flex-align: end;
+          align-items: flex-end;
+}
+
+header #header-title {
+  width: 100%;
+  padding: 1em 0.5em;
+  font-size: 3rem;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+header #header-title svg {
+  width: 2em;
+  margin: 0 0.5em;
+  border-radius: 50%;
+}
+
+header p {
+  padding: 1em 0.5em;
+  font-size: 1.2rem;
+}
+
+header p a:link, header p a:visited {
+  color: inherit;
+}
+
+main {
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  /* Background */
+  background-image: url(../img/joao-vitor-duarte-k4Lt0CjUnb0-unsplash_567x756.jpg);
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-color: #e6e6e6;
+}
+
+main > * {
+  padding: 0 3rem;
+}
+
+main > *:not(#message) {
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+}
+
+main form {
+  background-color: white;
+  -webkit-box-shadow: 0px 2px 15px 0px #1a1a1a;
+          box-shadow: 0px 2px 15px 0px #1a1a1a;
+  margin-bottom: 15px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+main form p {
+  padding: 0.5em 0;
+}
+
+main form fieldset {
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+main form fieldset > * {
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  max-width: 35ch;
+  margin-right: 1em;
+}
+
+main form label, main form input {
+  display: block;
+}
+
+main form label {
+  padding: 0.3em 0;
+  font-size: 1rem;
+  font-weight: bold;
+  letter-spacing: 0.3ch;
+}
+
+main form input {
+  border: 1px solid #1a1a1a;
+  border-radius: 0.2em;
+  padding: 0.3em;
+  width: 100%;
+  outline: none;
+}
+
+main form input:invalid:not(:placeholder-shown) {
+  outline: 2px dashed red;
+}
+
+main form input:focus {
+  outline: 2px solid #ff502f;
+}
+
+#message {
+  height: 30vh;
+  font-size: 2rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
+  padding-bottom: 15px;
+}
+
+#message p:first-child {
+  margin: 2em 0;
+}
+
+#submit-btn-container label {
+  display: inline-block;
+  padding: 0.5em 2em;
+  background-color: #ff502f;
+  color: #e6e6e6;
+  border-radius: 0.5em;
+  cursor: pointer;
+  -webkit-box-shadow: 0px 0px 10px 0px #1a1a1a;
+          box-shadow: 0px 0px 10px 0px #1a1a1a;
+  position: relative;
+}
+
+#submit-btn-container label:hover {
+  background-color: #e6e6e6;
+  color: #ff502f;
+}
+
+#submit-btn-container p {
+  margin: 1em 0;
+}
+
+.font-italic {
+  font-style: italic;
+}
+
+.hidden {
+  display: none;
+}
+
+/* Media Queries */
+/* Device Width */
+/* Extra small devices (phones, 600px and down) */
+/* Small devices (portrait tablets and large phones, 600px and up) */
+/* Medium devices (landscape tablets, 768px and up) */
+/* Large devices (laptops/desktops, 992px and up) */
+/* Extra large devices (large laptops and desktops, 1200px and up) */
+/* Device Height */
+/* Extra small devices (phones, 600px and down) */
+/* Small devices (portrait tablets and large phones, 600px and up) */
+/* Medium devices (landscape tablets, 768px and up) */
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (min-height: 992px) {
+  header {
+    background-image: url("../img/pragii-pX829a6ObhE-unsplash_1000x1500.jpg");
+  }
+  main {
+    background-image: url("../img/joao-vitor-duarte-k4Lt0CjUnb0-unsplash_1134x1512.jpg");
+  }
+}
+
+/* Extra large devices (large laptops and desktops, 1200px and up) */
+@media only screen and (min-height: 1200px) {
+  header {
+    background-image: url("../img/pragii-pX829a6ObhE-unsplash_2000x3000.jpg");
+  }
+  main {
+    background-image: url("../img/joao-vitor-duarte-k4Lt0CjUnb0-unsplash_2268x3024.jpg");
+  }
+}
+/*# sourceMappingURL=style.css.map */
