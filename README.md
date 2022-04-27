@@ -1,5 +1,13 @@
 <h1 align="center">The Odin Project</h1>
 
+## JavaScript
+
+### Project - Library
+
+>[Click to see it in action](https://toddbrentlinger.github.io/odin-project/javascript/organizing-your-js-code/project-library)
+
+>[Click to see source files and README](javascript/organizing-your-js-code/project-library)
+
 ## Intermediate CSS Concepts
 
 #### Project - Sign-Up Form
