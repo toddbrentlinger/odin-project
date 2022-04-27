@@ -1,0 +1,5 @@
+4-25-22
+
+- Add little flag that drapes over the corner of the book like a book mark.
+Either change the color depending on 'read' boolean OR make it appear for
+books that have NOT yet been read.

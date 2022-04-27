@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Library</title>
+
+    <link rel="stylesheet" href="./css/style.css">
+
+    <script src="https://kit.fontawesome.com/f8c32451ce.js" crossorigin="anonymous"></script>
+    <script defer src="./js/main.js"></script>
+</head>
+<body>
+    <header class="text-center">
+        <h1><i class="fas fa-book"></i> Library</h1>
+    </header>
+
+    <main>
+        <ul id="books-list">
+            <li class="book">
+                <div class="book-cover">
+                    <div class="book-bookmark-icon"><i class="fas fa-bookmark"></i></div>
+                    <div class="book-title">The Adventures of Huckleberry Finn</div>
+                    <div class="book-author">by Mark Twain</div>
+                    <div class="book-pages">312 pages</div>
+                </div>
+                <div class="book-inside">
+                    <p>
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
+                        magna aliqua.
+                    </p>
+                    <div class="book-btn-container">
+                        <button type="button" class="book-btn-edit" aria-label="edit"><i class="fas fa-edit"></i></button>
+                        <button type="button" class="book-btn-delete" aria-label="delete"><i class="fas fa-trash-alt"></i></button>
+                    </div>
+                </div>
+            </li>
+
+            <li class="book">
+                <div class="book-cover">
+                    <div class="book-bookmark-icon"><i class="fas fa-bookmark"></i></div>
+                    <div class="book-title">The Adventures of Huckleberry Finn</div>
+                    <div class="book-author">by Mark Twain</div>
+                    <div class="book-pages">312 pages</div>
+                </div>
+                <div class="book-inside">
+                    <p>
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
+                        magna aliqua.
+                    </p>
+                    <div class="book-btn-container">
+                        <button type="button" class="book-btn-edit" aria-label="edit"><i class="fas fa-edit"></i></button>
+                        <button type="button" class="book-btn-delete" aria-label="delete"><i class="fas fa-trash-alt"></i></button>
+                    </div>
+                </div>
+            </li>
+
+            <li class="book">
+                <div class="book-cover">
+                    <div class="book-bookmark-icon"><i class="fas fa-bookmark"></i></div>
+                    <div class="book-title">The Adventures of Huckleberry Finn</div>
+                    <div class="book-author">by Mark Twain</div>
+                    <div class="book-pages">312 pages</div>
+                </div>
+                <div class="book-inside">
+                    <p>
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
+                        magna aliqua.
+                    </p>
+                    <div class="book-btn-container">
+                        <button type="button" class="book-btn-edit" aria-label="edit"><i class="fas fa-edit"></i></button>
+                        <button type="button" class="book-btn-delete" aria-label="delete"><i class="fas fa-trash-alt"></i></button>
+                    </div>
+                </div>
+            </li>
+
+            <li id="add-new-book" class="book">
+                <div class="book-cover"><i class="fas fa-plus-circle"></i>Add New Book</div>
+                <div class="book-inside">
+                    <p>
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
+                        magna aliqua.
+                    </p>
+                    <div class="book-btn-container">
+                        <button type="button" class="book-btn-edit" aria-label="edit"><i class="fas fa-edit"></i></button>
+                        <button type="button" class="book-btn-delete" aria-label="delete"><i class="fas fa-trash-alt"></i></button>
+                    </div>
+                </div>
+            </li>
+        </ul>
+
+        <article id="add-new-book-modal">
+            <form>
+                <label for="new-book-title">Title</label>
+                <input type="text" maxlength="50" name="title" id="new-book-title" required>
+
+                <label for="new-book-author">Author</label>
+                <input type="text" maxlength="50" name="author" id="new-book-author" required>
+
+                <label for="new-book-pages">Pages</label>
+                <input type="number" min="1" name="pages" id="new-book-pages" required>
+
+                <label for="new-book-read">Has Read?</label>
+                <input type="checkbox" name="read" id="new-book-read" required>
+
+                <button type="button" id="submit-new-book-btn">Add Book</button>
+            </form>
+        </article>
+
+        <article id="library-stats">
+            <div id="library-stats-books-read-total">0</div>
+            <div id="library-stats-books-unread-total">0</div>
+            <div id="library-stats-pages-read-total">0</div>
+            <div id="library-stats-pages-unread-total">0</div>
+        </article>
+    </main>
+
+    <footer class="text-center">
+        <p>
+            <small>Source Code © <time id="copyright-year">2022</time> Todd Brentlinger, Santa Cruz, CA, USA. All Rights Reserved.</small>
+        </p>
+    </footer>
+
+    <script>
+        // Updates copyright year
+        (function(initialYear) {
+            const copyright = document.getElementById('copyright-year');
+            if (copyright) {
+                const currYear = new Date().getFullYear();
+                if (currYear > initialYear) {
+                    copyright.textContent = `${initialYear}-${currYear}`;
+                } else {
+                    copyright.textContent = initialYear;   
+                }
+            }
+        })(2022);
+    </script>
+
+    <!--
+        Citations:
+
+        - Background Image by Alfons Morales from https://unsplash.com/photos/YLSwjSy7stw
+
+        - Red Book Cover by Annie Spratt from https://unsplash.com/photos/im8y4BO2hso
+
+        - Vintage Book Cover Textures by Lost & Taken from https://lostandtaken.com/downloads/vintage-book-cover-textures-6/
+
+        - Paper Texture by Aka Maraqu from https://jooinn.com/paper-texture-22.html
+    -->
+</body>
+</html>
