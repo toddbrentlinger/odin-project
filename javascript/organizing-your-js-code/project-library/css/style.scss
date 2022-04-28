@@ -69,6 +69,10 @@ table {
 
 /* Custom SCSS */
 
+:root {
+    --book-spine-width: 1rem;
+}
+
 html {
     font-size: 62.5%; // 1rem = 10px
     box-sizing: border-box;
@@ -83,7 +87,6 @@ body {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     color: $base-black;
     min-height: 100vh;
-    overflow: scroll;
     // Background
     background-image: url('../img/alfons-morales-YLSwjSy7stw-unsplash_600x352.jpg');
     background-position: center;
@@ -143,46 +146,54 @@ footer {
 
 $book-cover-img: url('../img/vintage-book-cover-textures-6-780x1176.jpg');
 $book-paper-img: url('../img/paper-texture-22_1280x853.jpg');
-$book-spine-width: 2.2rem;
 $book-paper-margin: 0.8rem;
+$book-cover-border-radius: $book-paper-margin / 2;
 
 @mixin background-cover($url, $color: $base-white) {
     background-image: $url;
-    background-position: top left;
+    background-position: left bottom;
     background-repeat: no-repeat;
     background-color: $color;
+    background-size: cover;
 }
 
 .book {
     position: relative;
     aspect-ratio: 4/5;
     cursor: pointer;
-    backface-visibility: visible;
     perspective: 100ch;
     transform-style: preserve-3d;
     @include background-cover($book-cover-img);
+    border-radius: $book-cover-border-radius;
+    backface-visibility: visible;
 
-    > * {
+    &.open .book-cover {
+        transform: rotateY(-90deg);
+    }
+
+    .book-cover {
         position: absolute;
         display: flex;
         flex-direction: column;
         justify-content: space-around;
         align-items: center;
-    }
-
-    .book-cover {
-        top: 0;
-        left: $book-spine-width;
-        bottom: 0;
-        right: 0;
         @include background-cover($book-cover-img);
-        background-position: -$book-spine-width;
-        color: white;
+        background-position: calc(-1 * var(--book-spine-width)) bottom;
+        background-size: calc(100% + var(--book-spine-width));
+        color: $base-white;
         z-index: 1;
         padding: 1em;
         text-align: center;
+        border-radius: 0 $book-cover-border-radius $book-cover-border-radius 0;
+        backface-visibility: inherit;
+        overflow: hidden;
+        /* Absolute Positioning */
+        top: 0;
+        left: var(--book-spine-width);
+        bottom: 0;
+        right: 0;
         /* Animation */
-        animation-name: book-open;
+        // animation-name: book-open;
         animation-duration: 1s;
         animation-direction: alternate;
         animation-fill-mode: both;
@@ -190,20 +201,96 @@ $book-paper-margin: 0.8rem;
         animation-timing-function: ease-in-out;
         /* Animation - Transform */
         transform-origin: left;
-        /* Flex */
-        display: flex;
-        flex-direction: column;
-        align-items: center;
+        /* Transition */
+        transform: rotateY(0deg);
+        transition: transform 1s ease-in-out;
+
+        &::before {
+            content: "";
+            backface-visibility: hidden;
+            /* Background */
+            @include background-cover($book-cover-img);
+            background-position: calc(-1 * var(--book-spine-width));
+            /* Absolute Positioning */
+            position: absolute;
+            top: 0;
+            left: var(--book-spine-width);
+            bottom: 0;
+            right: 0;
+            /* Transform */
+            transform: rotateY(180deg) translate3d(0,0,0);
+        }
+
+        .book-bookmark-icon {
+            position: absolute;
+            top: 0;
+            left: 0;
+            font-size: 2em; // Use em instead of rem to size icon based on font-size of parent container
+        }
+
+        .book-title {
+            flex: 2;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 2.3rem;
+        }
+
+        .book-author {
+            flex: 1;
+            font-size: 1.6rem;
+        }
+
+        .book-pages {
+            flex: 1;
+            display: flex;
+            align-items: flex-end;
+            font-size: 1.4rem;
+        }
     }
 
     .book-inside {
+        position: absolute;
+        display: flex;
+        flex-direction: column;
         top: $book-paper-margin;
-        left: $book-spine-width;
+        left: var(--book-spine-width);
         bottom: $book-paper-margin;
         right: $book-paper-margin;
         @include background-cover($book-paper-img);
         z-index: 0;
         padding: 1em;
+        cursor: initial;
+
+        button {
+            cursor: pointer;
+        }
+
+        .book-btn-top {
+            align-self: flex-end;
+        }
+
+        form {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+
+            > * {
+                flex: 1;
+            }
+
+            input:not([type="checkbox"]) {
+                display: block;
+            }
+        }
+
+        .book-btn-bottom {
+            display: flex;
+
+            > * {
+                flex: 1;
+            }
+        }
     }
 }
 
@@ -240,10 +327,75 @@ $book-paper-margin: 0.8rem;
     height: 100%;
 }
 
+/* Switch Checkbox */
+
+/* The switch - the box around the slider */
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 34px;
+
+    /* Hide default HTML checkbox */
+    input {
+        opacity: 0;
+        width: 0;
+        height: 0;
+
+        &:checked {
+            + .slider {
+                background-color: #2196F3;
+
+                &::before {
+                    transform: translateX(26px);
+                }
+            }
+        }
+
+        &:focus + .slider {
+            box-shadow: 0 0 1px #2196F3;
+        }
+    }
+    /* Slider */
+    .slider {
+        position: absolute;
+        cursor: pointer;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: #ccc;
+        transition: .4s;
+
+        &::before {
+            position: absolute;
+            content: "";
+            height: 26px;
+            width: 26px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: .4s;
+        }
+    }
+    /* Rounded sliders */
+    .round {
+        border-radius: 34px;
+
+        &::before {
+            border-radius: 50%;
+        }
+    }
+}
+
 /* Utility Classes */
 
 .text-center {
     text-align: center;
+}
+
+.hide {
+    display: none;
 }
 
 /* Media Queries */

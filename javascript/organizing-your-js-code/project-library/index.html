@@ -18,66 +18,124 @@
     </header>
 
     <main>
+        <div id="book-base" class="hide">
+            <li class="book">
+                <div class="book-cover">
+                    <div class="book-bookmark-icon"><i class="fas fa-bookmark"></i></div>
+                    <div class="book-title">The Adventures of Huckleberry Finn</div>
+                    <div class="book-author">by Mark Twain</div>
+                    <div class="book-pages">312 pages</div>
+                </div>
+                <div class="book-inside">
+                    <div class="book-btn-top">
+                        <button type="button" class="book-inside-cancel" aria-label="cancel"><i class="fas fa-window-close"></i></button>
+                    </div>
+                    <form id="book-0">
+                        <label for="title-0">
+                            <span>Title</span>
+                            <input type="text" name="title-0" id="title-0" maxlength="100"> 
+                        </label>
+                        <label for="author-0">
+                            <span>Author</span>
+                            <input type="text" name="author-0" id="author-0" maxlength="100"> 
+                        </label>
+                        <label for="pages-0">
+                            <span>Pages</span>
+                            <input type="number" name="pages-0" id="pages-0" min="1"> 
+                        </label>
+                        <fieldset>
+                            <span>Has Read?</span>
+                            <label for="read-0" class="switch">
+                                <input type="checkbox" name="read-0" id="read-0"> 
+                                <span class="slider round"></span>
+                            </label>
+                        </fieldset>
+                    </form>
+                    <div class="book-btn-bottom">
+                        <button type="button" class="book-btn-delete" aria-label="delete"><i class="fas fa-trash-alt"></i> Delete</button>
+                        <button type="submit" form="book-0" class="book-btn-submit">Submit</button>
+                    </div>
+                </div>
+            </li>
+        </div>
+
         <ul id="books-list">
-            <li class="book">
-                <div class="book-cover">
-                    <div class="book-bookmark-icon"><i class="fas fa-bookmark"></i></div>
-                    <div class="book-title">The Adventures of Huckleberry Finn</div>
-                    <div class="book-author">by Mark Twain</div>
-                    <div class="book-pages">312 pages</div>
-                </div>
-                <div class="book-inside">
-                    <p>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
-                        magna aliqua.
-                    </p>
-                    <div class="book-btn-container">
-                        <button type="button" class="book-btn-edit" aria-label="edit"><i class="fas fa-edit"></i></button>
-                        <button type="button" class="book-btn-delete" aria-label="delete"><i class="fas fa-trash-alt"></i></button>
-                    </div>
-                </div>
-            </li>
-
-            <li class="book">
-                <div class="book-cover">
-                    <div class="book-bookmark-icon"><i class="fas fa-bookmark"></i></div>
-                    <div class="book-title">The Adventures of Huckleberry Finn</div>
-                    <div class="book-author">by Mark Twain</div>
-                    <div class="book-pages">312 pages</div>
-                </div>
-                <div class="book-inside">
-                    <p>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
-                        magna aliqua.
-                    </p>
-                    <div class="book-btn-container">
-                        <button type="button" class="book-btn-edit" aria-label="edit"><i class="fas fa-edit"></i></button>
-                        <button type="button" class="book-btn-delete" aria-label="delete"><i class="fas fa-trash-alt"></i></button>
-                    </div>
-                </div>
-            </li>
-
-            <li class="book">
-                <div class="book-cover">
-                    <div class="book-bookmark-icon"><i class="fas fa-bookmark"></i></div>
-                    <div class="book-title">The Adventures of Huckleberry Finn</div>
-                    <div class="book-author">by Mark Twain</div>
-                    <div class="book-pages">312 pages</div>
-                </div>
-                <div class="book-inside">
-                    <p>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
-                        magna aliqua.
-                    </p>
-                    <div class="book-btn-container">
-                        <button type="button" class="book-btn-edit" aria-label="edit"><i class="fas fa-edit"></i></button>
-                        <button type="button" class="book-btn-delete" aria-label="delete"><i class="fas fa-trash-alt"></i></button>
-                    </div>
-                </div>
-            </li>
-
             <li id="add-new-book" class="book">
                 <div class="book-cover"><i class="fas fa-plus-circle"></i>Add New Book</div>
+                <div class="book-inside">
+                    <div class="book-btn-top">
+                        <button type="button" class="book-inside-cancel" aria-label="cancel"><i class="fas fa-window-close"></i></button>
+                    </div>
+                    <form id="book">
+                        <label for="title">
+                            <span>Title</span>
+                            <input type="text" name="title" id="title" maxlength="100"> 
+                        </label>
+                        <label for="author">
+                            <span>Author</span>
+                            <input type="text" name="author" id="author" maxlength="100"> 
+                        </label>
+                        <label for="pages">
+                            <span>Pages</span>
+                            <input type="number" name="pages" id="pages" min="1"> 
+                        </label>
+                        <label for="read">
+                            <span>Has Read?</span>
+                            <input type="checkbox" name="read" id="read"> 
+                        </label>
+                    </form>
+                    <div class="book-btn-bottom">
+                        <button type="button" class="book-btn-delete" aria-label="delete"><i class="fas fa-trash-alt"></i> Delete</button>
+                        <button type="submit" form="book-0" class="book-btn-submit">Submit</button>
+                    </div>
+                </div>
+            </li>
+
+            <li class="book">
+                <div class="book-cover">
+                    <div class="book-bookmark-icon"><i class="fas fa-bookmark"></i></div>
+                    <div class="book-title">The Adventures of Huckleberry Finn</div>
+                    <div class="book-author">by Mark Twain</div>
+                    <div class="book-pages">312 pages</div>
+                </div>
+                <div class="book-inside">
+                    <p>
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
+                        magna aliqua.
+                    </p>
+                    <div class="book-btn-container">
+                        <button type="button" class="book-btn-edit" aria-label="edit"><i class="fas fa-edit"></i></button>
+                        <button type="button" class="book-btn-delete" aria-label="delete"><i class="fas fa-trash-alt"></i></button>
+                    </div>
+                </div>
+            </li>
+
+            <li class="book">
+                <div class="book-cover">
+                    <div class="book-bookmark-icon"><i class="fas fa-bookmark"></i></div>
+                    <div class="book-title">The Adventures of Huckleberry Finn</div>
+                    <div class="book-author">by Mark Twain</div>
+                    <div class="book-pages">312 pages</div>
+                </div>
+                <div class="book-inside">
+                    <p>
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
+                        magna aliqua.
+                    </p>
+                    <div class="book-btn-container">
+                        <button type="button" class="book-btn-edit" aria-label="edit"><i class="fas fa-edit"></i></button>
+                        <button type="button" class="book-btn-delete" aria-label="delete"><i class="fas fa-trash-alt"></i></button>
+                    </div>
+                </div>
+            </li>
+
+            <li class="book">
+                <div class="book-cover">
+                    <div class="book-bookmark-icon"><i class="fas fa-bookmark"></i></div>
+                    <div class="book-title">The Adventures of Huckleberry Finn</div>
+                    <div class="book-author">by Mark Twain</div>
+                    <div class="book-pages">312 pages</div>
+                </div>
                 <div class="book-inside">
                     <p>
                         Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore

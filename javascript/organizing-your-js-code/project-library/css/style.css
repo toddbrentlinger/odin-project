@@ -66,6 +66,10 @@ table {
 }
 
 /* Custom SCSS */
+:root {
+  --book-spine-width: 1rem;
+}
+
 html {
   font-size: 62.5%;
   -webkit-box-sizing: border-box;
@@ -82,7 +86,6 @@ body {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
   color: #1a1a1a;
   min-height: 100vh;
-  overflow: scroll;
   background-image: url("../img/alfons-morales-YLSwjSy7stw-unsplash_600x352.jpg");
   background-position: center;
   background-size: cover;
@@ -151,19 +154,26 @@ footer {
   position: relative;
   aspect-ratio: 4/5;
   cursor: pointer;
-  -webkit-backface-visibility: visible;
-          backface-visibility: visible;
   -webkit-perspective: 100ch;
           perspective: 100ch;
   -webkit-transform-style: preserve-3d;
           transform-style: preserve-3d;
   background-image: url("../img/vintage-book-cover-textures-6-780x1176.jpg");
-  background-position: top left;
+  background-position: left bottom;
   background-repeat: no-repeat;
   background-color: #e6e6e6;
+  background-size: cover;
+  border-radius: 0.4rem;
+  -webkit-backface-visibility: visible;
+          backface-visibility: visible;
 }
 
-.book > * {
+.book.open .book-cover {
+  -webkit-transform: rotateY(-90deg);
+          transform: rotateY(-90deg);
+}
+
+.book .book-cover {
   position: absolute;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -177,25 +187,27 @@ footer {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-}
-
-.book .book-cover {
-  top: 0;
-  left: 2.2rem;
-  bottom: 0;
-  right: 0;
   background-image: url("../img/vintage-book-cover-textures-6-780x1176.jpg");
-  background-position: top left;
+  background-position: left bottom;
   background-repeat: no-repeat;
   background-color: #e6e6e6;
-  background-position: -2.2rem;
-  color: white;
+  background-size: cover;
+  background-position: calc(-1 * var(--book-spine-width)) bottom;
+  background-size: calc(100% + var(--book-spine-width));
+  color: #e6e6e6;
   z-index: 1;
   padding: 1em;
   text-align: center;
+  border-radius: 0 0.4rem 0.4rem 0;
+  -webkit-backface-visibility: inherit;
+          backface-visibility: inherit;
+  overflow: hidden;
+  /* Absolute Positioning */
+  top: 0;
+  left: var(--book-spine-width);
+  bottom: 0;
+  right: 0;
   /* Animation */
-  -webkit-animation-name: book-open;
-          animation-name: book-open;
   -webkit-animation-duration: 1s;
           animation-duration: 1s;
   -webkit-animation-direction: alternate;
@@ -209,7 +221,82 @@ footer {
   /* Animation - Transform */
   -webkit-transform-origin: left;
           transform-origin: left;
-  /* Flex */
+  /* Transition */
+  -webkit-transform: rotateY(0deg);
+          transform: rotateY(0deg);
+  -webkit-transition: -webkit-transform 1s ease-in-out;
+  transition: -webkit-transform 1s ease-in-out;
+  transition: transform 1s ease-in-out;
+  transition: transform 1s ease-in-out, -webkit-transform 1s ease-in-out;
+}
+
+.book .book-cover::before {
+  content: "";
+  -webkit-backface-visibility: hidden;
+          backface-visibility: hidden;
+  /* Background */
+  background-image: url("../img/vintage-book-cover-textures-6-780x1176.jpg");
+  background-position: left bottom;
+  background-repeat: no-repeat;
+  background-color: #e6e6e6;
+  background-size: cover;
+  background-position: calc(-1 * var(--book-spine-width));
+  /* Absolute Positioning */
+  position: absolute;
+  top: 0;
+  left: var(--book-spine-width);
+  bottom: 0;
+  right: 0;
+  /* Transform */
+  -webkit-transform: rotateY(180deg) translate3d(0, 0, 0);
+          transform: rotateY(180deg) translate3d(0, 0, 0);
+}
+
+.book .book-cover .book-bookmark-icon {
+  position: absolute;
+  top: 0;
+  left: 0;
+  font-size: 2em;
+}
+
+.book .book-cover .book-title {
+  -webkit-box-flex: 2;
+      -ms-flex: 2;
+          flex: 2;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  font-size: 2.3rem;
+}
+
+.book .book-cover .book-author {
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  font-size: 1.6rem;
+}
+
+.book .book-cover .book-pages {
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: end;
+      -ms-flex-align: end;
+          align-items: flex-end;
+  font-size: 1.4rem;
+}
+
+.book .book-inside {
+  position: absolute;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -217,22 +304,62 @@ footer {
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-}
-
-.book .book-inside {
   top: 0.8rem;
-  left: 2.2rem;
+  left: var(--book-spine-width);
   bottom: 0.8rem;
   right: 0.8rem;
   background-image: url("../img/paper-texture-22_1280x853.jpg");
-  background-position: top left;
+  background-position: left bottom;
   background-repeat: no-repeat;
   background-color: #e6e6e6;
+  background-size: cover;
   z-index: 0;
   padding: 1em;
+  cursor: initial;
+}
+
+.book .book-inside button {
+  cursor: pointer;
+}
+
+.book .book-inside .book-btn-top {
+  -ms-flex-item-align: end;
+      align-self: flex-end;
+}
+
+.book .book-inside form {
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.book .book-inside form > * {
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+}
+
+.book .book-inside form input:not([type="checkbox"]) {
+  display: block;
+}
+
+.book .book-inside .book-btn-bottom {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.book .book-inside .book-btn-bottom > * {
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
 }
 
 @-webkit-keyframes book-open {
@@ -279,9 +406,77 @@ footer {
   height: 100%;
 }
 
+/* Switch Checkbox */
+/* The switch - the box around the slider */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+  /* Hide default HTML checkbox */
+  /* Slider */
+  /* Rounded sliders */
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.switch input:checked + .slider {
+  background-color: #2196F3;
+}
+
+.switch input:checked + .slider::before {
+  -webkit-transform: translateX(26px);
+          transform: translateX(26px);
+}
+
+.switch input:focus + .slider {
+  -webkit-box-shadow: 0 0 1px #2196F3;
+          box-shadow: 0 0 1px #2196F3;
+}
+
+.switch .slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.switch .slider::before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.switch .round {
+  border-radius: 34px;
+}
+
+.switch .round::before {
+  border-radius: 50%;
+}
+
 /* Utility Classes */
 .text-center {
   text-align: center;
+}
+
+.hide {
+  display: none;
 }
 
 /* Media Queries */

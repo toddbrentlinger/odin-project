@@ -14,6 +14,7 @@
         this.pages = pages;
         this.read = read;
         this.id = Book.prototype.id++;
+        this.bookNode = null;
     }
 
     /* Static Properties */
@@ -22,10 +23,10 @@
     // Basic way to have unique ID for every new book added.
     Book.prototype.id = 0;
 
-    // Base Book element to be copied and add data replaced with data from each instance 
+    // Base Book element to be cloned and data replaced with data from each instance 
     // before adding to DOM. Better than having to script the creation of every element
     // inside the '.book' class element whenever a new Book instance is added to DOM.
-    Book.prototype.baseElement = document.querySelector('.book.hide');
+    Book.prototype.baseElement = document.querySelector('#book-base .book');
 
     /* Static Methods */
 
@@ -38,10 +39,11 @@
         // Return if there is NO base element
         if (!Book.prototype.baseElement) return;
 
-        const bookElement = Book.prototype.baseElement.cloneNode(true);
+        book.bookNode = Book.prototype.baseElement.cloneNode(true);
+
         let tempElement;
         const addTextToElement = function(selectors, textContent) {
-            tempElement = bookElement.querySelector(selectors);
+            tempElement = book.bookNode.querySelector(selectors);
             if (tempElement) {
                 tempElement.textContent = textContent;
             }
@@ -55,10 +57,29 @@
         addTextToElement('.book-pages', `${book.pages} pages`);
         // Read
         addTextToElement('.book-read', book.read ? 'Has Read' : 'Has Not Yet Read');
-        
-        // Buttons
 
-        return bookElement;
+        // Event Listeners - Cover
+        tempElement = book.bookNode.querySelector('.book-cover');
+        if (tempElement) {
+            tempElement.addEventListener('transitionend', function() {
+                console.log(`Transition End! Book has 'open' class? ${book.bookNode.classList.contains('open')}`);
+            }.bind(book), false);
+        }
+
+        // Event Listeners - Inside
+        tempElement = book.bookNode.querySelector('.book-inside');
+        tempElement.addEventListener('click', e => {
+            console.log(`${e.target}`);
+            e.stopPropagation();
+        });
+
+        tempElement.querySelector('.book-inside-cancel')
+            .addEventListener('click', book.close.bind(book), false);
+
+        // Event Listeners - Book
+        book.bookNode.addEventListener('click', book.toggleOpen.bind(book), false);
+
+        return book.bookNode;
     };
     
     /**
@@ -69,8 +90,24 @@
         return `${this.title} by ${this.author}, ${this.pages} pages, ${this.read ? 'has read' : 'not read yet'}, id: ${this.id}`;
     };
 
+    /** Opens the cover of the HTML element for the Book instance. */
+    Book.prototype.toggleOpen = function() {
+        // Add edit form to inside element of book
+        // Add '.open' class to element to trigger cover opening transition
+        this.bookNode.classList.toggle('open');
+    };
+
+    /** Closes the cover of the HTML element for the Book instance. */
+    Book.prototype.close = function(e) {
+        e.stopPropagation();
+        // Remove '.open' class from element to trigger cover close transition
+        this.bookNode.classList.remove('open');
+        // Remove edit form from inside of book when cover closes using transitionend event
+    };
+
     /** Library constructor */
     function Library() {
+        this.listElement = document.getElementById('books-list');
         this.books = [];
 
         // Add any books passed as arguments
@@ -81,6 +118,11 @@
             }
         });
     }
+
+    /** Initializes Library instance */
+    Library.prototype.init = function() {
+        this.updateDisplay();
+    };
 
     /**
      * Adds a Book instance to the library.
@@ -120,8 +162,13 @@
     };
 
     Library.prototype.updateDisplay = function() {
+        // Clear books from list node, leaving only special book that creates new books
+        while(this.listElement.lastElementChild.id !== 'add-new-book') {
+            this.listElement.removeChild(this.listElement.lastElementChild);
+        }
+        // Add updated books to list node
         this.books.forEach(book => {
-            
+            this.listElement.appendChild(Book.prototype.createBookCardElement(book));
         });
     };
     
@@ -133,6 +180,7 @@
         new Book('Treasure Island', 'Robert Louis Stevenson', 272, false),
         new Book('Pride and Prejudice', 'Jane Austen', 368, false),
     );
+    library.init();
     library.books.forEach(book => console.log(book.info()));
     window.library = library;
 })();
