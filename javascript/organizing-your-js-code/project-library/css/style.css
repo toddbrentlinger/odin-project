@@ -1,7 +1,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
 header::before, footer::before {
   content: "";
-  background-color: #f9a23a;
+  background-color: #8c3f45;
   opacity: 0.5;
   position: absolute;
   top: 0;
@@ -154,18 +154,48 @@ footer {
   position: relative;
   aspect-ratio: 4/5;
   cursor: pointer;
-  -webkit-perspective: 100ch;
-          perspective: 100ch;
+  -webkit-perspective: 150ch;
+          perspective: 150ch;
   -webkit-transform-style: preserve-3d;
           transform-style: preserve-3d;
   background-image: url("../img/vintage-book-cover-textures-6-780x1176.jpg");
   background-position: left bottom;
   background-repeat: no-repeat;
-  background-color: #e6e6e6;
+  background-color: #8c3f45;
   background-size: cover;
   border-radius: 0.4rem;
   -webkit-backface-visibility: visible;
           backface-visibility: visible;
+}
+
+.book::before {
+  content: "";
+  -webkit-backface-visibility: hidden;
+          backface-visibility: hidden;
+  background-image: url("../img/vintage-book-cover-textures-6-780x1176.jpg");
+  background-position: left bottom;
+  background-repeat: no-repeat;
+  background-color: #8c3f45;
+  background-size: cover;
+  background-position: calc(-1 * var(--book-spine-width));
+  position: absolute;
+  top: 0;
+  left: var(--book-spine-width);
+  bottom: 0;
+  right: 0;
+  -webkit-transform-origin: left;
+          transform-origin: left;
+  -webkit-transform: rotateY(180deg) translate3d(-100%, 0px, var(--book-spine-width));
+          transform: rotateY(180deg) translate3d(-100%, 0px, var(--book-spine-width));
+  -webkit-transition: -webkit-transform 1s ease-in-out;
+  transition: -webkit-transform 1s ease-in-out;
+  transition: transform 1s ease-in-out;
+  transition: transform 1s ease-in-out, -webkit-transform 1s ease-in-out;
+}
+
+.book.open::before {
+  -webkit-transform: rotateY(91deg) translate3d(-100%, 0px, 0px);
+          transform: rotateY(91deg) translate3d(-100%, 0px, 0px);
 }
 
 .book.open .book-cover {
@@ -174,7 +204,6 @@ footer {
 }
 
 .book .book-cover {
-  position: absolute;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -187,69 +216,34 @@ footer {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  background-image: url("../img/vintage-book-cover-textures-6-780x1176.jpg");
-  background-position: left bottom;
-  background-repeat: no-repeat;
-  background-color: #e6e6e6;
-  background-size: cover;
-  background-position: calc(-1 * var(--book-spine-width)) bottom;
-  background-size: calc(100% + var(--book-spine-width));
   color: #e6e6e6;
   z-index: 1;
   padding: 1em;
   text-align: center;
   border-radius: 0 0.4rem 0.4rem 0;
+  overflow: hidden;
   -webkit-backface-visibility: inherit;
           backface-visibility: inherit;
-  overflow: hidden;
-  /* Absolute Positioning */
+  background-image: url("../img/vintage-book-cover-textures-6-780x1176.jpg");
+  background-position: left bottom;
+  background-repeat: no-repeat;
+  background-color: #8c3f45;
+  background-size: cover;
+  background-position: calc(-1 * var(--book-spine-width)) bottom;
+  background-size: calc(100% + var(--book-spine-width));
+  position: absolute;
   top: 0;
   left: var(--book-spine-width);
   bottom: 0;
   right: 0;
-  /* Animation */
-  -webkit-animation-duration: 1s;
-          animation-duration: 1s;
-  -webkit-animation-direction: alternate;
-          animation-direction: alternate;
-  -webkit-animation-fill-mode: both;
-          animation-fill-mode: both;
-  -webkit-animation-iteration-count: infinite;
-          animation-iteration-count: infinite;
-  -webkit-animation-timing-function: ease-in-out;
-          animation-timing-function: ease-in-out;
-  /* Animation - Transform */
   -webkit-transform-origin: left;
           transform-origin: left;
-  /* Transition */
   -webkit-transform: rotateY(0deg);
           transform: rotateY(0deg);
   -webkit-transition: -webkit-transform 1s ease-in-out;
   transition: -webkit-transform 1s ease-in-out;
   transition: transform 1s ease-in-out;
   transition: transform 1s ease-in-out, -webkit-transform 1s ease-in-out;
-}
-
-.book .book-cover::before {
-  content: "";
-  -webkit-backface-visibility: hidden;
-          backface-visibility: hidden;
-  /* Background */
-  background-image: url("../img/vintage-book-cover-textures-6-780x1176.jpg");
-  background-position: left bottom;
-  background-repeat: no-repeat;
-  background-color: #e6e6e6;
-  background-size: cover;
-  background-position: calc(-1 * var(--book-spine-width));
-  /* Absolute Positioning */
-  position: absolute;
-  top: 0;
-  left: var(--book-spine-width);
-  bottom: 0;
-  right: 0;
-  /* Transform */
-  -webkit-transform: rotateY(180deg) translate3d(0, 0, 0);
-          transform: rotateY(180deg) translate3d(0, 0, 0);
 }
 
 .book .book-cover .book-bookmark-icon {
@@ -346,8 +340,25 @@ footer {
           flex: 1;
 }
 
+.book .book-inside form label span {
+  display: block;
+}
+
 .book .book-inside form input:not([type="checkbox"]) {
   display: block;
+  width: 100%;
+}
+
+.book .book-inside form fieldset {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 
 .book .book-inside .book-btn-bottom {

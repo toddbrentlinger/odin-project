@@ -1,3 +1,17 @@
+Learning Outcomes:
+
+- transform with perspective and transition to create book opening and closing
+
+- Event Capturing and Bubbling
+Issues when clicking on book cover and not being able to click label of form 
+inside book.
+
+4-28-22
+
+- Add random linear gradient to cover background-image to avoid same color books.
+Add option in edit form to change the color tint of the cover.
+Add property 'coverColor' to Book object.
+
 4-25-22
 
 - Add little flag that drapes over the corner of the book like a book mark.

@@ -15,6 +15,7 @@
         this.read = read;
         this.id = Book.prototype.id++;
         this.bookNode = null;
+        this.coverColor = `hsla(${Math.floor(Math.random() * 361)}, 50%, 50%, 0.5)`;
     }
 
     /* Static Properties */
@@ -33,14 +34,25 @@
     /**
      * Creates and returns an element to hold the properties in the Book instance.
      * @param {Book} book Book instance
+     * @param {Function} deleteCallback
      * @returns {Element} HTML Element containing Book instance data
      */
-     Book.prototype.createBookCardElement = function(book) {
+     Book.prototype.createBookCardElement = function(book, deleteCallback) {
         // Return if there is NO base element
         if (!Book.prototype.baseElement) return;
 
-        book.bookNode = Book.prototype.baseElement.cloneNode(true);
+        const bFirstCreation = book.bookNode === null;
 
+        // Clone base Book element if this Book instance element is null
+        if (bFirstCreation) {
+            book.bookNode = Book.prototype.baseElement.cloneNode(true);
+            
+            book.bookNode.addEventListener('click', book.toggleOpen.bind(book), false);
+        }
+        
+        // Add Book instance properties to Book cover
+
+        // Function to add text content to element with specified selectors
         let tempElement;
         const addTextToElement = function(selectors, textContent) {
             tempElement = book.bookNode.querySelector(selectors);
@@ -48,36 +60,52 @@
                 tempElement.textContent = textContent;
             }
         };
-
-        // Title
         addTextToElement('.book-title', book.title);
-        // Author
         addTextToElement('.book-author', `by ${book.author}`);
-        // Pages
         addTextToElement('.book-pages', `${book.pages} pages`);
-        // Read
         addTextToElement('.book-read', book.read ? 'Has Read' : 'Has Not Yet Read');
 
-        // Event Listeners - Cover
+        // Cover
+
         tempElement = book.bookNode.querySelector('.book-cover');
-        if (tempElement) {
-            tempElement.addEventListener('transitionend', function() {
-                console.log(`Transition End! Book has 'open' class? ${book.bookNode.classList.contains('open')}`);
-            }.bind(book), false);
+
+        // Display bookmark only if Book instance property 'read' is false
+        if (book.read) {
+            book.bookNode.querySelector('.book-bookmark-icon').classList.add('hide');
+        } else {
+            book.bookNode.querySelector('.book-bookmark-icon').classList.remove('hide');
         }
 
-        // Event Listeners - Inside
+        // Inside
+
         tempElement = book.bookNode.querySelector('.book-inside');
-        tempElement.addEventListener('click', e => {
-            console.log(`${e.target}`);
-            e.stopPropagation();
-        });
 
-        tempElement.querySelector('.book-inside-cancel')
-            .addEventListener('click', book.close.bind(book), false);
+        // Form
+        book.setupForm(tempElement.querySelector('form'));
 
-        // Event Listeners - Book
-        book.bookNode.addEventListener('click', book.toggleOpen.bind(book), false);
+        // Add event listeners if first time element is created
+        if (bFirstCreation) {
+            // Inside - Event Listeners
+
+            // Fixes issue with click event listener of book closing running when inside is clicked
+            tempElement.addEventListener('click', e => {
+                e.stopPropagation();
+                console.log(`${e.target}`);
+            }, false);
+
+            // Cancel Button
+            tempElement.querySelector('.book-inside-cancel')
+                .addEventListener('click', book.close.bind(book), false);
+
+            // Event Listener - Delete
+            book.bookNode.querySelector('.book-btn-delete').addEventListener('click', function() {
+                deleteCallback(book);
+            });
+
+            // Event Listener - Submit
+            book.bookNode.querySelector('.book-btn-submit')
+                .addEventListener('click', book.update.bind(book));
+        }
 
         return book.bookNode;
     };
@@ -92,17 +120,76 @@
 
     /** Opens the cover of the HTML element for the Book instance. */
     Book.prototype.toggleOpen = function() {
-        // Add edit form to inside element of book
         // Add '.open' class to element to trigger cover opening transition
         this.bookNode.classList.toggle('open');
     };
 
     /** Closes the cover of the HTML element for the Book instance. */
-    Book.prototype.close = function(e) {
-        e.stopPropagation();
+    Book.prototype.close = function() {
         // Remove '.open' class from element to trigger cover close transition
         this.bookNode.classList.remove('open');
-        // Remove edit form from inside of book when cover closes using transitionend event
+    };
+
+    /**
+     * Updates base form tag element to 
+     * @param {Element} formElement 
+     */
+    Book.prototype.setupForm = function(formElement) {
+        // Append Book id to form element
+        formElement.id = formElement.id.match(/.+-/)[0] + this.id;
+
+        // Append Book id to label attributes
+        formElement.querySelectorAll('label').forEach(label => {
+            // Label 'for' attribute
+            label.htmlFor = label.htmlFor.match(/.+-/)[0] + this.id;
+        });
+
+        // Append Book id to input attributes
+        let inputName;
+        formElement.querySelectorAll('input').forEach(input => {
+            // Make sure input value is blank
+            input.value = '';
+
+            // Get name attribute from input that matches the Book property name
+            inputName = input.name.match(/.+(?=-?)/)[0]; // Get name except '-' at the end
+
+            // Input placeholder with existing value of Book instance properties
+            // If input is checkbox, set checked attribute instead.
+            if (inputName === 'read') {
+                input.checked = this.read;
+            } else {
+                input.placeholder = this[inputName];
+            }
+            
+            // Input id attribute
+            input.id = input.id.match(/.+-/)[0] + this.id;
+        });
+    };
+
+    Book.prototype.update = function() {
+        // Assign each input value to Book instance properties
+        this.bookNode.querySelectorAll('form input').forEach(input => {
+            switch(input.type) {
+                case 'text':
+                    this[input.name] = input.value || input.placeholder;
+                    break;
+                case 'number':
+                    this[input.name] = (input.value === '' ? +input.placeholder : +input.value);
+                    break;
+                case 'checkbox':
+                    this[input.name] = input.checked;
+                    break;
+                default:
+            }
+        });
+
+        // Update HTML element with new values of Book instance properties
+        // Replace current book element with updated book element in DOM
+        // this.bookNode.replaceWith(Book.prototype.createBookCardElement(this));
+        Book.prototype.createBookCardElement(this);
+        
+        // Close book cover
+        this.close();
     };
 
     /** Library constructor */
@@ -158,7 +245,11 @@
         // Return if NO book found with bookID
         if (bookIndex === -1) return;
 
-        return this.books.splice(bookIndex);
+        // Remove book from DOM
+        this.books[bookIndex].bookNode.remove();
+
+        // Remove book from list of all books
+        return this.books.splice(bookIndex, 1);
     };
 
     Library.prototype.updateDisplay = function() {
@@ -167,9 +258,17 @@
             this.listElement.removeChild(this.listElement.lastElementChild);
         }
         // Add updated books to list node
+        let bookCardElement;
         this.books.forEach(book => {
-            this.listElement.appendChild(Book.prototype.createBookCardElement(book));
+            // Create element for Book instance
+            bookCardElement = Book.prototype.createBookCardElement(book, this.handleDelete);
+
+            this.listElement.appendChild(bookCardElement);
         });
+    };
+
+    Library.prototype.handleDelete = function(book) {
+        this.removeBook(book.id);
     };
     
     const library = new Library(
@@ -181,6 +280,7 @@
         new Book('Pride and Prejudice', 'Jane Austen', 368, false),
     );
     library.init();
+
     library.books.forEach(book => console.log(book.info()));
     window.library = library;
 })();

@@ -2,9 +2,9 @@
 
 $base-white: hsl(0,0%,90%);
 $base-black: hsl(0,0%,10%);
-$primary-color: #f9a23a;
-$secondary-color: #b95233;
-$tertiary-color: #133729;
+$primary-color: #8c3f45; // f9a23a
+$secondary-color: #285954; // b95233
+$tertiary-color: #71873D; // 133729
 
 %transparent-primary-color-background {
     content: "";
@@ -161,65 +161,87 @@ $book-cover-border-radius: $book-paper-margin / 2;
     position: relative;
     aspect-ratio: 4/5;
     cursor: pointer;
-    perspective: 100ch;
+    perspective: 150ch;
     transform-style: preserve-3d;
-    @include background-cover($book-cover-img);
+    @include background-cover($book-cover-img, $primary-color);
     border-radius: $book-cover-border-radius;
     backface-visibility: visible;
 
-    &.open .book-cover {
-        transform: rotateY(-90deg);
+    // Back of front-cover
+    &::before {
+        content: "";
+        backface-visibility: hidden;
+        // Background
+        @include background-cover($book-cover-img, $primary-color);
+        background-position: calc(-1 * var(--book-spine-width));
+        // Absolute Positioning
+        position: absolute;
+        top: 0;
+        left: var(--book-spine-width);
+        bottom: 0;
+        right: 0;
+        // Transform
+        transform-origin: left;
+        transform: rotateY(180deg) translate3d(-100%, 0px, var(--book-spine-width));
+        transition: transform 1s ease-in-out;
+    }
+
+    // Edge of front cover
+    // &::after {
+    //     content: "";
+    //     backface-visibility: hidden;
+    //     // Background
+    //     @include background-cover($book-cover-img);
+    //     background-position: calc(-1 * var(--book-spine-width));
+    //     // Absolute Positioning
+    //     position: absolute;
+    //     top: 0;
+    //     left: var(--book-spine-width);
+    //     bottom: 0;
+    //     width: var(--book-spine-width);
+    //     // Transform
+    //     transform-origin: left;
+    //     transform: rotateY(90deg) translate3d(0px, 0px, 0px);
+    //     transition: transform 1s ease-in-out;
+    // }
+
+    &.open {
+        &::before {
+            transform: rotateY(91deg) translate3d(-100%, 0px, 0px);
+        }
+        .book-cover {
+            transform: rotateY(-90deg);
+        }
     }
 
     .book-cover {
-        position: absolute;
+        // Flex
         display: flex;
         flex-direction: column;
         justify-content: space-around;
         align-items: center;
-        @include background-cover($book-cover-img);
-        background-position: calc(-1 * var(--book-spine-width)) bottom;
-        background-size: calc(100% + var(--book-spine-width));
+        // Misc
         color: $base-white;
         z-index: 1;
         padding: 1em;
         text-align: center;
         border-radius: 0 $book-cover-border-radius $book-cover-border-radius 0;
-        backface-visibility: inherit;
         overflow: hidden;
-        /* Absolute Positioning */
+        backface-visibility: inherit;
+        // Background
+        @include background-cover($book-cover-img, $primary-color);
+        background-position: calc(-1 * var(--book-spine-width)) bottom;
+        background-size: calc(100% + var(--book-spine-width));
+        // Absolute Positioning
+        position: absolute;
         top: 0;
         left: var(--book-spine-width);
         bottom: 0;
         right: 0;
-        /* Animation */
-        // animation-name: book-open;
-        animation-duration: 1s;
-        animation-direction: alternate;
-        animation-fill-mode: both;
-        animation-iteration-count: infinite;
-        animation-timing-function: ease-in-out;
-        /* Animation - Transform */
+        // Transform / Transition
         transform-origin: left;
-        /* Transition */
         transform: rotateY(0deg);
         transition: transform 1s ease-in-out;
-
-        &::before {
-            content: "";
-            backface-visibility: hidden;
-            /* Background */
-            @include background-cover($book-cover-img);
-            background-position: calc(-1 * var(--book-spine-width));
-            /* Absolute Positioning */
-            position: absolute;
-            top: 0;
-            left: var(--book-spine-width);
-            bottom: 0;
-            right: 0;
-            /* Transform */
-            transform: rotateY(180deg) translate3d(0,0,0);
-        }
 
         .book-bookmark-icon {
             position: absolute;
@@ -279,8 +301,21 @@ $book-cover-border-radius: $book-paper-margin / 2;
                 flex: 1;
             }
 
+            label {
+                span {
+                    display: block;
+                }
+            }
+
             input:not([type="checkbox"]) {
                 display: block;
+                width: 100%;
+            }
+
+            fieldset {
+                display: flex;
+                justify-content: center;
+                align-items: center;
             }
         }
 
@@ -309,6 +344,7 @@ $book-cover-border-radius: $book-paper-margin / 2;
 #add-new-book {
     .book-cover {
         justify-content: center;
+
         i {
             font-size: 6rem;
             padding: 0.5em;
