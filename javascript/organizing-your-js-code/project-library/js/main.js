@@ -261,7 +261,7 @@
         let bookCardElement;
         this.books.forEach(book => {
             // Create element for Book instance
-            bookCardElement = Book.prototype.createBookCardElement(book, this.handleDelete);
+            bookCardElement = Book.prototype.createBookCardElement(book, this.handleDelete.bind(this));
 
             this.listElement.appendChild(bookCardElement);
         });
