@@ -5,9 +5,22 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sign-up Form</title>
+
     <link rel="stylesheet" href="./css/style.css">
     <script defer src="./js/main.js"></script>
+
+    <!-- Favicon -->
+    <link rel="apple-touch-icon" sizes="180x180" href="./favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="./favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="./favicon/favicon-16x16.png">
+    <link rel="manifest" href="./favicon/site.webmanifest">
+    <link rel="mask-icon" href="./favicon/safari-pinned-tab.svg" color="#ff5031">
+    <link rel="shortcut icon" href="./favicon/favicon.ico">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="msapplication-config" content="./favicon/browserconfig.xml">
+    <meta name="theme-color" content="#ff5031">
 </head>
+
 <body>
     <header>
         <div id="header-title-container">
@@ -25,7 +38,7 @@
                 <h1>MinnMax</h1>
             </div>
         </div>
-        <p>Photo by <a href="">Pragii</a> on <a href="">Unsplash</a></p>
+        <p>Photo by <a href="https://unsplash.com/@pragii07" target="_blank">Pragii</a> on <a href="https://unsplash.com/photos/pX829a6ObhE" target="_blank">Unsplash</a></p>
     </header>
     <main>
         <div id="message">
@@ -35,33 +48,45 @@
         <form method="post" action="#">
             <p>Let's do this!</p>
             <fieldset>
-                <div>
-                    <label for="first-name">FIRST NAME</label>
-                    <input type="text" name="first-name" id="first-name" placeholder=" " required>
+                <div class="custom-input">
+                    <label for="first-name">
+                        <input type="text" name="first-name" id="first-name" placeholder=" " required autofocus>
+                        <span>First Name</span>
+                    </label>
                 </div>
-                <div>
-                    <label for="last-name">LAST NAME</label>
-                    <input type="text" name="last-name" id="last-name" placeholder=" " required>
-                </div>
-            </fieldset>
-            <fieldset>
-                <div>
-                    <label for="email">EMAIL</label>
-                    <input type="email" name="email" id="email" placeholder=" " required>
-                </div>
-                <div>
-                    <label for="phone-number">PHONE NUMBER</label>
-                    <input type="tel" name="phone-number" id="phone-number" placeholder=" " required>
+                <div class="custom-input">
+                    <label for="last-name">
+                        <input type="text" name="last-name" id="last-name" placeholder=" " required>
+                        <span>Last Name</span>
+                    </label>
                 </div>
             </fieldset>
             <fieldset>
-                <div>
-                    <label for="password">PASSWORD</label>
-                    <input type="password" name="password" id="password" placeholder=" " required>
+                <div class="custom-input">
+                    <label for="email">
+                        <input type="email" name="email" id="email" placeholder=" " required>
+                        <span>Email</span>
+                    </label>
                 </div>
-                <div>
-                    <label for="confirm-password">CONFIRM PASSWORD</label>
-                    <input type="password" name="confirm-password" id="confirm-password" placeholder=" " required>
+                <div class="custom-input">
+                    <label for="phone-number">
+                        <input type="tel" name="phone-number" id="phone-number" placeholder=" " required>
+                        <span>Phone Number</span>
+                    </label>
+                </div>
+            </fieldset>
+            <fieldset>
+                <div class="custom-input">
+                    <label for="password">
+                        <input type="password" name="password" id="password" placeholder=" " required>
+                        <span>Password</span>
+                    </label>
+                </div>
+                <div class="custom-input">
+                    <label for="confirm-password">
+                        <input type="password" name="confirm-password" id="confirm-password" placeholder=" " required>
+                        <span>Confirm Password</span>
+                    </label>
                 </div>
             </fieldset>
             <!-- Hide submit button inside form so it will still work in IE but can still click 
@@ -69,7 +94,7 @@
             <input type="submit" id="submit-form" class="hidden">
         </form>
         <div id="submit-btn-container">
-            <label for="submit-form">Create Account</label>
+            <label for="submit-form"><span>Create Account</span></label>
             <p>Already have an account? <a href="#">Log in</a></p>
         </div>
     </main>

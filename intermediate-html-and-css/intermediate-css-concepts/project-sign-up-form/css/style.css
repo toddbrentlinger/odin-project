@@ -84,7 +84,7 @@ body {
 
 header {
   width: 35%;
-  color: #e6e6e6;
+  color: #f2f2f2;
   text-align: center;
   /* Flex */
   display: -webkit-box;
@@ -102,7 +102,7 @@ header {
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
-  background-color: #e6e6e6;
+  background-color: #f2f2f2;
 }
 
 header #header-title-container {
@@ -164,11 +164,19 @@ main {
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
-  background-color: #e6e6e6;
+  background-color: #f2f2f2;
 }
 
 main > * {
   padding: 0 3rem;
+}
+
+main > *:first-child {
+  padding-top: 1em;
+}
+
+main > *:last-child {
+  padding-bottom: 1em;
 }
 
 main > *:not(#message) {
@@ -178,10 +186,12 @@ main > *:not(#message) {
 }
 
 main form {
-  background-color: white;
+  background-color: #f2f2f2;
   -webkit-box-shadow: 0px 2px 15px 0px #1a1a1a;
           box-shadow: 0px 2px 15px 0px #1a1a1a;
-  margin-bottom: 15px;
+  margin-bottom: 30px;
+  padding-top: 1em;
+  padding-bottom: 1em;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -192,7 +202,7 @@ main form {
 }
 
 main form p {
-  padding: 0.5em 0;
+  padding-bottom: 0.5em;
 }
 
 main form fieldset {
@@ -202,13 +212,16 @@ main form fieldset {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
 }
 
 main form fieldset > * {
   -webkit-box-flex: 1;
       -ms-flex: 1;
           flex: 1;
-  max-width: 35ch;
+  min-width: 20ch;
+  max-width: 45ch;
   margin-right: 1em;
 }
 
@@ -221,11 +234,12 @@ main form label {
   font-size: 1rem;
   font-weight: bold;
   letter-spacing: 0.3ch;
+  text-transform: uppercase;
 }
 
 main form input {
   border: 1px solid #1a1a1a;
-  border-radius: 0.2em;
+  border-radius: 0.4em;
   padding: 0.3em;
   width: 100%;
   outline: none;
@@ -252,18 +266,30 @@ main form input:focus {
   -webkit-box-pack: end;
       -ms-flex-pack: end;
           justify-content: flex-end;
-  padding-bottom: 15px;
+  padding-bottom: 30px;
 }
 
 #message p:first-child {
   margin: 2em 0;
 }
 
+#submit-btn-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
 #submit-btn-container label {
-  display: inline-block;
-  padding: 0.5em 2em;
+  display: block;
   background-color: #ff502f;
-  color: #e6e6e6;
+  color: #f2f2f2;
   border-radius: 0.5em;
   cursor: pointer;
   -webkit-box-shadow: 0px 0px 10px 0px #1a1a1a;
@@ -271,13 +297,72 @@ main form input:focus {
   position: relative;
 }
 
-#submit-btn-container label:hover {
-  background-color: #e6e6e6;
+#submit-btn-container label:hover span {
+  outline: #f2f2f2 solid 0.3rem;
+  border-radius: 0.3em;
+}
+
+#submit-btn-container label:active {
+  background-color: #f2f2f2;
   color: #ff502f;
+  -webkit-box-shadow: 0px 0px 5px 0px #1a1a1a;
+          box-shadow: 0px 0px 5px 0px #1a1a1a;
+}
+
+#submit-btn-container label:active span {
+  outline: #ff502f solid 0.3rem;
+}
+
+#submit-btn-container label span {
+  display: block;
+  padding: 0.5em 2em;
+  margin: 0.6rem;
 }
 
 #submit-btn-container p {
   margin: 1em 0;
+}
+
+.custom-input label {
+  height: 6rem;
+  position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: reverse;
+      -ms-flex-direction: column-reverse;
+          flex-direction: column-reverse;
+}
+
+.custom-input label span,
+.custom-input label input {
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  display: block;
+  padding: 0 1rem;
+  font-size: 1.2rem;
+  font-weight: 700;
+  font-family: sans-serif;
+}
+
+.custom-input label span {
+  position: relative;
+  top: 50%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-transition: top 300ms ease-out;
+  transition: top 300ms ease-out;
+}
+
+.custom-input label input:focus + span,
+.custom-input label input:not(:placeholder-shown) + span {
+  top: 0%;
 }
 
 .font-italic {
