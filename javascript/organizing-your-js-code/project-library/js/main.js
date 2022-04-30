@@ -13,15 +13,16 @@
         this.author = author;
         this.pages = pages;
         this.read = read;
+        // Set to static variable which is incremented for next instance
         this.id = Book.prototype.id++;
+        // Initialized to null so event listeners are only added at first creation and NOT every update
         this.bookNode = null;
-        this.coverColor = `hsla(${Math.floor(Math.random() * 361)}, 50%, 50%, 0.5)`;
     }
 
-    /* Static Properties */
+    // Static Properties
 
     // ID given to new Book instance and then incremented for next new Book instance
-    // Basic way to have unique ID for every new book added.
+    // Simple way to have unique ID for every new book added.
     Book.prototype.id = 0;
 
     // Base Book element to be cloned and data replaced with data from each instance 
@@ -29,24 +30,29 @@
     // inside the '.book' class element whenever a new Book instance is added to DOM.
     Book.prototype.baseElement = document.querySelector('#book-base .book');
 
-    /* Static Methods */
+    // Static Methods
 
     /**
      * Creates and returns an element to hold the properties in the Book instance.
      * @param {Book} book Book instance
-     * @param {Function} deleteCallback
+     * @param {Function} deleteCallback Callback function to be called when user deletes book
      * @returns {Element} HTML Element containing Book instance data
      */
      Book.prototype.createBookCardElement = function(book, deleteCallback) {
-        // Return if there is NO base element
-        if (!Book.prototype.baseElement) return;
-
         const bFirstCreation = book.bookNode === null;
 
         // Clone base Book element if this Book instance element is null
         if (bFirstCreation) {
+            // Return if there is NO base element
+            if (!Book.prototype.baseElement) {
+                console.error('NO base element to clone and add Book instance to DOM');
+                return;
+            }
+
+            // Create clone of base Book element
             book.bookNode = Book.prototype.baseElement.cloneNode(true);
             
+            // Add event listener to book cover to toggle open/close transition
             book.bookNode.addEventListener('click', book.toggleOpen.bind(book), false);
         }
         
@@ -60,14 +66,13 @@
                 tempElement.textContent = textContent;
             }
         };
+        // Add Book instance properties to book cover
         addTextToElement('.book-title', book.title);
         addTextToElement('.book-author', `by ${book.author}`);
         addTextToElement('.book-pages', `${book.pages} pages`);
         addTextToElement('.book-read', book.read ? 'Has Read' : 'Has Not Yet Read');
 
-        // Cover
-
-        tempElement = book.bookNode.querySelector('.book-cover');
+        // Book Cover
 
         // Display bookmark only if Book instance property 'read' is false
         if (book.read) {
@@ -76,40 +81,70 @@
             book.bookNode.querySelector('.book-bookmark-icon').classList.remove('hide');
         }
 
-        // Inside
+        // Book Inside
 
         tempElement = book.bookNode.querySelector('.book-inside');
 
-        // Form
+        // Setup form attributes to be unique for a Book instance
         book.setupForm(tempElement.querySelector('form'));
 
         // Add event listeners if first time element is created
         if (bFirstCreation) {
-            // Inside - Event Listeners
-
             // Fixes issue with click event listener of book closing running when inside is clicked
-            tempElement.addEventListener('click', e => {
-                e.stopPropagation();
-                console.log(`${e.target}`);
-            }, false);
+            // Stops click event bubbling up to book cover ancestor
+            tempElement.addEventListener('click', e => e.stopPropagation(), false);
 
-            // Cancel Button
+            // Cancel Button Button
             tempElement.querySelector('.book-inside-cancel')
                 .addEventListener('click', book.close.bind(book), false);
 
-            // Event Listener - Delete
-            book.bookNode.querySelector('.book-btn-delete').addEventListener('click', function() {
-                deleteCallback(book);
-            });
+            // Delete Button
+            book.bookNode.querySelector('.book-btn-delete')
+                .addEventListener('click', () => deleteCallback(book), false);
 
-            // Event Listener - Submit
+            // Submit/Update Button
             book.bookNode.querySelector('.book-btn-submit')
-                .addEventListener('click', book.update.bind(book));
+                .addEventListener('click', book.update.bind(book), false);
         }
 
         return book.bookNode;
     };
+
+    /**
+     * 
+     * @param {Function} submitCallback Method runs when form is submitted to create new Book  
+     */
+    Book.prototype.createAddNewBookCardElement = function(submitCallback) {
+        // Return if there is NO base element
+        if (!Book.prototype.baseElement) {
+            console.error('NO base element to clone and add Book instance to DOM');
+            return;
+        }
+
+        // Get special add new book element from DOM
+        const bookNode = document.getElementById('add-new-book');
+        
+        // Add event listener to book cover to toggle open/close transition
+        bookNode.addEventListener('click', () => bookNode.classList.toggle('open'), false);
+
+        let insideElement = bookNode.querySelector('.book-inside');
+        // Fixes issue with click event listener of book closing running when inside is clicked
+        // Stops click event bubbling up to book cover ancestor
+        insideElement.addEventListener('click', e => e.stopPropagation(), false);
+
+        // Cancel Button Button
+        insideElement.querySelector('.book-inside-cancel')
+            .addEventListener('click', () => bookNode.classList.remove('open'), false);
+
+        // Submit/Update Button
+        bookNode.querySelector('.book-btn-submit')
+            .addEventListener('click', submitCallback, false);
+
+        return bookNode;
+    }
     
+    // Methods
+
     /**
      * Returns a string representation of the Book instance.
      * @returns {String}
@@ -118,7 +153,7 @@
         return `${this.title} by ${this.author}, ${this.pages} pages, ${this.read ? 'has read' : 'not read yet'}, id: ${this.id}`;
     };
 
-    /** Opens the cover of the HTML element for the Book instance. */
+    /** Toggle open the cover of the HTML element for the Book instance. */
     Book.prototype.toggleOpen = function() {
         // Add '.open' class to element to trigger cover opening transition
         this.bookNode.classList.toggle('open');
@@ -131,11 +166,11 @@
     };
 
     /**
-     * Updates base form tag element to 
+     * Updates Book form to display current values of Book instance properties with unique element Id fields.
      * @param {Element} formElement 
      */
     Book.prototype.setupForm = function(formElement) {
-        // Append Book id to form element
+        // Append Book id to form element id
         formElement.id = formElement.id.match(/.+-/)[0] + this.id;
 
         // Append Book id to label attributes
@@ -147,7 +182,7 @@
         // Append Book id to input attributes
         let inputName;
         formElement.querySelectorAll('input').forEach(input => {
-            // Make sure input value is blank
+            // Make sure input value is blank to clear form inputs after update
             input.value = '';
 
             // Get name attribute from input that matches the Book property name
@@ -161,13 +196,15 @@
                 input.placeholder = this[inputName];
             }
             
-            // Input id attribute
+            // Append Book Id to input id attribute
             input.id = input.id.match(/.+-/)[0] + this.id;
         });
     };
 
+    /** Updates Book instance to use values on form inside book element form. */
     Book.prototype.update = function() {
-        // Assign each input value to Book instance properties
+        // Assign each input value in form to corresponding Book instance 
+        // properties depending on the type attribute of the input element
         this.bookNode.querySelectorAll('form input').forEach(input => {
             switch(input.type) {
                 case 'text':
@@ -180,20 +217,22 @@
                     this[input.name] = input.checked;
                     break;
                 default:
+                    console.error(`Input type "${input.type}" NOT accounted for!`);
             }
         });
 
-        // Update HTML element with new values of Book instance properties
-        // Replace current book element with updated book element in DOM
-        // this.bookNode.replaceWith(Book.prototype.createBookCardElement(this));
+        // Update Book instance element with updated values of Book instance properties
         Book.prototype.createBookCardElement(this);
         
         // Close book cover
         this.close();
     };
 
-    /** Library constructor */
-    function Library() {
+    /**
+     * Library constructor that adds any number of Book instances passed as arguments.
+     * @param {...Book} book
+     */
+    function Library(book) {
         this.listElement = document.getElementById('books-list');
         this.books = [];
 
@@ -208,7 +247,10 @@
 
     /** Initializes Library instance */
     Library.prototype.init = function() {
-        this.updateDisplay();
+        this.setupNewBookForm(document.getElementById('add-new-book'));
+
+        // Display all books in library on DOM
+        this.displayBooks();
     };
 
     /**
@@ -220,9 +262,11 @@
         // Return false if book title already exists in library
         this.books.forEach(book => {
             if (book.title === newBook.title) {
+                console.error(`Book with title "${newBook.title}" already exists in library!`);
                 return false;
             }
         });
+        
         this.books.push(newBook);
         return true;
     };
@@ -230,34 +274,39 @@
     /**
      * Removes a book from the library with matching book ID. Returns the Book 
      * instance that was removed OR undefined if could NOT remove.
-     * @param {Number|String} bookID 
+     * @param {Number|String} bookId 
      * @returns {Element|undefined} 
      */
-    Library.prototype.removeBook = function(bookID) {
-        // Return if bookID is not a number
-        if (isNaN(bookID)) return;
-        // If bookID is a string, convert to a number
-        if (typeof bookID === 'string') {
-            bookID = +bookID;
+    Library.prototype.removeBook = function(bookId) {
+        // Return if bookId is not a number
+        if (isNaN(bookId)) return;
+        // If bookId is a string, convert to a number
+        if (typeof bookId === 'string') {
+            bookId = +bookId;
         }
 
-        const bookIndex = this.books.findIndex(book => book.id === bookID);
-        // Return if NO book found with bookID
-        if (bookIndex === -1) return;
+        // Find index in books list of book with matching id
+        const bookIndex = this.books.findIndex(book => book.id === bookId);
+        // Return if NO book found with bookId
+        if (bookIndex === -1) {
+            console.error(`No book found with book id: ${bookId}`);
+            return;
+        }
 
         // Remove book from DOM
         this.books[bookIndex].bookNode.remove();
 
-        // Remove book from list of all books
+        // Remove book from list of all books in Library instance
         return this.books.splice(bookIndex, 1);
     };
 
-    Library.prototype.updateDisplay = function() {
+    /** Creates HTML element of each Book instance and adds to list element. */
+    Library.prototype.displayBooks = function() {
         // Clear books from list node, leaving only special book that creates new books
         while(this.listElement.lastElementChild.id !== 'add-new-book') {
             this.listElement.removeChild(this.listElement.lastElementChild);
         }
-        // Add updated books to list node
+        // Add books to list node
         let bookCardElement;
         this.books.forEach(book => {
             // Create element for Book instance
@@ -267,8 +316,21 @@
         });
     };
 
+    /**
+     * Callback function to handle user removing the book from the Library instance.
+     * @param {Book} book 
+     */
     Library.prototype.handleDelete = function(book) {
         this.removeBook(book.id);
+    };
+
+    /**
+     * Add event listeners to special book used to add new Books to the Library instance.
+     * @param {Element} bookElement 
+     */
+    Library.prototype.setupNewBookForm = function(bookElement) {
+        this.listElement.appendChild(Book.prototype.createAddNewBookCardElement(() => {}));
+        const addNewBookElement = document.getElementById('add-new-book');
     };
     
     const library = new Library(
@@ -281,6 +343,7 @@
     );
     library.init();
 
+    // Testing
     library.books.forEach(book => console.log(book.info()));
     window.library = library;
 })();

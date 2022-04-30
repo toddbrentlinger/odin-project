@@ -69,6 +69,13 @@ table {
 
 /* Custom SCSS */
 
+$book-cover-img: url('../img/vintage-book-cover-textures-6-780x1176.jpg');
+$book-paper-img: url('../img/paper-texture-22_1280x853.jpg');
+$book-paper-margin: 0.8rem;
+$book-cover-border-radius: $book-paper-margin / 2;
+$book-width: 25rem;
+$book-spine-width: 1rem;
+
 :root {
     --book-spine-width: 1rem;
 }
@@ -134,7 +141,8 @@ footer {
 #books-list {
     flex: 1;
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(30ch, 20%));
+    // grid-template-columns: repeat(auto-fill, minmax(30ch, 20%));
+    grid-template-columns: repeat(auto-fill, $book-width);
     grid-gap: 1em;
     justify-items: stretch;
     align-items: stretch;
@@ -143,11 +151,6 @@ footer {
 }
 
 /* Book */
-
-$book-cover-img: url('../img/vintage-book-cover-textures-6-780x1176.jpg');
-$book-paper-img: url('../img/paper-texture-22_1280x853.jpg');
-$book-paper-margin: 0.8rem;
-$book-cover-border-radius: $book-paper-margin / 2;
 
 @mixin background-cover($url, $color: $base-white) {
     background-image: $url;
@@ -166,6 +169,7 @@ $book-cover-border-radius: $book-paper-margin / 2;
     @include background-cover($book-cover-img, $primary-color);
     border-radius: $book-cover-border-radius;
     backface-visibility: visible;
+    box-shadow: 0px 0px 30px 5px $base-black;
 
     // Back of front-cover
     &::before {
@@ -182,35 +186,38 @@ $book-cover-border-radius: $book-paper-margin / 2;
         right: 0;
         // Transform
         transform-origin: left;
-        transform: rotateY(180deg) translate3d(-100%, 0px, var(--book-spine-width));
+        transform: rotateY(180deg) translate3d(-100%, 0px, $book-spine-width);
         transition: transform 1s ease-in-out;
     }
 
     // Edge of front cover
-    // &::after {
-    //     content: "";
-    //     backface-visibility: hidden;
-    //     // Background
-    //     @include background-cover($book-cover-img);
-    //     background-position: calc(-1 * var(--book-spine-width));
-    //     // Absolute Positioning
-    //     position: absolute;
-    //     top: 0;
-    //     left: var(--book-spine-width);
-    //     bottom: 0;
-    //     width: var(--book-spine-width);
-    //     // Transform
-    //     transform-origin: left;
-    //     transform: rotateY(90deg) translate3d(0px, 0px, 0px);
-    //     transition: transform 1s ease-in-out;
-    // }
+    &::after {
+        content: "";
+        backface-visibility: hidden;
+        // Background
+        @include background-cover($book-cover-img, $primary-color);
+        background-position: left;
+        // Absolute Positioning
+        position: absolute;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        width: var(--book-spine-width);
+        // Transform
+        transform-origin: left;
+        transform: rotateY(90deg) translate3d($book-spine-width, 0px, $book-width - $book-spine-width);
+        transition: transform 1s ease-in-out;
+    }
 
     &.open {
         &::before {
-            transform: rotateY(91deg) translate3d(-100%, 0px, 0px);
+            transform: rotateY(90deg) translate3d(-100%, 0px, $book-spine-width);
         }
         .book-cover {
             transform: rotateY(-90deg);
+        }
+        &::after {
+            transform: rotateY(0deg) translate3d($book-spine-width, 0px, $book-width - $book-spine-width)
         }
     }
 
@@ -276,7 +283,7 @@ $book-cover-border-radius: $book-paper-margin / 2;
         display: flex;
         flex-direction: column;
         top: $book-paper-margin;
-        left: var(--book-spine-width);
+        left: calc(2 * var(--book-spine-width));
         bottom: $book-paper-margin;
         right: $book-paper-margin;
         @include background-cover($book-paper-img);
@@ -326,16 +333,6 @@ $book-cover-border-radius: $book-paper-margin / 2;
                 flex: 1;
             }
         }
-    }
-}
-
-@keyframes book-open {
-    from {
-        transform: rotateY(0deg);
-    }
-
-    to {
-        transform: rotateY(-90deg);
     }
 }
 

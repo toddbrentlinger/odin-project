@@ -138,8 +138,8 @@ footer {
           flex: 1;
   display: -ms-grid;
   display: grid;
-  -ms-grid-columns: (minmax(30ch, 20%))[auto-fill];
-      grid-template-columns: repeat(auto-fill, minmax(30ch, 20%));
+  -ms-grid-columns: (25rem)[auto-fill];
+      grid-template-columns: repeat(auto-fill, 25rem);
   grid-gap: 1em;
   justify-items: stretch;
   -webkit-box-align: stretch;
@@ -166,6 +166,8 @@ footer {
   border-radius: 0.4rem;
   -webkit-backface-visibility: visible;
           backface-visibility: visible;
+  -webkit-box-shadow: 0px 0px 30px 5px #1a1a1a;
+          box-shadow: 0px 0px 30px 5px #1a1a1a;
 }
 
 .book::before {
@@ -185,8 +187,33 @@ footer {
   right: 0;
   -webkit-transform-origin: left;
           transform-origin: left;
-  -webkit-transform: rotateY(180deg) translate3d(-100%, 0px, var(--book-spine-width));
-          transform: rotateY(180deg) translate3d(-100%, 0px, var(--book-spine-width));
+  -webkit-transform: rotateY(180deg) translate3d(-100%, 0px, 1rem);
+          transform: rotateY(180deg) translate3d(-100%, 0px, 1rem);
+  -webkit-transition: -webkit-transform 1s ease-in-out;
+  transition: -webkit-transform 1s ease-in-out;
+  transition: transform 1s ease-in-out;
+  transition: transform 1s ease-in-out, -webkit-transform 1s ease-in-out;
+}
+
+.book::after {
+  content: "";
+  -webkit-backface-visibility: hidden;
+          backface-visibility: hidden;
+  background-image: url("../img/vintage-book-cover-textures-6-780x1176.jpg");
+  background-position: left bottom;
+  background-repeat: no-repeat;
+  background-color: #8c3f45;
+  background-size: cover;
+  background-position: left;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: var(--book-spine-width);
+  -webkit-transform-origin: left;
+          transform-origin: left;
+  -webkit-transform: rotateY(90deg) translate3d(1rem, 0px, 24rem);
+          transform: rotateY(90deg) translate3d(1rem, 0px, 24rem);
   -webkit-transition: -webkit-transform 1s ease-in-out;
   transition: -webkit-transform 1s ease-in-out;
   transition: transform 1s ease-in-out;
@@ -194,13 +221,18 @@ footer {
 }
 
 .book.open::before {
-  -webkit-transform: rotateY(91deg) translate3d(-100%, 0px, 0px);
-          transform: rotateY(91deg) translate3d(-100%, 0px, 0px);
+  -webkit-transform: rotateY(90deg) translate3d(-100%, 0px, 1rem);
+          transform: rotateY(90deg) translate3d(-100%, 0px, 1rem);
 }
 
 .book.open .book-cover {
   -webkit-transform: rotateY(-90deg);
           transform: rotateY(-90deg);
+}
+
+.book.open::after {
+  -webkit-transform: rotateY(0deg) translate3d(1rem, 0px, 24rem);
+          transform: rotateY(0deg) translate3d(1rem, 0px, 24rem);
 }
 
 .book .book-cover {
@@ -299,7 +331,7 @@ footer {
       -ms-flex-direction: column;
           flex-direction: column;
   top: 0.8rem;
-  left: var(--book-spine-width);
+  left: calc(2 * var(--book-spine-width));
   bottom: 0.8rem;
   right: 0.8rem;
   background-image: url("../img/paper-texture-22_1280x853.jpg");
@@ -371,28 +403,6 @@ footer {
   -webkit-box-flex: 1;
       -ms-flex: 1;
           flex: 1;
-}
-
-@-webkit-keyframes book-open {
-  from {
-    -webkit-transform: rotateY(0deg);
-            transform: rotateY(0deg);
-  }
-  to {
-    -webkit-transform: rotateY(-90deg);
-            transform: rotateY(-90deg);
-  }
-}
-
-@keyframes book-open {
-  from {
-    -webkit-transform: rotateY(0deg);
-            transform: rotateY(0deg);
-  }
-  to {
-    -webkit-transform: rotateY(-90deg);
-            transform: rotateY(-90deg);
-  }
 }
 
 /* Add New Book */
