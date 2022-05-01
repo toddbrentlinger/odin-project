@@ -1,10 +1,26 @@
 Learning Outcomes:
 
-- transform with perspective and transition to create book opening and closing
+- Transform with perspective and transition to create book opening and closing
 
 - Event Capturing and Bubbling
 Issues when clicking on book cover and not being able to click label of form 
 inside book.
+
+- Dynamically create forms for each Book instance.
+
+TO-DO:
+
+- Add second inner page that asks user to confirm when they want to delete
+a book from the library.
+
+- Focus on first element of form whenever book is opened by user.
+
+- Display new books at top, not bottom of list.
+
+- Add animation to each book when it's added to the DOM that slides into position
+from the side into it's final position. Put incrementally higher value of delay
+with each book to create a stagger effect of books sliding into position instead
+of all slide at once.
 
 4-28-22
 

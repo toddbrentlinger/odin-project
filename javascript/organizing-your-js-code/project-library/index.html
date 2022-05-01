@@ -25,7 +25,8 @@
 </head>
 <body>
     <header class="text-center">
-        <h1><i class="fas fa-book"></i> Library</h1>
+        <img src="./img/Buecher-coloured.svg" />
+        <h1>Library</h1>
     </header>
 
     <main>
@@ -41,7 +42,7 @@
                     <div class="book-btn-top">
                         <button type="button" class="book-inside-cancel" aria-label="cancel"><i class="fas fa-window-close"></i></button>
                     </div>
-                    <form id="book-">
+                    <form action="" method="post" id="book-">
                         <label for="title-">
                             <span>Title</span>
                             <input type="text" name="title" id="title-" maxlength="100"> 
@@ -55,7 +56,7 @@
                             <input type="number" name="pages" id="pages-" min="1"> 
                         </label>
                         <fieldset>
-                            <span>Has Read?</span>
+                            <span>Completed</span>
                             <label for="read-" class="switch">
                                 <input type="checkbox" name="read" id="read-"> 
                                 <span class="slider round"></span>
@@ -64,7 +65,7 @@
                     </form>
                     <div class="book-btn-bottom">
                         <button type="button" class="book-btn-delete" aria-label="delete"><i class="fas fa-trash-alt"></i> Delete</button>
-                        <button type="button" form="book-0" class="book-btn-submit"><i class="fas fa-edit"></i> Update</button>
+                        <button type="button" form="book-" class="book-btn-submit"><i class="fas fa-edit"></i> Update</button>
                     </div>
                 </div>
             </li>
@@ -73,28 +74,29 @@
         <ul id="books-list">
             <li id="add-new-book" class="book">
                 <div class="book-cover">
+                    <div>Add New Book</div>
                     <i class="fas fa-plus-circle"></i>
-                    Add New Book
+                    <div>Click To Open</div>
                 </div>
                 <div class="book-inside">
                     <div class="book-btn-top">
                         <button type="button" class="book-inside-cancel" aria-label="cancel"><i class="fas fa-window-close"></i></button>
                     </div>
-                    <form id="book">
+                    <form action="#" method="post" id="book">
                         <label for="title">
                             <span>Title</span>
-                            <input type="text" name="title" id="title" maxlength="100"> 
+                            <input type="text" name="title" id="title" maxlength="100" required> 
                         </label>
                         <label for="author">
                             <span>Author</span>
-                            <input type="text" name="author" id="author" maxlength="100"> 
+                            <input type="text" name="author" id="author" maxlength="100" required> 
                         </label>
                         <label for="pages">
                             <span>Pages</span>
-                            <input type="number" name="pages" id="pages" min="1"> 
+                            <input type="number" name="pages" id="pages" min="1" required> 
                         </label>
                         <fieldset>
-                            <span>Has Read?</span>
+                            <span>Completed</span>
                             <label for="read" class="switch">
                                 <input type="checkbox" name="read" id="read"> 
                                 <span class="slider round"></span>
@@ -102,30 +104,12 @@
                         </fieldset>
                     </form>
                     <div class="book-btn-bottom">
-                        <button type="button" class="book-btn-delete" aria-label="delete"><i class="fas fa-trash-alt"></i> Delete</button>
-                        <button type="button" form="book-0" class="book-btn-submit"><i class="fas fa-edit"></i> Update</button>
+                        <button type="button" class="book-btn-reset" aria-label="reset"><i class="fas fa-undo"></i> Reset</button>
+                        <button type="submit" form="book" class="book-btn-submit"><i class="fas fa-book"></i> Add Book</button>
                     </div>
                 </div>
             </li>
         </ul>
-
-        <article id="add-new-book-modal">
-            <form>
-                <label for="new-book-title">Title</label>
-                <input type="text" maxlength="50" name="title" id="new-book-title" required>
-
-                <label for="new-book-author">Author</label>
-                <input type="text" maxlength="50" name="author" id="new-book-author" required>
-
-                <label for="new-book-pages">Pages</label>
-                <input type="number" min="1" name="pages" id="new-book-pages" required>
-
-                <label for="new-book-read">Has Read?</label>
-                <input type="checkbox" name="read" id="new-book-read" required>
-
-                <button type="button" id="submit-new-book-btn">Add Book</button>
-            </form>
-        </article>
 
         <article id="library-stats">
             <div id="library-stats-books-read-total">0</div>
