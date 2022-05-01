@@ -45,7 +45,7 @@
             <p>This is not a real online service! You know you need something like this in your life to help you realize your deepest dreams. Sign up <span class="font-italic">now</span> to get started.</p>
             <p>You <span class="font-italic">know</span> you want to.</p>
         </div>
-        <form method="post" action="#">
+        <form method="post" action="#" id="sign-up-form">
             <p>Let's do this!</p>
             <fieldset>
                 <div class="custom-input">
@@ -75,7 +75,7 @@
                     </label>
                 </div>
             </fieldset>
-            <fieldset>
+            <fieldset id="password-fieldset">
                 <div class="custom-input">
                     <label for="password">
                         <input type="password" name="password" id="password" placeholder=" " required>
@@ -88,10 +88,11 @@
                         <span>Confirm Password</span>
                     </label>
                 </div>
+                <p id="password-match-error-msg">* Passwords do not match</p>
             </fieldset>
             <!-- Hide submit button inside form so it will still work in IE but can still click 
             associated label outside form to submit the form. -->
-            <input type="submit" id="submit-form" class="hidden">
+            <input type="submit" id="submit-form" class="hide-remove-from-dom">
         </form>
         <div id="submit-btn-container">
             <label for="submit-form"><span>Create Account</span></label>

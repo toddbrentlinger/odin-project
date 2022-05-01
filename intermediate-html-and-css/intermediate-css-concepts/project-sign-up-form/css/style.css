@@ -201,8 +201,9 @@ main form {
           flex-direction: column;
 }
 
-main form p {
+main form > p {
   padding-bottom: 0.5em;
+  font-size: 2rem;
 }
 
 main form fieldset {
@@ -251,6 +252,23 @@ main form input:invalid:not(:placeholder-shown) {
 
 main form input:focus {
   outline: 2px solid #ff502f;
+}
+
+main form #password-fieldset.display-error #password-match-error-msg {
+  visibility: initial;
+}
+
+main form #password-fieldset.display-error input {
+  outline: 2px dashed red;
+}
+
+main form #password-fieldset #password-match-error-msg {
+  color: red;
+  width: 100%;
+  -webkit-box-flex: 1;
+      -ms-flex: auto;
+          flex: auto;
+  visibility: hidden;
 }
 
 #message {
@@ -369,7 +387,7 @@ main form input:focus {
   font-style: italic;
 }
 
-.hidden {
+.hide-remove-from-dom {
   display: none;
 }
 

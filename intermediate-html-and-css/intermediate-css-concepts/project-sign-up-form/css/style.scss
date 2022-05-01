@@ -168,8 +168,9 @@ main {
         display: flex;
         flex-direction: column;
 
-        p {
+        > p {
             padding-bottom: 0.5em;
+            font-size: 2rem;
         }
 
         fieldset {
@@ -207,6 +208,24 @@ main {
 
             &:focus {
                 outline: 2px solid $primary-color;
+            }
+        }
+
+        #password-fieldset {
+            &.display-error {
+                #password-match-error-msg {
+                    visibility: initial;
+                }
+                input {
+                    outline: 2px dashed red;
+                }
+            }
+
+            #password-match-error-msg {
+                color: red;
+                width: 100%;
+                flex: auto;
+                visibility: hidden;
             }
         }
     }
@@ -312,7 +331,7 @@ main {
     font-style: italic;
 }
 
-.hidden {
+.hide-remove-from-dom {
     display: none;
 }
 
