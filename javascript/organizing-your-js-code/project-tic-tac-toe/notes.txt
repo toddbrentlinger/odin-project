@@ -1,0 +1,32 @@
+gameboard: Module (single instance)
+    _squares = player[]
+    checkEndStatus() - checks for 3 in a row OR tie
+    render() - render 
+
+player(name, symbol): Factory (multiple instances)
+    _name = string
+    setName()
+    _symbol = 'X' or 'O' (could choose any symbol perhaps by saving character code value instead)
+
+aiPlayer: Factory (multipe instances if user can choose both players as AI)
+
+game: Module (single instance)
+    _playerOne = player factory
+    _playerTwo = player factory
+    _bIsPlayerOneTurn = true
+    _gameBoard = Module (single instance)
+    _endGameMessageElement = Element to display end game results message
+    _handleStartClick() - starts or restarts to a new game
+    _handlePlayerSelection() - adds current player symbol to gameboard square
+
+Need To Add:
+
+- allow Players to put in their name
+- include button to start and restart the game
+- add display element that displays end game message
+
+To-Do List:
+
+- Add random flickering animation to neon text
+
+- When Player chooses a spot, play animation of light turning on to reveal symbol

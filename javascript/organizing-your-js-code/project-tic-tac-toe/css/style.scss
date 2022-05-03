@@ -1,0 +1,271 @@
+/* http://meyerweb.com/eric/tools/css/reset/ 
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body {
+	line-height: 1;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+// Custom SCSS
+
+@import url('https://fonts.googleapis.com/css2?family=Neonderthaw&display=swap'); // Neon Font
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
+:root {
+    --base-white: hsl(0,0%,90%);
+    --base-black: hsl(0,0%,10%);
+    --primary-color: #8c3f45;
+    --secondary-color: #285954;
+    --tertiary-color: #71873D;
+}
+
+html {
+    font-size: 62.5%;
+    box-sizing: border-box;
+}
+
+*, *::before, *::after {
+    box-sizing: inherit;
+}
+
+body {
+    font-size: 1.6rem;
+    font-family: 'Neonderthaw', cursive;
+    min-height: 100vh;
+    background-color: var(--base-white);
+    color: var(--base-black);
+    // Flex
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+header, footer {
+    background-color: hsla(0, 0%, 50%, 0.5);
+    font-family: Roboto, sans-serif;
+    padding: 1rem;
+}
+
+header {
+    font-size: 2rem;
+    text-transform: uppercase;
+}
+
+main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+footer {
+    small {
+        font-size: smaller;
+    }
+}
+
+#player-info {
+    display: flex;
+    justify-content: center;
+    font-size: 4rem;
+
+    .player {
+        text-align: center;
+        margin: 0.3em 0.5em;
+    }
+}
+
+%board-grid-line {
+    content: "";
+    position: absolute;
+    background-color: white;
+    box-shadow:
+        0 0 7px #fff,
+        0 0 10px #fff,
+        0 0 21px #fff,
+        0 0 42px #fff,
+        0 0 82px #fff,
+        0 0 92px #fff;
+}
+
+#tic-tac-toe-board {
+    --board-line-width: 0.4rem;
+
+    width: 500px;
+    height: 500px;
+    margin: 1em;
+    // Grid
+    display: grid;
+    grid-template-rows: repeat(3, 1fr);
+
+    .board-row {
+        position: relative;
+        // Grid
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+
+        &:not(:last-child) {
+            border-bottom: 2px solid white;
+
+            &::before {
+                @extend %board-grid-line;
+                bottom: calc(-0.5 * var(--board-line-width));
+                left: 0;
+                right: 0;
+                height: var(--board-line-width);
+            }
+        }
+
+        .board-square {
+            font-size: 8rem;
+            padding: 1rem;
+            user-select: none;
+            position: relative;
+
+            &[data-key="0"] span:hover {
+                background-color: hsla(0, 0%, 50%, 0.5);
+                cursor: pointer;
+            }
+
+            span {
+                width: 100%;
+                height: 100%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+
+            &:not(:last-child) {
+                border-right: 2px solid white;
+
+                &::before {
+                    @extend %board-grid-line;
+                    top: 0;
+                    right: calc(-0.5 * var(--board-line-width));
+                    bottom: 0;
+                    width: var(--board-line-width);
+                }
+            }
+        }
+    }
+}
+
+// Neon Text
+
+@mixin neon-text-shadow($color) {
+    text-shadow: 
+        0 0 7px #fff, 
+        0 0 10px #fff, 
+        0 0 21px #fff, 
+        0 0 42px $color, 
+        0 0 82px $color, 
+        0 0 92px $color, 
+        0 0 102px $color, 
+        0 0 151px $color;
+}
+
+.neon-text {
+    color: #fff;
+
+    &[data-key="1"] {
+        @include neon-text-shadow(#5271ff);
+    }
+    &[data-key="2"] {
+        @include neon-text-shadow(hsl(349, 100%, 66%));
+    }
+}
+
+// Twinkling Star Background
+
+.animated-background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    z-index: -1;
+    overflow: hidden;
+
+    &:before {
+        content: "";
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(0deg, rgba(0, 0, 80, 0.4), rgba(0, 0, 80, 0.6));
+    }
+}
+
+@keyframes move-twink-back {
+    from {background-position:0 0;}
+    to {background-position:-10000px 5000px;}
+}
+
+.stars, .twinkling {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.stars {
+    background: #000 url(http://www.script-tutorials.com/demos/360/images/stars.png) repeat top center;
+    z-index: -3;
+}
+
+.twinkling {
+    background: transparent url(http://www.script-tutorials.com/demos/360/images/twinkling.png) repeat top center;
+    z-index: -2;
+    // Animation
+    animation: move-twink-back 500s linear infinite;
+}
+
+// Utility Classes
+
+.text-center {
+    text-align: center;
+}

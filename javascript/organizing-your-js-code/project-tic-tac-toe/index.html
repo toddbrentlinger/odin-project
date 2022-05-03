@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tic Tac Toe</title>
+
+    <link rel="stylesheet" href="./css/style.css">
+    <script defer src="./js/main.js"></script>
+
+    <!-- Favicon -->
+
+</head>
+<body>
+    <header class="text-center">
+        <h1 class="neon-text">Tic - Tac - Toe</h1>
+    </header>
+
+    <main>
+        <div id="player-info">
+            <div class="player neon-text" data-key="1">
+                <div class="player-name">Player 1</div>
+                <div class="player-symbol">X</div>
+            </div>
+            
+            <div class="player neon-text" data-key="2">
+                <div class="player-name">Player 2</div>
+                <div class="player-symbol">O</div>
+            </div>
+        </div>
+
+        <div id="tic-tac-toe-board">
+            <div class="board-row">
+                <div class="board-square neon-text" data-key="1"><span>X</span></div>
+                <div class="board-square neon-text" data-key="0"><span></span></div>
+                <div class="board-square neon-text" data-key="2"><span>O</span></div>
+            </div>
+            <div class="board-row">
+                <div class="board-square neon-text" data-key="2"><span>O</span></div>
+                <div class="board-square neon-text" data-key="1"><span>X</span></div>
+                <div class="board-square neon-text" data-key="0"><span></span></div>
+            </div>
+            <div class="board-row">
+                <div class="board-square neon-text" data-key="1"><span>X</span></div>
+                <div class="board-square neon-text" data-key="2"><span>O</span></div>
+                <div class="board-square neon-text" data-key="1"><span>X</span></div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="text-center">
+        <p>
+            <small class="neon-text">Source Code © <time id="copyright-year">2022</time> Todd Brentlinger, Santa Cruz, CA, USA. All Rights Reserved.</small>
+        </p>
+    </footer>
+
+    <div class="animated-background">
+        <div class="stars"></div>
+        <div class="twinkling"></div>
+    </div> 
+
+    <script>
+        // Updates copyright year
+        (function(initialYear) {
+            const copyright = document.getElementById('copyright-year');
+            if (copyright) {
+                const currYear = new Date().getFullYear();
+                if (currYear > initialYear) {
+                    copyright.textContent = `${initialYear}-${currYear}`;
+                } else {
+                    copyright.textContent = initialYear;   
+                }
+            }
+        })(2022);
+    </script>
+
+    <!--
+        - Favicon by OpenClipart-Vectors from https://pixabay.com/vectors/tic-tac-toe-game-tick-tack-toe-150614/
+    -->
+</body>
+</html>
