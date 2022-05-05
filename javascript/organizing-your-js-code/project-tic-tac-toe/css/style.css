@@ -54,12 +54,20 @@ table {
   border-spacing: 0;
 }
 
+main, #tic-tac-toe-board .board-row .board-square span {
+  display: -ms-grid;
+  display: grid;
+  place-items: center;
+}
+
 :root {
   --base-white: hsl(0,0%,90%);
   --base-black: hsl(0,0%,10%);
   --primary-color: #8c3f45;
   --secondary-color: #285954;
   --tertiary-color: #71873D;
+  --player-one-color: hsl(229, 100%, 66%);
+  --player-two-color: hsl(349, 100%, 66%);
 }
 
 html {
@@ -106,19 +114,10 @@ main {
   -webkit-box-flex: 1;
       -ms-flex: 1;
           flex: 1;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
 }
 
 footer small {
@@ -196,15 +195,6 @@ footer small {
 #tic-tac-toe-board .board-row .board-square span {
   width: 100%;
   height: 100%;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
 }
 
 #tic-tac-toe-board .board-row .board-square:not(:last-child) {
@@ -220,14 +210,56 @@ footer small {
 
 .neon-text {
   color: #fff;
+  -webkit-animation: none 0.11s ease-in-out infinite alternate;
+          animation: none 0.11s ease-in-out infinite alternate;
 }
 
 .neon-text[data-key="1"] {
-  text-shadow: 0 0 7px #fff, 0 0 10px #fff, 0 0 21px #fff, 0 0 42px #5271ff, 0 0 82px #5271ff, 0 0 92px #5271ff, 0 0 102px #5271ff, 0 0 151px #5271ff;
+  text-shadow: 0 0 7px #fff, 0 0 10px #fff, 0 0 21px #fff, 0 0 42px var(--player-one-color), 0 0 82px var(--player-one-color), 0 0 92px var(--player-one-color), 0 0 102px var(--player-one-color), 0 0 151px var(--player-one-color);
+  -webkit-animation-name: pulsate-one;
+          animation-name: pulsate-one;
 }
 
 .neon-text[data-key="2"] {
-  text-shadow: 0 0 7px #fff, 0 0 10px #fff, 0 0 21px #fff, 0 0 42px #ff5271, 0 0 82px #ff5271, 0 0 92px #ff5271, 0 0 102px #ff5271, 0 0 151px #ff5271;
+  text-shadow: 0 0 7px #fff, 0 0 10px #fff, 0 0 21px #fff, 0 0 42px var(--player-two-color), 0 0 82px var(--player-two-color), 0 0 92px var(--player-two-color), 0 0 102px var(--player-two-color), 0 0 151px var(--player-two-color);
+  -webkit-animation-name: pulsate-two;
+          animation-name: pulsate-two;
+}
+
+@-webkit-keyframes pulsate-one {
+  from {
+    text-shadow: 0 0 4px #fff, 0 0 10px #fff, 0 0 18px #fff, 0 0 38px var(--player-one-color), 0 0 73px var(--player-one-color), 0 0 80px var(--player-one-color), 0 0 94px var(--player-one-color), 0 0 140px var(--player-one-color);
+  }
+  to {
+    text-shadow: 0 0 4px #fff, 0 0 11px #fff, 0 0 19px #fff, 0 0 40px var(--player-one-color), 0 0 80px var(--player-one-color), 0 0 90px var(--player-one-color), 0 0 100px var(--player-one-color), 0 0 150px var(--player-one-color);
+  }
+}
+
+@keyframes pulsate-one {
+  from {
+    text-shadow: 0 0 4px #fff, 0 0 10px #fff, 0 0 18px #fff, 0 0 38px var(--player-one-color), 0 0 73px var(--player-one-color), 0 0 80px var(--player-one-color), 0 0 94px var(--player-one-color), 0 0 140px var(--player-one-color);
+  }
+  to {
+    text-shadow: 0 0 4px #fff, 0 0 11px #fff, 0 0 19px #fff, 0 0 40px var(--player-one-color), 0 0 80px var(--player-one-color), 0 0 90px var(--player-one-color), 0 0 100px var(--player-one-color), 0 0 150px var(--player-one-color);
+  }
+}
+
+@-webkit-keyframes pulsate-two {
+  from {
+    text-shadow: 0 0 4px #fff, 0 0 10px #fff, 0 0 18px #fff, 0 0 38px var(--player-two-color), 0 0 73px var(--player-two-color), 0 0 80px var(--player-two-color), 0 0 94px var(--player-two-color), 0 0 140px var(--player-two-color);
+  }
+  to {
+    text-shadow: 0 0 4px #fff, 0 0 11px #fff, 0 0 19px #fff, 0 0 40px var(--player-two-color), 0 0 80px var(--player-two-color), 0 0 90px var(--player-two-color), 0 0 100px var(--player-two-color), 0 0 150px var(--player-two-color);
+  }
+}
+
+@keyframes pulsate-two {
+  from {
+    text-shadow: 0 0 4px #fff, 0 0 10px #fff, 0 0 18px #fff, 0 0 38px var(--player-two-color), 0 0 73px var(--player-two-color), 0 0 80px var(--player-two-color), 0 0 94px var(--player-two-color), 0 0 140px var(--player-two-color);
+  }
+  to {
+    text-shadow: 0 0 4px #fff, 0 0 11px #fff, 0 0 19px #fff, 0 0 40px var(--player-two-color), 0 0 80px var(--player-two-color), 0 0 90px var(--player-two-color), 0 0 100px var(--player-two-color), 0 0 150px var(--player-two-color);
+  }
 }
 
 .animated-background {

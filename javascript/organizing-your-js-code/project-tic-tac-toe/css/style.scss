@@ -52,12 +52,19 @@ table {
 @import url('https://fonts.googleapis.com/css2?family=Neonderthaw&display=swap'); // Neon Font
 @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
 
+%center-with-grid {
+    display: grid;
+    place-items: center;
+}
+
 :root {
     --base-white: hsl(0,0%,90%);
     --base-black: hsl(0,0%,10%);
     --primary-color: #8c3f45;
     --secondary-color: #285954;
     --tertiary-color: #71873D;
+    --player-one-color: hsl(229, 100%, 66%);
+    --player-two-color: hsl(349, 100%, 66%);
 }
 
 html {
@@ -94,10 +101,8 @@ header {
 
 main {
     flex: 1;
-    display: flex;
+    @extend %center-with-grid;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
 }
 
 footer {
@@ -172,9 +177,7 @@ footer {
             span {
                 width: 100%;
                 height: 100%;
-                display: flex;
-                justify-content: center;
-                align-items: center;
+                @extend %center-with-grid;
             }
 
             &:not(:last-child) {
@@ -206,14 +209,54 @@ footer {
         0 0 151px $color;
 }
 
+@mixin neon-text-shadow-flicker-animation-from($color) {
+    text-shadow:
+        0 0 4px #fff,
+        0 0 10px #fff,
+        0 0 18px #fff,
+        0 0 38px $color,
+        0 0 73px $color,
+        0 0 80px $color,
+        0 0 94px $color,
+        0 0 140px $color;
+}
+
+@mixin neon-text-shadow-flicker-animation-to($color) {
+    text-shadow:
+        0 0 4px #fff,
+        0 0 11px #fff,
+        0 0 19px #fff,
+        0 0 40px $color,
+        0 0 80px $color,
+        0 0 90px $color,
+        0 0 100px $color,
+        0 0 150px $color;
+}
+
 .neon-text {
     color: #fff;
+    animation: none 0.11s ease-in-out infinite alternate;
 
     &[data-key="1"] {
-        @include neon-text-shadow(#5271ff);
+        @include neon-text-shadow(var(--player-one-color));
+        animation-name: pulsate-one;
     }
     &[data-key="2"] {
-        @include neon-text-shadow(hsl(349, 100%, 66%));
+        @include neon-text-shadow(var(--player-two-color));
+        animation-name: pulsate-two;
+    }
+}
+
+// Creates pulsate animation for each Player using the variable of their color.
+$players: "one", "two";
+@each $player in $players {
+    @keyframes pulsate-#{$player} {
+        from {
+            @include neon-text-shadow-flicker-animation-from(var(--player-#{$player}-color));
+        }
+        to {
+            @include neon-text-shadow-flicker-animation-to(var(--player-#{$player}-color));
+        }
     }
 }
 

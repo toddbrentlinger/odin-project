@@ -30,3 +30,44 @@ To-Do List:
 - Add random flickering animation to neon text
 
 - When Player chooses a spot, play animation of light turning on to reveal symbol
+
+-------------------------------------------------------------------------------
+
+Player: Factory
+    element - HTMLElement
+    name - String
+    symbol - Number (char code)
+    getElement(), setElement(newElement)
+    getName(), setName(newName) - update element
+    getSymbol(), setSymbol(newSymbol) - update element AND update squares
+
+GameSquare: Factory
+    element - HTMLElement
+    playerSelect - Player|null (Player that selected the square. Null is empty)
+
+GameBoard: Module
+    element - HTMLElement - may not need this once Squares are created
+    squares - GameSquare[]
+    init(boardElement)
+
+Game: Module
+    player1 - Player
+    player2 - Player
+    bIsPlayer1Turn - Boolean
+    gameboard - GameBoard
+    init(boardElement, playerInfoElement)
+        player1.setElement(playerInfoElement.querySelector('player-one'))
+        player2.setElement(playerInfoElement.querySelector('player-two'))
+        GameBoard.init(boardElement)
+    checkForWinner() - checks if either Player has a winning condition
+        winning conditions by cell index:
+            0,1,2 - top row
+            3,4,5 - middle row
+            6,7,8 - bottom row
+            0,3,6 - left column
+            1,4,7 - middle column
+            2,5,8 - right column
+            0,4,8 - back slash
+            2,4,6 - forward slash
+
+DisplayController: Module
