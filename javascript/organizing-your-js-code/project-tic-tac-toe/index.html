@@ -7,10 +7,20 @@
     <title>Tic Tac Toe</title>
 
     <link rel="stylesheet" href="./css/style.css">
+    
+    <script src="https://kit.fontawesome.com/f8c32451ce.js" crossorigin="anonymous"></script>
     <script defer src="./js/main.js"></script>
 
     <!-- Favicon -->
-
+    <link rel="apple-touch-icon" sizes="180x180" href="./favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="./favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="./favicon/favicon-16x16.png">
+    <link rel="manifest" href="./favicon/site.webmanifest">
+    <link rel="mask-icon" href="./favicon/safari-pinned-tab.svg" color="#000000">
+    <link rel="shortcut icon" href="./favicon/favicon.ico">
+    <meta name="msapplication-TileColor" content="#000000">
+    <meta name="msapplication-config" content="./favicon/browserconfig.xml">
+    <meta name="theme-color" content="#ffffff">
 </head>
 <body>
     <header class="text-center">
@@ -22,29 +32,37 @@
             <div class="player neon-text" data-key="1">
                 <div class="player-name">Player 1</div>
                 <div class="player-symbol">X</div>
+                <button class="edit-player-btn">
+                    <i class="far fa-edit"></i>
+                    <span>Edit</span>
+                </button>
             </div>
             
             <div class="player neon-text" data-key="2">
                 <div class="player-name">Player 2</div>
                 <div class="player-symbol">O</div>
+                <button class="edit-player-btn">
+                    <i class="far fa-edit"></i>
+                    <span>Edit</span>
+                </button>
             </div>
         </div>
 
         <div id="tic-tac-toe-board">
             <div class="board-row">
-                <div class="board-square neon-text" data-index="0" data-key="0"><span></span></div>
-                <div class="board-square neon-text" data-index="1" data-key="0"><span></span></div>
-                <div class="board-square neon-text" data-index="2" data-key="0"><span></span></div>
+                <div class="board-square neon-text" aria-label="top row, left column" tabindex="0" data-index="0" data-key="0"><span></span></div>
+                <div class="board-square neon-text" aria-label="top row, middle column" tabindex="0" data-index="1" data-key="0"><span></span></div>
+                <div class="board-square neon-text" aria-label="top row, right column" tabindex="0" data-index="2" data-key="0"><span></span></div>
             </div>
             <div class="board-row">
-                <div class="board-square neon-text" data-index="3" data-key="0"><span></span></div>
-                <div class="board-square neon-text" data-index="4" data-key="0"><span></span></div>
-                <div class="board-square neon-text" data-index="5" data-key="0"><span></span></div>
+                <div class="board-square neon-text" aria-label="middle row, left column" tabindex="0" data-index="3" data-key="0"><span></span></div>
+                <div class="board-square neon-text" aria-label="middle row, middle column" tabindex="0" data-index="4" data-key="0"><span></span></div>
+                <div class="board-square neon-text" aria-label="middle row, right column" tabindex="0" data-index="5" data-key="0"><span></span></div>
             </div>
             <div class="board-row">
-                <div class="board-square neon-text" data-index="6" data-key="0"><span></span></div>
-                <div class="board-square neon-text" data-index="7" data-key="0"><span></span></div>
-                <div class="board-square neon-text" data-index="8" data-key="0"><span></span></div>
+                <div class="board-square neon-text" aria-label="bottom row, left column" tabindex="0" data-index="6" data-key="0"><span></span></div>
+                <div class="board-square neon-text" aria-label="bottom row, middle column" tabindex="0" data-index="7" data-key="0"><span></span></div>
+                <div class="board-square neon-text" aria-label="bottom row, right column" tabindex="0" data-index="8" data-key="0"><span></span></div>
             </div>
         </div>
     </main>

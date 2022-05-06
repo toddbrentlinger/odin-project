@@ -187,7 +187,7 @@ footer small {
   position: relative;
 }
 
-#tic-tac-toe-board .board-row .board-square[data-key="0"] span:hover {
+#tic-tac-toe-board .board-row .board-square[data-key="0"]:hover span, #tic-tac-toe-board .board-row .board-square[data-key="0"]:focus span {
   background-color: rgba(128, 128, 128, 0.5);
   cursor: pointer;
 }

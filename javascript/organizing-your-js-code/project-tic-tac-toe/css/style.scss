@@ -169,9 +169,14 @@ footer {
             user-select: none;
             position: relative;
 
-            &[data-key="0"] span:hover {
-                background-color: hsla(0, 0%, 50%, 0.5);
-                cursor: pointer;
+            &[data-key="0"] {
+                &:hover, 
+                &:focus {
+                    span {
+                        background-color: hsla(0, 0%, 50%, 0.5);
+                        cursor: pointer;
+                    }
+                }
             }
 
             span {
