@@ -54,10 +54,15 @@ const ticTacToe = (function() {
 
         const getBoardIndex = () => +_squareElement.dataset.index;
 
+        const reset = function() {
+            setPlayerSelect(null);
+        };
+
         return {
             squareElement: _squareElement, 
             getPlayerSelect, setPlayerSelect,
             getBoardIndex,
+            reset,
         };
     };
 
@@ -89,28 +94,40 @@ const ticTacToe = (function() {
          */
         const checkForWinner = function() {
             let square, playerToCompare;
-            WINNING_INDEX_PATTERNS.forEach(winPattern => {
-                //debugger;
-                // Compare Player value of first and second square index of win pattern.
-                winPattern.forEach((squareIndex, arrIndex) => {
-                    // Find Player by square index of win pattern
-                    square = getSquareByIndex(squareIndex);
+            for (let i = 0; i < WINNING_INDEX_PATTERNS.length; i++) {
+                // First square in win pattern
+                square = getSquareByIndex(WINNING_INDEX_PATTERNS[i][0]);
+                // Continue if square NOT found OR NO Player has selected square yet.
+                if (!square || !square.getPlayerSelect()) continue;
+                // Set Player of first square to compare with other squares
+                playerToCompare = square.getPlayerSelect();
 
-                    // Return if square NOT found OR NO Player has selected square yet.
-                    if (!square || !square.getPlayerSelect()) return;
+                // Second square in win pattern
+                square = getSquareByIndex(WINNING_INDEX_PATTERNS[i][1]);
+                if (!square || !square.getPlayerSelect()) continue;
+                // Continue if Player in this square is different than first square
+                if (square.getPlayerSelect() !== playerToCompare) continue;
 
-                    if (arrIndex === 0) {
-                        // Set Player of first square to compare with other squares
-                        playerToCompare = square.getPlayerSelect();
-                    } else {
-                        // Return if Player in this square is different than first square
-                        if (square.getPlayerSelect() !== playerToCompare) return;
-                    }
-                });
+                // Third square in win pattern
+                square = getSquareByIndex(WINNING_INDEX_PATTERNS[i][2]);
+                if (!square || !square.getPlayerSelect()) continue;
+                // Continue if Player in this square is different than first square
+                if (square.getPlayerSelect() !== playerToCompare) continue;
 
-                // Reach here only if win pattern is satisfied
-                console.log(`Win Condition Satisfied: ${winPattern}`);
-            });
+                // If reach this point, win pattern has same Player in all three squares
+                console.log(`Win Condition Satisfied: ${WINNING_INDEX_PATTERNS[i]}\nWinning Player: ${playerToCompare.getName()}`);
+                return;
+            }
+
+            // If reach this point, no winner found.
+            // Check if any more empty squares. If none, game is tied.
+            if (_squares.every(square => square.getPlayerSelect() !== null)) {
+                console.log(`Tied Condition Satisfied: No more squares!`);
+            }
+        };
+
+        const reset = function() {
+            _squares.forEach(square => square.reset());
         };
 
         const init = function(boardElement, handleSquareSelect) {
@@ -127,8 +144,8 @@ const ticTacToe = (function() {
 
         return {
             init,
-            squares: _squares,
             checkForWinner,
+            reset,
         };
     })();
     
@@ -138,13 +155,25 @@ const ticTacToe = (function() {
         let bIsPlayerOneTurn = true;
 
         const handleSquareSelect = function(e, boardSquare) {
+            // Return if square has already been selected by Player
+            if (boardSquare.getPlayerSelect() !== null) return;
+
+            // Set squares player select property to reference current turn Player
             boardSquare.setPlayerSelect(bIsPlayerOneTurn ? _playerOne : _playerTwo);
+
+            // Change turns to other Player
             bIsPlayerOneTurn = !bIsPlayerOneTurn;
+
             gameBoard.checkForWinner();
         };
 
         const init = function(boardElement, playerInfoElement) {
             gameBoard.init(boardElement, handleSquareSelect);
+        };
+
+        const reset = function() {
+            bIsPlayerOneTurn = true;
+            gameBoard.reset();
         };
 
         const displayPlayerInfo = function() {
