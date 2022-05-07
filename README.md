@@ -2,6 +2,22 @@
 
 <h2 align="center">JavaScript</h2>
 
+<h3 align="center">Project - Tic-Tac-Toe</h3>
+
+<p align="center">
+    <img src="https://toddbrentlinger.github.io/odin-project/javascript/organizing-your-js-code/project-tic-tac-toe/favicon/android-chrome-192x192.png" width="10%" alt="Tic-Tac-Toe project icon">
+</p>
+
+<p align="center">
+    <a href="https://toddbrentlinger.github.io/odin-project/javascript/organizing-your-js-code/project-tic-tac-toe">Click to see it in action</a>
+</p>
+
+<p align="center">
+    <a href="javascript/organizing-your-js-code/project-tic-tac-toe">Click to see source files and README</a>
+</p>
+
+<hr/>
+
 <h3 align="center">Project - Library</h3>
 
 <p align="center">
@@ -21,7 +37,7 @@
 <h3 align="center">Project - Sign-Up Form</h3>
 
 <p align="center">
-    <img src="https://toddbrentlinger.github.io/odin-project/intermediate-html-and-css/intermediate-css-concepts/project-sign-up-form/favicon/android-chrome-192x192.png" width="10%" alt="Library project icon">
+    <img src="https://toddbrentlinger.github.io/odin-project/intermediate-html-and-css/intermediate-css-concepts/project-sign-up-form/favicon/android-chrome-192x192.png" width="10%" alt="Sign Up Form project icon">
 </p>
 
 <p align="center">
@@ -37,7 +53,7 @@
 <h3 align="center">Project - Calculator</h3>
 
 <p align="center">
-    <img src="https://toddbrentlinger.github.io/odin-project/foundations/javascript-basics/project-calculator/favicon/android-chrome-192x192.png" width="10%" alt="Library project icon">
+    <img src="https://toddbrentlinger.github.io/odin-project/foundations/javascript-basics/project-calculator/favicon/android-chrome-192x192.png" width="10%" alt="Calculator project icon">
 </p>
 
 <p align="center">
@@ -53,7 +69,7 @@
 <h3 align="center">Project - Etch-A-Sketch</h3>
 
 <p align="center">
-    <img src="https://toddbrentlinger.github.io/odin-project/foundations/javascript-basics/project-etch-a-sketch/favicon/android-chrome-192x192.png" width="10%" alt="Library project icon">
+    <img src="https://toddbrentlinger.github.io/odin-project/foundations/javascript-basics/project-etch-a-sketch/favicon/android-chrome-192x192.png" width="10%" alt="Etch-A-Sketch project icon">
 </p>
 
 <p align="center">
@@ -69,7 +85,7 @@
 <h3 align="center">Project - Rock Paper Scissors</h3>
 
 <p align="center">
-    <img src="https://toddbrentlinger.github.io/odin-project/foundations/javascript-basics/project-rock-paper-scissors/favicon/android-chrome-192x192.png" width="10%" alt="Library project icon">
+    <img src="https://toddbrentlinger.github.io/odin-project/foundations/javascript-basics/project-rock-paper-scissors/favicon/android-chrome-192x192.png" width="10%" alt="Rock Paper Scissors project icon">
 </p>
 
 <p align="center">
