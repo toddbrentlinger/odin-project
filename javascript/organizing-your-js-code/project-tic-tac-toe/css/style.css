@@ -66,8 +66,9 @@ main, #tic-tac-toe-board .board-row .board-square span {
   --primary-color: #8c3f45;
   --secondary-color: #285954;
   --tertiary-color: #71873D;
-  --player-one-color: hsl(229, 100%, 66%);
-  --player-two-color: hsl(349, 100%, 66%);
+  --player-one-color: #5271ff;
+  --player-two-color: #ff5271;
+  --neon-text-font-size: 4rem;
 }
 
 html {
@@ -131,7 +132,7 @@ footer small {
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
-  font-size: 4rem;
+  font-size: var(--neon-text-font-size);
 }
 
 #player-info .player {
@@ -206,6 +207,85 @@ footer small {
   right: calc(-0.5 * var(--board-line-width));
   bottom: 0;
   width: var(--board-line-width);
+}
+
+#player-one-edit.hide {
+  left: -100vw;
+}
+
+#player-two-edit.hide {
+  left: 100vw;
+}
+
+.player-edit-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: -ms-grid;
+  display: grid;
+  place-items: center;
+  -webkit-transition: left 1s ease-out;
+  transition: left 1s ease-out;
+}
+
+.player-edit-container form {
+  border: 2px solid white;
+  background-color: black;
+  z-index: 100;
+  width: 50vw;
+  height: 50vh;
+  display: -ms-grid;
+  display: grid;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -ms-flex-line-pack: distribute;
+      align-content: space-around;
+}
+
+.player-edit-container form input, .player-edit-container form span {
+  text-align: center;
+}
+
+.player-edit-container form label {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -ms-flex-flow: column-reverse;
+      flex-flow: column-reverse;
+}
+
+.player-edit-container form label[for^="color"] {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.player-edit-container form label span {
+  display: block;
+  font-size: var(--neon-text-font-size);
+}
+
+.player-edit-container form .form-title {
+  font-size: var(--neon-text-font-size);
+}
+
+.player-edit-container form .form-btn-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
 }
 
 .neon-text {
