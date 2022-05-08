@@ -29,7 +29,7 @@
 
     <main>
         <div id="player-info">
-            <div class="player neon-text" data-key="1">
+            <div class="player neon-text" id="player-one-info" data-key="1">
                 <div class="player-name">Player 1</div>
                 <div class="player-symbol">X</div>
                 <button class="edit-player-btn">
@@ -38,7 +38,7 @@
                 </button>
             </div>
             
-            <div class="player neon-text" data-key="2">
+            <div class="player neon-text" id="player-two-info" data-key="2">
                 <div class="player-name">Player 2</div>
                 <div class="player-symbol">O</div>
                 <button class="edit-player-btn">
@@ -79,49 +79,55 @@
     </div>
 
     <div class="player-edit-container hide" id="player-one-edit">
-        <form action="#" method="post" class="neon-text" data-key="1">
-            <div class="form-title">Player 1</div>
-            <input type="checkbox" name="is-player-one" checked hidden>
-            <label for="name-player-one">
-                <input type="text" name="name" minlength="1" maxlength="30" placeholder="Player 1" id="name-player-one">
-                <span>Name</span>
-            </label>
-            <label for="symbol-player-one">
-                <input type="text" name="symbol" minlength="1" maxlength="1" placeholder="X" id="symbol-player-one">
-                <span>Symbol</span>
-            </label>
-            <label for="color-player-one">
-                <input type="color" name="color" id="color-player-one" value="#5271ff">
-                <span>Color</span>
-            </label>
-            <div class="form-btn-container">
-                <button type="reset"><span>Reset</span></button>
-                <button type="submit"><span>Update</span></button>
-            </div>
-        </form>
+        <div class="player-edit">
+            <button type="button" class="close-player-edit-btn" aria-label="close player edit"><i class="far fa-times-circle"></i></button>
+            <form action="#" method="post" class="neon-text" data-key="1">
+                <div class="form-title">Player 1</div>
+                <input type="checkbox" name="is-player-one" checked hidden>
+                <label for="name-player-one">
+                    <input type="text" name="name" minlength="1" maxlength="30" placeholder="Player 1" id="name-player-one">
+                    <span>Name</span>
+                </label>
+                <label for="symbol-player-one">
+                    <input type="text" name="symbol" minlength="1" maxlength="1" placeholder="X" id="symbol-player-one">
+                    <span>Symbol</span>
+                </label>
+                <label for="color-player-one">
+                    <input type="color" name="color" id="color-player-one" value="#5271ff">
+                    <span>Color</span>
+                </label>
+                <div class="form-btn-container">
+                    <button type="reset"><span>Reset</span></button>
+                    <button type="submit"><span>Update</span></button>
+                </div>
+            </form>
+        </div>
     </div>
 
     <div class="player-edit-container hide" id="player-two-edit">
-        <form action="#" method="post" class="neon-text" data-key="1">
-            <div class="form-title">Player 2</div>
-            <input type="checkbox" name="is-player-one" hidden> 
-            <label for="name-player-two">
-                <input type="text" name="name" minlength="1" maxlength="30" placeholder="Player 2" id="name-player-two">
-                <span>Name</span>
-            </label>
-            <label for="symbol-player-two">
-                <input type="text" name="symbol" minlength="1" maxlength="1" placeholder="O" id="symbol-player-two">
-                <span>Symbol</span>
-            </label>
-            <label for="color-player-two">
-                <input type="color" name="color" id="color-player-two" value="#ff5271">
-                <span>Color</span>
-            </label>
-            <div class="form-btn-container">
-                <button type="reset"><span>Reset</span></button>
-                <button type="submit"><span>Update</span></button>
-            </div>
-        </form>
+        <div class="player-edit">
+            <button type="button" class="close-player-edit-btn" aria-label="close player edit"><i class="far fa-times-circle"></i></button>
+            <form action="#" method="post" class="neon-text" data-key="2">
+                <div class="form-title">Player 2</div>
+                <input type="checkbox" name="is-player-one" hidden>
+                <label for="name-player-two">
+                    <input type="text" name="name" minlength="1" maxlength="30" placeholder="Player 2" id="name-player-two">
+                    <span>Name</span>
+                </label>
+                <label for="symbol-player-two">
+                    <input type="text" name="symbol" minlength="1" maxlength="1" placeholder="O" id="symbol-player-two">
+                    <span>Symbol</span>
+                </label>
+                <label for="color-player-two">
+                    <input type="color" name="color" id="color-player-two" value="#ff5271">
+                    <span>Color</span>
+                </label>
+                <div class="form-btn-container">
+                    <button type="reset"><span>Reset</span></button>
+                    <button type="submit"><span>Update</span></button>
+                </div>
+            </form>
+        </div>
     </div>
 
     <script>

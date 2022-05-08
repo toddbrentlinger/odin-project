@@ -223,45 +223,56 @@ footer {
     height: 100%;
     display: grid;
     place-items: center;
-    transition: left 1s ease-out;
+    transition: left 500ms ease-out;
 
-    form {
+    .player-edit {
         border: 2px solid white;
         background-color: black;
         z-index: 100;
         width: 50vw;
         height: 50vh;
-        display: grid;
-        justify-content: center;
-        align-content: space-around;
+        display: flex;
+        flex-direction: column;
 
-        input, span {
-            text-align: center;
+        .close-player-edit-btn {
+            font-size: 2rem;
+            align-self: flex-end;
         }
 
-        label {
-            display: flex;
-            flex-direction: column;
-            flex-flow: column-reverse;
+        form {
+            flex: 1;
+            display: grid;
+            justify-content: center;
+            align-content: space-around;
 
-            &[for^="color"] {
-                display: flex;
-                align-items: center;
+            input, span {
+                text-align: center;
             }
 
-            span {
-                display: block;
+            label {
+                display: flex;
+                flex-direction: column;
+                flex-flow: column-reverse;
+
+                &[for^="color"] {
+                    display: flex;
+                    align-items: center;
+                }
+
+                span {
+                    display: block;
+                    font-size: var(--neon-text-font-size);
+                }
+            }
+
+            .form-title {
                 font-size: var(--neon-text-font-size);
             }
-        }
-
-        .form-title {
-            font-size: var(--neon-text-font-size);
-        }
-        
-        .form-btn-container {
-            display: flex;
-            justify-content: space-between;
+            
+            .form-btn-container {
+                display: flex;
+                justify-content: space-between;
+            }
         }
     }
 }
@@ -382,4 +393,10 @@ $players: "one", "two";
 
 .text-center {
     text-align: center;
+}
+
+// Misc
+
+button {
+    cursor: pointer;
 }

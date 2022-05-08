@@ -27,6 +27,10 @@ Need To Add:
 
 To-Do List:
 
+- Add custom form validation to check that new Player name or symbol do NOT match the other player.
+
+- Save player properties to localStorage using Web Storage API.
+
 - Add random flickering animation to neon text
 
 - When Player chooses a spot, play animation of light turning on to reveal symbol

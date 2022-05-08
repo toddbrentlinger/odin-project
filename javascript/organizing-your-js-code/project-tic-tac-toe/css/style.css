@@ -226,16 +226,35 @@ footer small {
   display: -ms-grid;
   display: grid;
   place-items: center;
-  -webkit-transition: left 1s ease-out;
-  transition: left 1s ease-out;
+  -webkit-transition: left 500ms ease-out;
+  transition: left 500ms ease-out;
 }
 
-.player-edit-container form {
+.player-edit-container .player-edit {
   border: 2px solid white;
   background-color: black;
   z-index: 100;
   width: 50vw;
   height: 50vh;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.player-edit-container .player-edit .close-player-edit-btn {
+  font-size: 2rem;
+  -ms-flex-item-align: end;
+      align-self: flex-end;
+}
+
+.player-edit-container .player-edit form {
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
   display: -ms-grid;
   display: grid;
   -webkit-box-pack: center;
@@ -245,11 +264,11 @@ footer small {
       align-content: space-around;
 }
 
-.player-edit-container form input, .player-edit-container form span {
+.player-edit-container .player-edit form input, .player-edit-container .player-edit form span {
   text-align: center;
 }
 
-.player-edit-container form label {
+.player-edit-container .player-edit form label {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -261,7 +280,7 @@ footer small {
       flex-flow: column-reverse;
 }
 
-.player-edit-container form label[for^="color"] {
+.player-edit-container .player-edit form label[for^="color"] {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -270,16 +289,16 @@ footer small {
           align-items: center;
 }
 
-.player-edit-container form label span {
+.player-edit-container .player-edit form label span {
   display: block;
   font-size: var(--neon-text-font-size);
 }
 
-.player-edit-container form .form-title {
+.player-edit-container .player-edit form .form-title {
   font-size: var(--neon-text-font-size);
 }
 
-.player-edit-container form .form-btn-container {
+.player-edit-container .player-edit form .form-btn-container {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -403,5 +422,9 @@ footer small {
 
 .text-center {
   text-align: center;
+}
+
+button {
+  cursor: pointer;
 }
 /*# sourceMappingURL=style.css.map */
