@@ -31,14 +31,11 @@ const ticTacToe = (function() {
         const getColor = () => _color;
         const setColor = function(newColor) {
             _color = newColor;
+            // Change CSS variable for corresponding Player color using '_key' property of this Player
             document.querySelector(':root').style.setProperty(`--player-${_key === 1 ? 'one' : 'two'}-color`, _color);
         };
 
         const getKey = () => _key;
-
-        const updateEditForm = function() {
-
-        };
 
         const handleEditFormSubmit = function(e) {
             // Prevent default behavior of submitting form
@@ -67,8 +64,9 @@ const ticTacToe = (function() {
         };
 
         const init = function () {
+            const editForm = _editElement.querySelector('form');
             // Add event listener to edit form submit
-            _editElement.querySelector('form').addEventListener('submit', handleEditFormSubmit, false);
+            editForm.addEventListener('submit', handleEditFormSubmit, false);
 
             // Add event listener to close edit form
             _editElement.querySelector('.close-player-edit-btn').addEventListener('click', handleEditFormClose, false);
@@ -77,11 +75,11 @@ const ticTacToe = (function() {
             // Fix issue when clicking inside modal will also close the edit form
             _editElement.firstElementChild.addEventListener('click', e => e.stopPropagation(), false);
 
-            // Update edit form to show existing Player values
-            updateEditForm();
-
             // Add event listener to info element edit button to show Player edit form
             _infoElement.querySelector('.edit-player-btn').addEventListener('click', () => {
+                // Set focus to form input for Player name
+                editForm.elements.name.focus();
+
                 // Remove 'hide' class from edit element to add to the window 
                 _editElement.classList.remove('hide');
             }, false);
@@ -117,6 +115,8 @@ const ticTacToe = (function() {
 
         const reset = function() {
             setPlayerSelect(null);
+            // Remove 'winning-square' class
+            _squareElement.classList.remove('winning-square');
         };
 
         const refresh = function() {
@@ -235,6 +235,8 @@ const ticTacToe = (function() {
     const game = (function() {
         const _playerOne = playerFactory('Player 1', 'X', '#5271ff', 1, 'player-one-edit','player-one-info');
         const _playerTwo = playerFactory('Player 2', 'O', '#ff5271', 2, 'player-two-edit', 'player-two-info');
+        const _gameEndMsgElement = document.getElementById('game-ending-message-container');
+        const _laserBeamContainerElement = document.getElementById('laser-beam-container');
         let bIsPlayerOneTurn = true;
         let bIsGameOver = false;
 
@@ -251,29 +253,58 @@ const ticTacToe = (function() {
             // Change turns to other Player
             bIsPlayerOneTurn = !bIsPlayerOneTurn;
 
+            // Game results (winner, tied, still playing)
             const gameResults = gameBoard.checkForWinner();
 
             // If game has winner
             if (gameResults.hasOwnProperty('player')) {
                 bIsGameOver = true;
+                _setupWinDisplay(gameResults);
                 console.log(`Win Condition Squares: ${gameResults.squares.map(square => square.getBoardIndex())}\nWinning Player: ${gameResults.player.getName()}`);
             }
             // Else if game has tied
             else if (gameResults === -1) {
                 bIsGameOver = true;
+                _gameEndMsgElement.textContent = 'Tie Game. Try Again.';
+                _gameEndMsgElement.classList.remove('hide');
                 console.log(`Tied Condition Satisfied: No more squares!`);
             }
             // Else game continues
         };
 
-        const init = function(boardElement, playerInfoElement) {
-            gameBoard.init(boardElement, handleSquareSelect);
-        };
-
         const reset = function() {
             bIsPlayerOneTurn = true;
             bIsGameOver = false;
+            _resetWinDisplay();
             gameBoard.reset();
+        };
+
+        const _setupWinDisplay = function(gameResults) {
+            // Setup game winning message
+            _gameEndMsgElement.textContent = `${gameResults.player.getName()} Wins!`;
+            _gameEndMsgElement.classList.remove('hide');
+
+            // Highlight winning squares
+            gameResults.squares.forEach(square => square.squareElement.classList.add('winning-square'));
+
+            // Setup rotating laser beams with winning color
+            document.querySelector(':root').style.setProperty('--winning-player-color', gameResults.player.getColor());
+            _laserBeamContainerElement.classList.remove('hide');
+
+            // Setup floating symbols matching winning Player symbol
+        };
+
+        const _resetWinDisplay = function() {
+            _gameEndMsgElement.classList.add('hide');
+            _laserBeamContainerElement.classList.add('hide');
+        };
+
+        const init = function(boardElement, playerInfoElement) {
+            // Initialize gameboard by passing in callback function when square is clicked
+            gameBoard.init(boardElement, handleSquareSelect);
+
+            // Add event listener to 'Start New Game' button
+            document.getElementById('start-new-game-btn').addEventListener('click', reset, false);
         };
 
         const displayPlayerInfo = function() {

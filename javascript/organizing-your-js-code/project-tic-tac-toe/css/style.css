@@ -54,7 +54,7 @@ table {
   border-spacing: 0;
 }
 
-main, #tic-tac-toe-board .board-row .board-square span {
+#game-ending-message-container, #tic-tac-toe-board .board-row .board-square span {
   display: -ms-grid;
   display: grid;
   place-items: center;
@@ -68,7 +68,9 @@ main, #tic-tac-toe-board .board-row .board-square span {
   --tertiary-color: #71873D;
   --player-one-color: #5271ff;
   --player-two-color: #ff5271;
+  --winning-player-color: #5271ff;
   --neon-text-font-size: 4rem;
+  --board-line-width: 0.4rem;
 }
 
 html {
@@ -88,6 +90,7 @@ body {
   min-height: 100vh;
   background-color: var(--base-white);
   color: var(--base-black);
+  overflow: hidden;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -115,10 +118,16 @@ main {
   -webkit-box-flex: 1;
       -ms-flex: 1;
           flex: 1;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 
 footer small {
@@ -133,6 +142,7 @@ footer small {
       -ms-flex-pack: center;
           justify-content: center;
   font-size: var(--neon-text-font-size);
+  position: relative;
 }
 
 #player-info .player {
@@ -140,19 +150,42 @@ footer small {
   margin: 0.3em 0.5em;
 }
 
+#game-ending-message-container {
+  border: 2px solid white;
+  background-color: black;
+  color: var(--base-white);
+  z-index: 100;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 100%;
+  -webkit-transition: -webkit-transform 500ms ease;
+  transition: -webkit-transform 500ms ease;
+  transition: transform 500ms ease;
+  transition: transform 500ms ease, -webkit-transform 500ms ease;
+}
+
+#game-ending-message-container.hide {
+  -webkit-transform: scale(0);
+          transform: scale(0);
+}
+
 #tic-tac-toe-board .board-row:not(:last-child)::before, #tic-tac-toe-board .board-row .board-square:not(:last-child)::before {
   content: "";
   position: absolute;
   background-color: white;
-  -webkit-box-shadow: 0 0 7px #fff, 0 0 10px #fff, 0 0 21px #fff, 0 0 42px #fff, 0 0 82px #fff, 0 0 92px #fff;
-          box-shadow: 0 0 7px #fff, 0 0 10px #fff, 0 0 21px #fff, 0 0 42px #fff, 0 0 82px #fff, 0 0 92px #fff;
+  -webkit-box-shadow: 0 0 7px #fff, 0 0 10px #fff, 0 0 21px #fff, 0 0 42px #fff, 0 0 82px #fff, 0 0 92px #fff, 0 0 102px #fff, 0 0 151px #fff;
+          box-shadow: 0 0 7px #fff, 0 0 10px #fff, 0 0 21px #fff, 0 0 42px #fff, 0 0 82px #fff, 0 0 92px #fff, 0 0 102px #fff, 0 0 151px #fff;
 }
 
 #tic-tac-toe-board {
-  --board-line-width: 0.4rem;
-  width: 500px;
-  height: 500px;
   margin: 1em;
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  height: 100%;
+  aspect-ratio: 1 / 1;
   display: -ms-grid;
   display: grid;
   -ms-grid-rows: (1fr)[3];
@@ -209,6 +242,11 @@ footer small {
   width: var(--board-line-width);
 }
 
+#tic-tac-toe-board .board-row .board-square.winning-square span {
+  background-color: rgba(128, 128, 128, 0.5);
+  font-size: 12rem;
+}
+
 #player-one-edit.hide {
   left: -100vw;
 }
@@ -226,8 +264,8 @@ footer small {
   display: -ms-grid;
   display: grid;
   place-items: center;
-  -webkit-transition: left 500ms ease-out;
-  transition: left 500ms ease-out;
+  -webkit-transition: left 500ms ease;
+  transition: left 500ms ease;
 }
 
 .player-edit-container .player-edit {
@@ -418,6 +456,95 @@ footer small {
   z-index: -2;
   -webkit-animation: move-twink-back 500s linear infinite;
           animation: move-twink-back 500s linear infinite;
+}
+
+#laser-beam-container:not(.hide) .laser-beam, #laser-beam-container:not(.hide) .laser-beam::before, #laser-beam-container:not(.hide) .laser-beam::after {
+  content: "";
+  position: absolute;
+  height: calc(1.5 * max(100vh, 100vw));
+  width: var(--board-line-width);
+  z-index: -1;
+  background-color: white;
+  -webkit-box-shadow: 0 0 7px #fff, 0 0 10px #fff, 0 0 21px #fff, 0 0 42px var(--winning-player-color), 0 0 82px var(--winning-player-color), 0 0 92px var(--winning-player-color), 0 0 102px var(--winning-player-color), 0 0 151px var(--winning-player-color);
+          box-shadow: 0 0 7px #fff, 0 0 10px #fff, 0 0 21px #fff, 0 0 42px var(--winning-player-color), 0 0 82px var(--winning-player-color), 0 0 92px var(--winning-player-color), 0 0 102px var(--winning-player-color), 0 0 151px var(--winning-player-color);
+  -webkit-animation-duration: 5s;
+          animation-duration: 5s;
+  -webkit-animation-direction: alternate;
+          animation-direction: alternate;
+  -webkit-animation-iteration-count: infinite;
+          animation-iteration-count: infinite;
+}
+
+#laser-beam-container:not(.hide) .laser-beam::before {
+  -webkit-animation-delay: 2s;
+          animation-delay: 2s;
+}
+
+#laser-beam-container:not(.hide) .laser-beam::after {
+  -webkit-animation-delay: 4s;
+          animation-delay: 4s;
+}
+
+#laser-beam-container:not(.hide) .laser-beam:nth-of-type(1), #laser-beam-container:not(.hide) .laser-beam:nth-of-type(1)::before, #laser-beam-container:not(.hide) .laser-beam:nth-of-type(1)::after {
+  left: 0;
+  bottom: 0;
+  -webkit-animation-name: spotlight-top-to-right;
+          animation-name: spotlight-top-to-right;
+  -webkit-transform-origin: bottom left;
+          transform-origin: bottom left;
+}
+
+#laser-beam-container:not(.hide) .laser-beam:nth-of-type(2), #laser-beam-container:not(.hide) .laser-beam:nth-of-type(2)::before, #laser-beam-container:not(.hide) .laser-beam:nth-of-type(2)::after {
+  right: 0;
+  bottom: 0;
+  -webkit-animation-name: spotlight-top-to-left;
+          animation-name: spotlight-top-to-left;
+  -webkit-transform-origin: bottom left;
+          transform-origin: bottom left;
+}
+
+@-webkit-keyframes spotlight-top-to-right {
+  0% {
+    -webkit-transform: rotate(0deg);
+            transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(45deg);
+            transform: rotate(45deg);
+  }
+}
+
+@keyframes spotlight-top-to-right {
+  0% {
+    -webkit-transform: rotate(0deg);
+            transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(45deg);
+            transform: rotate(45deg);
+  }
+}
+
+@-webkit-keyframes spotlight-top-to-left {
+  0% {
+    -webkit-transform: rotate(0deg);
+            transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(-45deg);
+            transform: rotate(-45deg);
+  }
+}
+
+@keyframes spotlight-top-to-left {
+  0% {
+    -webkit-transform: rotate(0deg);
+            transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(-45deg);
+            transform: rotate(-45deg);
+  }
 }
 
 .text-center {

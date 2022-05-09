@@ -65,7 +65,9 @@ table {
     --tertiary-color: #71873D;
     --player-one-color: #5271ff;
     --player-two-color: #ff5271;
+    --winning-player-color: #5271ff;
     --neon-text-font-size: 4rem;
+    --board-line-width: 0.4rem;
 }
 
 html {
@@ -83,6 +85,7 @@ body {
     min-height: 100vh;
     background-color: var(--base-white);
     color: var(--base-black);
+    overflow: hidden;
     // Flex
     display: flex;
     flex-direction: column;
@@ -102,8 +105,9 @@ header {
 
 main {
     flex: 1;
-    @extend %center-with-grid;
+    display: flex;
     flex-direction: column;
+    align-items: center;
 }
 
 footer {
@@ -116,6 +120,7 @@ footer {
     display: flex;
     justify-content: center;
     font-size: var(--neon-text-font-size);
+    position: relative;
 
     .player {
         text-align: center;
@@ -123,25 +128,50 @@ footer {
     }
 }
 
+#game-ending-message-container {
+    border: 2px solid white;
+    background-color: black;
+    color: var(--base-white);
+    z-index: 100;
+    // Absolute Positioning
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 100%;
+    // Center content
+    @extend %center-with-grid;
+    transition: transform 500ms ease;
+
+    &.hide {
+        transform: scale(0);
+    }
+}
+
+@mixin neon-box-shadow($color) {
+    box-shadow: 
+        0 0 7px #fff, 
+        0 0 10px #fff, 
+        0 0 21px #fff, 
+        0 0 42px $color, 
+        0 0 82px $color, 
+        0 0 92px $color, 
+        0 0 102px $color, 
+        0 0 151px $color;
+}
+
 %board-grid-line {
     content: "";
     position: absolute;
     background-color: white;
-    box-shadow:
-        0 0 7px #fff,
-        0 0 10px #fff,
-        0 0 21px #fff,
-        0 0 42px #fff,
-        0 0 82px #fff,
-        0 0 92px #fff;
+    @include neon-box-shadow(#fff);
 }
 
 #tic-tac-toe-board {
-    --board-line-width: 0.4rem;
-
-    width: 500px;
-    height: 500px;
     margin: 1em;
+    flex: 1; // Element takes up remaining height
+    height: 100%; // Needed for aspect ratio to work
+    aspect-ratio: 1 / 1; // Ensures width equals height
     // Grid
     display: grid;
     grid-template-rows: repeat(3, 1fr);
@@ -197,6 +227,13 @@ footer {
                     width: var(--board-line-width);
                 }
             }
+
+            &.winning-square {
+                span {
+                    background-color: hsla(0,0%,50%,0.5);
+                    font-size: 12rem;
+                }
+            }
         }
     }
 }
@@ -223,7 +260,7 @@ footer {
     height: 100%;
     display: grid;
     place-items: center;
-    transition: left 500ms ease-out;
+    transition: left 500ms ease;
 
     .player-edit {
         border: 2px solid white;
@@ -387,6 +424,69 @@ $players: "one", "two";
     z-index: -2;
     // Animation
     animation: move-twink-back 500s linear infinite;
+}
+
+// Laser Beam
+
+#laser-beam-container:not(.hide) {
+    .laser-beam, .laser-beam::before, .laser-beam::after {
+        content: "";
+        position: absolute;
+        height: calc(1.5 * max(100vh, 100vw)); // diagonal length in square is sqrt(2) * length
+        width: var(--board-line-width);
+        z-index: -1;
+        background-color: white;
+        @include neon-box-shadow(var(--winning-player-color));
+        // Animation
+        animation-duration: 5s;
+        animation-direction: alternate;
+        animation-iteration-count: infinite;
+    }
+    
+    .laser-beam::before {
+        animation-delay: 2s;
+    }
+    
+    .laser-beam::after {
+        animation-delay: 4s;
+    }
+
+    .laser-beam {
+        &:nth-of-type(1), &:nth-of-type(1)::before, &:nth-of-type(1)::after {
+            left: 0;
+            bottom: 0;
+            // Animation
+            animation-name: spotlight-top-to-right;
+            // Transform
+            transform-origin: bottom left;
+        }
+        &:nth-of-type(2), &:nth-of-type(2)::before, &:nth-of-type(2)::after {
+            right: 0;
+            bottom: 0;
+            // Animation
+            animation-name: spotlight-top-to-left;
+            // Transform
+            transform-origin: bottom left;
+        }
+    }
+}
+
+@keyframes spotlight-top-to-right {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(45deg);
+    }
+}
+
+@keyframes spotlight-top-to-left {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(-45deg);
+    }
 }
 
 // Utility Classes

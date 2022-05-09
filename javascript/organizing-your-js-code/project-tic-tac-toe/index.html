@@ -46,6 +46,10 @@
                     <span>Edit</span>
                 </button>
             </div>
+
+            <div id="game-ending-message-container" class="hide">
+                Player 1 Wins!
+            </div>
         </div>
 
         <div id="tic-tac-toe-board">
@@ -65,6 +69,10 @@
                 <div class="board-square neon-text" aria-label="bottom row, right column" tabindex="0" data-index="8" data-key="0"><span></span></div>
             </div>
         </div>
+
+        <div id="start-new-game-container">
+            <button id="start-new-game-btn"><i class="fas fa-arrow-rotate-left"></i><span>Start New Game</span></button>
+        </div>
     </main>
 
     <footer class="text-center">
@@ -76,6 +84,11 @@
     <div class="animated-background">
         <div class="stars"></div>
         <div class="twinkling"></div>
+    </div>
+
+    <div id="laser-beam-container" class="hide">
+        <div class="laser-beam"></div>
+        <div class="laser-beam"></div>
     </div>
 
     <div class="player-edit-container hide" id="player-one-edit">
