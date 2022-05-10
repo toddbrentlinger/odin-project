@@ -1,0 +1,300 @@
+/* http://meyerweb.com/eric/tools/css/reset/ 
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+@import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+  display: block;
+}
+
+body {
+  line-height: 1;
+}
+
+ol, ul {
+  list-style: none;
+}
+
+blockquote, q {
+  quotes: none;
+}
+
+blockquote:before, blockquote:after,
+q:before, q:after {
+  content: '';
+  content: none;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+:root {
+  --base-white: hsl(0,0%,90%);
+  --base-black: hsl(0,0%,10%);
+  --primary-color: #8c3f45;
+  --secondary-color: #285954;
+  --tertiary-color: #71873D;
+}
+
+html {
+  font-size: 62.5%;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+*, *::before, *::after {
+  -webkit-box-sizing: inherit;
+          box-sizing: inherit;
+}
+
+body {
+  border: 2px solid black;
+  font-size: 1.6rem;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  min-height: 100vh;
+  background-color: var(--base-white);
+  color: var(--base-black);
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 1fr 5fr;
+      grid-template-columns: 1fr 5fr;
+  -ms-grid-rows: auto 1fr;
+      grid-template-rows: auto 1fr;
+      grid-template-areas: "sidenav header" "sidenav main";
+}
+
+header {
+  border: 2px solid red;
+  -ms-grid-row: 1;
+  -ms-grid-column: 2;
+  grid-area: header;
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 1fr auto;
+      grid-template-columns: 1fr auto;
+  -ms-grid-rows: (1fr)[2];
+      grid-template-rows: repeat(2, 1fr);
+}
+
+#search-bar {
+  border: 2px solid orange;
+}
+
+#user-info-btns {
+  border: 2px solid yellow;
+}
+
+#user-info-message {
+  border: 2px solid green;
+}
+
+#header-btns {
+  border: 2px solid indigo;
+}
+
+#side-bar {
+  border: 2px solid green;
+  -ms-grid-row: 1;
+  -ms-grid-row-span: 2;
+  -ms-grid-column: 1;
+  grid-area: sidenav;
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-rows: (min-content)[3];
+      grid-template-rows: repeat(3, -webkit-min-content);
+      grid-template-rows: repeat(3, min-content);
+  gap: 3rem;
+}
+
+#nav-1 a, #nav-2 a {
+  display: block;
+}
+
+#branding {
+  border: 2px solid red;
+}
+
+#nav-1 {
+  border: 2px solid green;
+}
+
+#nav-2 {
+  border: 2px solid blue;
+}
+
+main {
+  border: 2px solid blue;
+  -ms-grid-row: 2;
+  -ms-grid-column: 2;
+  grid-area: main;
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 3fr 1fr;
+      grid-template-columns: 3fr 1fr;
+  -ms-grid-rows: (1fr)[2];
+      grid-template-rows: repeat(2, 1fr);
+      grid-template-areas: "projects announcements" "projects trending";
+  gap: 1rem;
+}
+
+#projects-container, #announcements-container, #trending-container {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-rows: auto 1fr;
+      grid-template-rows: auto 1fr;
+}
+
+#projects-container {
+  -ms-grid-row: 1;
+  -ms-grid-row-span: 2;
+  -ms-grid-column: 1;
+  grid-area: projects;
+}
+
+#projects {
+  border: 2px solid red;
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: (minmax(25ch, 1fr))[auto-fit];
+      grid-template-columns: repeat(auto-fit, minmax(25ch, 1fr));
+  gap: 1rem;
+}
+
+#projects .project-card {
+  border: 2px solid green;
+  border-radius: 1em;
+  border-left: 1rem solid green;
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-rows: auto 1fr auto;
+      grid-template-rows: auto 1fr auto;
+}
+
+#projects .project-card .project-btns {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
+  -webkit-box-align: end;
+      -ms-flex-align: end;
+          align-items: flex-end;
+}
+
+#projects .project-card .project-btns > * {
+  cursor: pointer;
+  margin: 0 0.5rem;
+  -webkit-appearance: none;
+     -moz-appearance: none;
+          appearance: none;
+  border: none;
+  color: black;
+  background: transparent;
+  padding: 0;
+}
+
+#projects .project-card .project-btns > *:hover > * {
+  -webkit-transform: scale(1.5);
+          transform: scale(1.5);
+}
+
+#projects .project-card .project-btns > * > * {
+  -webkit-transition: -webkit-transform 300ms ease;
+  transition: -webkit-transform 300ms ease;
+  transition: transform 300ms ease;
+  transition: transform 300ms ease, -webkit-transform 300ms ease;
+}
+
+#announcements-container {
+  -ms-grid-row: 1;
+  -ms-grid-column: 2;
+  grid-area: announcements;
+}
+
+#announcements {
+  border: 2px solid green;
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-rows: (1fr)[3];
+      grid-template-rows: repeat(3, 1fr);
+}
+
+#announcements .announcement:not(:last-child) {
+  border-bottom: 2px solid black;
+}
+
+#trending-container {
+  -ms-grid-row: 2;
+  -ms-grid-column: 2;
+  grid-area: trending;
+}
+
+#trending {
+  border: 2px solid blue;
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-rows: (1fr)[4];
+      grid-template-rows: repeat(4, 1fr);
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+#trending .trending-item {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: auto 1fr;
+      grid-template-columns: auto 1fr;
+  -ms-grid-rows: (1fr)[2];
+      grid-template-rows: repeat(2, 1fr);
+      grid-template-areas: "icon username" "icon project-title";
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+#trending .trending-item .trending-user-icon {
+  -ms-grid-row: 1;
+  -ms-grid-row-span: 2;
+  -ms-grid-column: 1;
+  grid-area: icon;
+}
+
+#trending .trending-item .trending-username {
+  -ms-grid-row: 1;
+  -ms-grid-column: 2;
+  grid-area: username;
+}
+
+#trending .trending-item .trending-project-title {
+  -ms-grid-row: 2;
+  -ms-grid-column: 2;
+  grid-area: project-title;
+}
+/*# sourceMappingURL=style.css.map */

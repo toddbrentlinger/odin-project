@@ -1,0 +1,266 @@
+/* http://meyerweb.com/eric/tools/css/reset/ 
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body {
+	line-height: 1;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+// Custom SCSS
+
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
+:root {
+    --base-white: hsl(0,0%,90%);
+    --base-black: hsl(0,0%,10%);
+    --primary-color: #8c3f45;
+    --secondary-color: #285954;
+    --tertiary-color: #71873D;
+}
+
+html {
+    font-size: 62.5%;
+    box-sizing: border-box;
+}
+
+*, *::before, *::after {
+    box-sizing: inherit;
+}
+
+body {
+    border: 2px solid black;
+    font-size: 1.6rem;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    min-height: 100vh;
+    background-color: var(--base-white);
+    color: var(--base-black);
+    // Grid
+    display: grid;
+    grid-template-columns: 1fr 5fr;
+    grid-template-rows: auto 1fr;
+    grid-template-areas: 
+        "sidenav header"
+        "sidenav main";
+}
+
+header {
+    border: 2px solid red;
+    // Grid
+    grid-area: header;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    grid-template-rows: repeat(2, 1fr);
+}
+
+#search-bar {
+    border: 2px solid orange;
+}
+
+#user-info-btns {
+    border: 2px solid yellow;
+}
+
+#user-info-message {
+    border: 2px solid green;
+}
+
+#header-btns {
+    border: 2px solid indigo;
+}
+
+#side-bar {
+    border: 2px solid green;
+    // Grid
+    grid-area: sidenav;
+    display: grid;
+    grid-template-rows: repeat(3, min-content);
+    gap: 3rem;
+}
+
+#nav-1, #nav-2 {
+    a {
+        display: block;
+    }
+}
+
+#branding {
+    border: 2px solid red;
+}
+
+#nav-1 {
+    border: 2px solid green;
+}
+
+#nav-2 {
+    border: 2px solid blue;
+}
+
+main {
+    border: 2px solid blue;
+    // Grid
+    grid-area: main;
+    display: grid;
+    grid-template-columns: 3fr 1fr;
+    grid-template-rows: repeat(2, 1fr);
+    grid-template-areas: 
+        "projects announcements"
+        "projects trending";
+    gap: 1rem;
+}
+
+%main-grid-item {
+    display: grid;
+    grid-template-rows: auto 1fr;
+}
+
+#projects-container {
+    grid-area: projects;
+    @extend %main-grid-item;
+}
+
+#projects {
+    border: 2px solid red;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(25ch, 1fr));
+    gap: 1rem;
+
+    .project-card {
+        border: 2px solid green;
+        border-radius: 1em;
+        border-left: 1rem solid green;
+        // Grid
+        display: grid;
+        grid-template-rows: auto 1fr auto;
+
+        .project-title {
+            
+        }
+
+        .project-description {
+
+        }
+
+        .project-btns {
+            display: flex;
+            justify-content: flex-end;
+            align-items: flex-end;
+
+            > * {
+                cursor: pointer;
+                margin: 0 0.5rem;
+                // Remove default button styling
+                appearance: none;
+                border: none;
+                color: black;
+                background: transparent;
+                padding: 0;
+
+                &:hover > * {
+                    transform: scale(1.5);
+                }
+
+                > * {
+                    // Transition
+                    transition: transform 300ms ease;
+                }
+            }
+        }
+    }
+}
+
+#announcements-container {
+    grid-area: announcements;
+    @extend %main-grid-item;
+}
+
+#announcements {
+    border: 2px solid green;
+    // Grid
+    display: grid;
+    grid-template-rows: repeat(3, 1fr);
+
+    .announcement {
+
+    }
+
+    .announcement:not(:last-child) {
+        border-bottom: 2px solid black;
+    }
+}
+
+#trending-container {
+    grid-area: trending;
+    @extend %main-grid-item;
+}
+
+#trending {
+    border: 2px solid blue;
+    // Grid
+    display: grid;
+    grid-template-rows: repeat(4, 1fr);
+    align-items: center;
+
+    .trending-item {
+        // Grid
+        display: grid;
+        grid-template-columns: auto 1fr;
+        grid-template-rows: repeat(2, 1fr);
+        grid-template-areas: 
+            "icon username"
+            "icon project-title";
+        align-items: center;
+
+        .trending-user-icon {
+            grid-area: icon;
+        }
+
+        .trending-username {
+            grid-area: username;
+        }
+
+        .trending-project-title {
+            grid-area: project-title;
+        }
+    }
+}
