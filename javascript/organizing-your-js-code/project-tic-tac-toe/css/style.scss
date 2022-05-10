@@ -415,12 +415,12 @@ $players: "one", "two";
 }
 
 .stars {
-    background: #000 url(http://www.script-tutorials.com/demos/360/images/stars.png) repeat top center;
+    background: #000 url(https://www.script-tutorials.com/demos/360/images/stars.png) repeat top center;
     z-index: -3;
 }
 
 .twinkling {
-    background: transparent url(http://www.script-tutorials.com/demos/360/images/twinkling.png) repeat top center;
+    background: transparent url(https://www.script-tutorials.com/demos/360/images/twinkling.png) repeat top center;
     z-index: -2;
     // Animation
     animation: move-twink-back 500s linear infinite;
