@@ -32,6 +32,22 @@
     <a href="javascript/organizing-your-js-code/project-library">Click to see source files and README</a>
 </p>
 
+<h2 align="center">Grid</h2>
+
+<h3 align="center">Project - Admin Dashboard</h3>
+
+<p align="center">
+    <img src="https://toddbrentlinger.github.io/odin-project/intermediate-html-and-css/grid/project-admin-dashboard/favicon/android-chrome-192x192.png" width="10%" alt="Admin Dashboard project icon">
+</p>
+
+<p align="center">
+    <a href="https://toddbrentlinger.github.io/odin-project/intermediate-html-and-css/grid/project-admin-dashboard">Click to see it in action</a>
+</p>
+
+<p align="center">
+    <a href="intermediate-html-and-css/grid/project-admin-dashboard">Click to see source files and README</a>
+</p>
+
 <h2 align="center">Intermediate CSS Concepts</h2>
 
 <h3 align="center">Project - Sign-Up Form</h3>
