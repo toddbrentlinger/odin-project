@@ -351,6 +351,7 @@
         e.preventDefault();
 
         // Get all input values in form stored in object
+        // TODO: Use e.target.elements instead of querying all input tags
         const formInputValues = {}; // Key: input 'name' attribute - Value: input 'value'
         e.target.querySelectorAll('input').forEach(input => {
             switch(input.type) {
