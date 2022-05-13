@@ -24,16 +24,48 @@
 </head>
 <body>
     <header>
-        <div id="search-bar"><i class="fas fa-search"></i> Search Bar</div>
-        <div id="user-info-btns"><i class="fas fa-bell"></i> User Info Buttons</div>
-        <div id="user-info-message">User Info Message</div>
-        <div id="header-btns">Header Buttons</div>
+        <div id="search-bar">
+            <i class="fas fa-search"></i>
+            <form accept="#" method="get">
+                <input type="search" name="search" maxlength="100" required>
+                <button type="submit" hidden aria-label="search"></button>
+            </form>
+        </div>
+        <div id="user-btns">
+            <i id="notification-icon" class="far fa-bell"></i>
+            <div id="user-icon">
+                <img 
+                    src="https://toddbrentlinger.github.io/odin-project/intermediate-html-and-css/grid/project-admin-dashboard/favicon/android-chrome-192x192.png"
+                    alt="Project Admin Dashboard icon"
+                >
+            </div>
+            <div id="user-name">Todd Brentlinger</div>
+        </div>
+        <div id="user-info">
+            <div id="user-info-icon">
+                <img 
+                    src="https://toddbrentlinger.github.io/odin-project/intermediate-html-and-css/grid/project-admin-dashboard/favicon/android-chrome-192x192.png"
+                    alt="Project Admin Dashboard icon"
+                >
+            </div>
+            <div id="user-details">
+                <div id="user-details-message">Hi there,</div>
+                <div id="user-details-name">Todd Brentlinger (@toddbrentlinger)</div>
+            </div>
+        </div>
+        <div id="header-btns">
+            <a href=""><span>New</span></a>
+            <a href=""><span>Upload</span></a>
+            <a href=""><span>Share</span></a>
+        </div>
     </header>
 
     <nav id="side-bar">
         <div id="branding">
-            <i class="fas fa-th-large"></i>
-            <span>Dashboard</span>
+            <div>
+                <i class="fas fa-th-large"></i>
+                <span>Dashboard</span>
+            </div>
         </div>
 
         <div id="nav-1">
@@ -80,79 +112,87 @@
     </nav>
 
     <main>
-        <div id="projects-container">
+        <div id="projects-section">
             <h2>Your Projects</h2>
-            <div id="projects">
-                <div class="project-card">
-                    <h3 class="project-title">Project Title</h3>
-                    <p class="project-description">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Id faucibus nisl tincidunt eget nullam non nisi est sit. Vestibulum mattis ullamcorper velit sed.
-                    </p>
-                    <div class="project-btns">
-                        <button aria-label="favorite"><i class="far fa-star"></i></button>
-                        <button aria-label="watch"><i class="far fa-eye"></i></button>
-                        <button aria-label="branch"><i class="fas fa-code-branch"></i></button>
+            <div id="projects-container">
+                <div id="projects">
+                    <div class="project-card">
+                        <h3 class="project-title">Project Title</h3>
+                        <p class="project-description">
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Id faucibus nisl tincidunt eget nullam non nisi est sit. Vestibulum mattis ullamcorper velit sed.
+                        </p>
+                        <div class="project-btns">
+                            <button aria-label="favorite"><i class="far fa-star"></i></button>
+                            <button aria-label="watch"><i class="far fa-eye"></i></button>
+                            <button aria-label="branch"><i class="fas fa-code-branch"></i></button>
+                        </div>
                     </div>
-                </div>
-                <div class="project-card">
-                    <h3 class="project-title">Project Title</h3>
-                    <p class="project-description">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Id faucibus nisl tincidunt eget nullam non nisi est sit. Vestibulum mattis ullamcorper velit sed.
-                    </p>
-                    <div class="project-btns">
-                        <button aria-label="favorite"><i class="far fa-star"></i></button>
-                        <button aria-label="watch"><i class="far fa-eye"></i></button>
-                        <button aria-label="branch"><i class="fas fa-code-branch"></i></button>
+                    <div class="project-card">
+                        <h3 class="project-title">Project Title</h3>
+                        <p class="project-description">
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Id faucibus nisl tincidunt eget nullam non nisi est sit. Vestibulum mattis ullamcorper velit sed.
+                        </p>
+                        <div class="project-btns">
+                            <button aria-label="favorite"><i class="far fa-star"></i></button>
+                            <button aria-label="watch"><i class="far fa-eye"></i></button>
+                            <button aria-label="branch"><i class="fas fa-code-branch"></i></button>
+                        </div>
                     </div>
-                </div>
-                <div class="project-card">
-                    <h3 class="project-title">Project Title</h3>
-                    <p class="project-description">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Id faucibus nisl tincidunt eget nullam non nisi est sit. Vestibulum mattis ullamcorper velit sed.
-                    </p>
-                    <div class="project-btns">
-                        <button aria-label="favorite"><i class="far fa-star"></i></button>
-                        <button aria-label="watch"><i class="far fa-eye"></i></button>
-                        <button aria-label="branch"><i class="fas fa-code-branch"></i></button>
+                    <div class="project-card">
+                        <h3 class="project-title">Project Title</h3>
+                        <p class="project-description">
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Id faucibus nisl tincidunt eget nullam non nisi est sit. Vestibulum mattis ullamcorper velit sed.
+                        </p>
+                        <div class="project-btns">
+                            <button aria-label="favorite"><i class="far fa-star"></i></button>
+                            <button aria-label="watch"><i class="far fa-eye"></i></button>
+                            <button aria-label="branch"><i class="fas fa-code-branch"></i></button>
+                        </div>
                     </div>
-                </div>
-                <div class="project-card">
-                    <h3 class="project-title">Project Title</h3>
-                    <p class="project-description">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Id faucibus nisl tincidunt eget nullam non nisi est sit. Vestibulum mattis ullamcorper velit sed.
-                    </p>
-                    <div class="project-btns">
-                        <button aria-label="favorite"><i class="far fa-star"></i></button>
-                        <button aria-label="watch"><i class="far fa-eye"></i></button>
-                        <button aria-label="branch"><i class="fas fa-code-branch"></i></button>
+                    <div class="project-card">
+                        <h3 class="project-title">Project Title</h3>
+                        <p class="project-description">
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Id faucibus nisl tincidunt eget nullam non nisi est sit. Vestibulum mattis ullamcorper velit sed.
+                        </p>
+                        <div class="project-btns">
+                            <button aria-label="favorite"><i class="far fa-star"></i></button>
+                            <button aria-label="watch"><i class="far fa-eye"></i></button>
+                            <button aria-label="branch"><i class="fas fa-code-branch"></i></button>
+                        </div>
                     </div>
-                </div>
-                <div class="project-card">
-                    <h3 class="project-title">Project Title</h3>
-                    <p class="project-description">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Id faucibus nisl tincidunt eget nullam non nisi est sit. Vestibulum mattis ullamcorper velit sed.
-                    </p>
-                    <div class="project-btns">
-                        <button aria-label="favorite"><i class="far fa-star"></i></button>
-                        <button aria-label="watch"><i class="far fa-eye"></i></button>
-                        <button aria-label="branch"><i class="fas fa-code-branch"></i></button>
+                    <div class="project-card">
+                        <h3 class="project-title">Project Title</h3>
+                        <p class="project-description">
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Id faucibus nisl tincidunt eget nullam non nisi est sit. Vestibulum mattis ullamcorper velit sed.
+                        </p>
+                        <div class="project-btns">
+                            <button aria-label="favorite"><i class="far fa-star"></i></button>
+                            <button aria-label="watch"><i class="far fa-eye"></i></button>
+                            <button aria-label="branch"><i class="fas fa-code-branch"></i></button>
+                        </div>
                     </div>
-                </div>
-                <div class="project-card">
-                    <h3 class="project-title">Project Title</h3>
-                    <p class="project-description">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Id faucibus nisl tincidunt eget nullam non nisi est sit. Vestibulum mattis ullamcorper velit sed.
-                    </p>
-                    <div class="project-btns">
-                        <button aria-label="favorite"><i class="far fa-star"></i></button>
-                        <button aria-label="watch"><i class="far fa-eye"></i></button>
-                        <button aria-label="branch"><i class="fas fa-code-branch"></i></button>
+                    <div class="project-card">
+                        <h3 class="project-title">Project Title</h3>
+                        <p class="project-description">
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Id faucibus nisl tincidunt eget nullam non nisi est sit. Vestibulum mattis ullamcorper velit sed.
+                        </p>
+                        <div class="project-btns">
+                            <button aria-label="favorite"><i class="far fa-star"></i></button>
+                            <button aria-label="watch"><i class="far fa-eye"></i></button>
+                            <button aria-label="branch"><i class="fas fa-code-branch"></i></button>
+                        </div>
                     </div>
+                    <!-- <div class="project-card">Project Item</div>
+                    <div class="project-card">Project Item</div>
+                    <div class="project-card">Project Item</div>
+                    <div class="project-card">Project Item</div>
+                    <div class="project-card">Project Item</div>
+                    <div class="project-card">Project Item</div> -->
                 </div>
             </div>
         </div>
 
-        <div id="announcements-container">
+        <div id="announcements-section">
             <h2>Announcements</h2>
             <div id="announcements">
                 <div class="announcement">
@@ -173,32 +213,67 @@
                         Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Id faucibus nisl tincidunt eget nullam non nisi est sit. Vestibulum mattis ullamcorper velit sed.
                     </p>
                 </div>
+                <!-- <div class="announcement">Announcement Item</div>
+                <div class="announcement">Announcement Item</div>
+                <div class="announcement">Announcement Item</div> -->
             </div>
         </div>
 
-        <div id="trending-container">
+        <div id="trending-section">
             <h2>Trending</h2>
             <div id="trending">
                 <div class="trending-item">
-                    <div class="trending-user-icon">Icon</div>
-                    <div class="trending-username">Username</div>
-                    <div class="trending-project-title">Project Title</div>
+                    <div class="trending-item-icon">
+                        <img 
+                            src="https://toddbrentlinger.github.io/odin-project/intermediate-html-and-css/grid/project-admin-dashboard/favicon/android-chrome-192x192.png"
+                            alt="Project Admin Dashboard icon"
+                        >
+                    </div>
+                    <div class="trending-item-info">
+                        <div class="trending-item-username">@toddbrentlinger</div>
+                        <div class="trending-item-title">Admin Dashboard</div>
+                    </div>
                 </div>
                 <div class="trending-item">
-                    <div class="trending-user-icon">Icon</div>
-                    <div class="trending-username">Username</div>
-                    <div class="trending-project-title">Project Title</div>
+                    <div class="trending-item-icon">
+                        <img 
+                            src="https://toddbrentlinger.github.io/odin-project/intermediate-html-and-css/grid/project-admin-dashboard/favicon/android-chrome-192x192.png"
+                            alt="Project Admin Dashboard icon"
+                        >
+                    </div>
+                    <div class="trending-item-info">
+                        <div class="trending-item-username">@toddbrentlinger</div>
+                        <div class="trending-item-title">Admin Dashboard</div>
+                    </div>
                 </div>
                 <div class="trending-item">
-                    <div class="trending-user-icon">Icon</div>
-                    <div class="trending-username">Username</div>
-                    <div class="trending-project-title">Project Title</div>
+                    <div class="trending-item-icon">
+                        <img 
+                            src="https://toddbrentlinger.github.io/odin-project/intermediate-html-and-css/grid/project-admin-dashboard/favicon/android-chrome-192x192.png"
+                            alt="Project Admin Dashboard icon"
+                        >
+                    </div>
+                    <div class="trending-item-info">
+                        <div class="trending-item-username">@toddbrentlinger</div>
+                        <div class="trending-item-title">Admin Dashboard</div>
+                    </div>
                 </div>
                 <div class="trending-item">
-                    <div class="trending-user-icon">Icon</div>
-                    <div class="trending-username">Username</div>
-                    <div class="trending-project-title">Project Title</div>
+                    <div class="trending-item-icon">
+                        <img 
+                            src="https://toddbrentlinger.github.io/odin-project/intermediate-html-and-css/grid/project-admin-dashboard/favicon/android-chrome-192x192.png"
+                            alt="Project Admin Dashboard icon"
+                        >
+                    </div>
+                    <div class="trending-item-info">
+                        <div class="trending-item-username">@toddbrentlinger</div>
+                        <div class="trending-item-title">Admin Dashboard</div>
+                    </div>
                 </div>
+                <!-- <div class="trending-item">Trending Item</div>
+                <div class="trending-item">Trending Item</div>
+                <div class="trending-item">Trending Item</div>
+                <div class="trending-item">Trending Item</div> -->
             </div>
         </div>
     </main>
