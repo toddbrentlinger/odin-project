@@ -55,9 +55,13 @@ table {
 }
 
 %ellipsis-text-overflow {
-    text-overflow: ellipsis;
+    //text-overflow: ellipsis;
     white-space: nowrap;
-    overflow: hidden;
+    //overflow: hidden;
+}
+
+%main-card-box-shadow {
+    box-shadow: 2px 2px 5px hsl(0,0%,30%);
 }
 
 @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
@@ -87,7 +91,7 @@ body {
     color: var(--base-black);
     // Grid
     display: grid;
-    grid-template-columns: 1fr 5fr;
+    grid-template-columns: minmax(max-content, 1fr) 5fr;
     grid-template-rows: auto 1fr;
     grid-template-areas: 
         "sidenav header"
@@ -97,8 +101,11 @@ body {
 // ---------- Header ----------
 
 header {
-    border: 2px solid red;
-    padding: 1rem;
+    //border: 2px solid red;
+    padding: 1rem 4rem;
+    box-shadow: 0 0 5px var(--base-black);
+    // Allow header box shadow to show on top of 'main'
+    z-index: 1;
     // Grid
     grid-area: header;
     display: grid;
@@ -111,7 +118,7 @@ header {
 // ---------- Header - Search Bar ----------
 
 #search-bar {
-    border: 2px solid orange;
+    //border: 2px solid orange;
     // Grid
     display: grid;
     grid-template-columns: auto 1fr;
@@ -132,18 +139,50 @@ header {
 // ---------- Header - User Info Buttons ----------
 
 #user-btns {
-    border: 2px solid yellow;
+    //border: 2px solid yellow;
     // Flex
     display: grid;
     grid-template-columns: min-content 4rem max-content;
     grid-template-rows: 4rem;
     align-items: center;
     justify-content: end;
-    gap: 1.6rem;
+    gap: 2rem;
 }
 
 #notification-icon {
+    @extend %anchor-link-reset;
     font-size: 2rem;
+
+    i {
+        // Animation
+        animation-duration: 500ms;
+        animation-iteration-count: infinite;
+        animation-timing-function: linear;
+        // Transform
+        transform-origin: top;
+    }
+
+    &:hover, &:active, &:focus {
+        i {
+            // Add animation name to start animation when active but removes it when not active
+            animation-name: ding-bell;
+        }
+    }
+}
+
+@keyframes ding-bell {
+    0% {
+        transform: rotate(0deg);
+    }
+    20% {
+        transform: rotate(-45deg);
+    }
+    80% {
+        transform: rotate(45deg);
+    }
+    100% {
+        transform: rotate(0deg);
+    }
 }
 
 #user-icon {
@@ -164,11 +203,12 @@ header {
 // ---------- Header - User Info ----------
 
 #user-info {
-    outline: 2px solid green;
+    //outline: 2px solid green;
     // Grid
     display: grid;
     grid-template-columns: 6rem 1fr;
     grid-template-rows: 6rem;
+    gap: 1rem;
 }
 
 #user-info-icon {
@@ -183,27 +223,27 @@ header {
 }
 
 #user-details {
+    font-weight: 700;
     // Grid
     display: grid;
     grid-template-rows: repeat(2, auto);
     align-items: center;
     align-content: center;
+    gap: 0.5rem;
 }
 
 #user-details-message {
     font-size: 1.2rem;
-    font-weight: 600;
 }
 
-#user-deails-name {
-    font-size: 2.2rem;
-    font-weight: 600;
+#user-details-name {
+    font-size: 2rem;
 }
 
 // ---------- Header - Header Buttons ----------
 
 #header-btns {
-    border: 2px solid indigo;
+    //border: 2px solid indigo;
     // Grid
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -214,11 +254,21 @@ header {
         @extend %anchor-link-reset;
         background-color: var(--primary-color);
         color: var(--base-white);
+        border: 5px solid var(--primary-color);
         border-radius: 100vh;
-        padding: 0.5em 1em;
+        padding: 0.5em 1.2em;
         // Grid
         display: grid;
         place-items: center;
+        // Transition
+        transition: transform 500ms ease;
+
+        &:hover, &:active, &:focus {
+            color: var(--primary-color);
+            background-color: var(--base-white);
+            // Transform
+            transform: scale(1.2);
+        }
     }
 }
 
@@ -228,50 +278,80 @@ header {
     background-color: var(--primary-color);
     color: var(--base-white);
     padding: 1.6rem;
+    font-weight: 600;
+    // Allow header box shadow to show on top of 'main'
+    z-index: 1;
     // Grid
     grid-area: sidenav;
     display: grid;
     grid-template-rows: repeat(3, min-content);
-    gap: 3rem;
+    gap: 5rem;
 
     a {
         @extend %anchor-link-reset;
-        display: block;
-    }
-
-    i {
-        margin-right: 1.6rem;
     }
 }
 
 #branding, #nav-1, #nav-2 {
+    // Grid
     display: grid;
     gap: 1.6rem;
 
     > * {
+        // Grid
         display: grid;
         grid-template-columns: 3rem 1fr;
+        gap: 0.3em;
+    }
+
+    a {
+        > * {
+            transition: transform 500ms ease;
+        }
+
+        &:hover, &:active, &:focus {
+            > i {
+                transform: scale(1.5);
+            }
+            > span {
+                transform: scale(1.2);
+            }
+        }
+    }
+
+    i {
+        justify-self: center;
+    }
+
+    span {
+        display: inline-block;
+        transform-origin: left;
     }
 }
 
 #branding {
-    border: 2px solid red;
+    //border: 2px solid red;
     font-size: 2rem;
 }
 
 #nav-1 {
-    border: 2px solid green;
+    //border: 2px solid green;
 }
 
 #nav-2 {
-    border: 2px solid blue;
+    //border: 2px solid blue;
 }
 
 // ---------- Main ----------
 
 main {
-    border: 2px solid blue;
+    --main-card-radius: 1rem;
+    --main-card-padding: 1.6rem;
+
+    //border: 2px solid blue;
     background-color: var(--secondary-color);
+    padding: 1.6rem;
+    padding-bottom: 3rem;
     // Grid
     grid-area: main;
     display: grid;
@@ -285,6 +365,7 @@ main {
     h2 {
         font-size: 1.8rem;
         font-weight: 600;
+        padding-bottom: 0.5em;
     }
 }
 
@@ -296,47 +377,55 @@ main {
 // ---------- Projects ----------
 
 #projects-section {
-    border: 2px solid blue;
+    //border: 2px solid blue;
     grid-area: projects;
     @extend %main-grid-item;
 }
 
 #projects-container {
-    border: 2px solid green;
+    //border: 2px solid green;
     position: relative;
-    overflow: auto;
+    //overflow: auto;
 }
 
 #projects {
-    border: 2px solid red;
+    //border: 2px solid red;
     // Absolute positioning for overflow: auto to work in parent
     position: absolute;
     top: 0;
     left: 0;
     right: 0;
+    bottom: 0;
     // Grid
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(25ch, 1fr));
-    grid-auto-rows: 20rem;
+    grid-auto-rows: 1fr;
     gap: 1.6rem;
 
     .project-card {
-        border-radius: 1rem;
-        border-left: 1rem solid var(--user-color);
+        @extend %main-card-box-shadow;
+        border-radius: var(--main-card-radius);
+        border-left: var(--main-card-radius) solid var(--user-color);
         background-color: var(--base-white);
+        padding: var(--main-card-padding);
         // Grid
         display: grid;
         grid-template-rows: auto 1fr auto;
+        gap: 0.5em;
 
         .project-title {
-            
+            //outline: 2px solid red;
+            font-size: 1.8rem;
+            font-weight: 600;
         }
 
         .project-description {
-
+            //outline: 2px solid green;
+            font-size: 1.4rem;
         }
 
         .project-btns {
+            //outline: 2px solid blue;
             display: flex;
             justify-content: flex-end;
             align-items: flex-end;
@@ -367,55 +456,73 @@ main {
 // ---------- Announcements ----------
 
 #announcements-section {
-    border: 2px solid red;
+    //border: 2px solid red;
     grid-area: announcements;
     @extend %main-grid-item;
 }
 
 #announcements {
+    @extend %main-card-box-shadow;
     background-color: var(--base-white);
+    border-radius: var(--main-card-radius);
+    padding: var(--main-card-padding);
     // Grid
     display: grid;
     grid-template-rows: repeat(3, 1fr);
+    gap: 0.5em;
 
     .announcement {
+        //outline: 2px solid green;
+        // Grid
         display: grid;
         grid-template-rows: auto 1fr;
+
+        h3 {
+            font-size: 1.4rem;
+            font-weight: 600;
+        }
+
         p {
             text-overflow: ellipsis;
             white-space: nowrap;
             overflow: hidden;
+            font-size: 1.2rem;
+            padding: 0.3em 0;
         }
     }
 
     .announcement:not(:last-child) {
-        border-bottom: 2px solid black;
+        border-bottom: 2px solid hsl(0,0%,70%);
     }
 }
 
 // ---------- Trending ----------
 
 #trending-section {
-    border: 2px solid red;
+    //border: 2px solid red;
     grid-area: trending;
     @extend %main-grid-item;
 }
 
 #trending {
+    @extend %main-card-box-shadow;
     background-color: var(--base-white);
+    border-radius: var(--main-card-radius);
+    padding: var(--main-card-padding);
     // Grid
     display: grid;
-    grid-template-rows: repeat(4, 1fr);
-    align-items: center;
+    align-content: space-between;
 
     .trending-item {
         --custom-line-height: 1.8rem;
-        outline: 2px solid red;
+
+        //outline: 2px solid red;
         line-height: var(--line-height);
         // Grid
         display: grid;
         grid-template-columns: 4rem 1fr;
         grid-template-rows: 4rem;
+        column-gap: 1rem;
 
         .trending-item-icon {
             background-color: var(--primary-color);
@@ -439,12 +546,13 @@ main {
                 //outline: 2px solid blue;
                 @extend %ellipsis-text-overflow;
                 font-size: 1.2rem;
+                font-weight: 600;
             }
     
             .trending-item-title {
                 //outline: 2px solid red;
                 @extend %ellipsis-text-overflow;
-                font-size: 1.8rem;
+                font-size: 1.4rem;
             }
         }
     }

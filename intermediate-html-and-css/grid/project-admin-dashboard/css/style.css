@@ -53,15 +53,18 @@ table {
   border-spacing: 0;
 }
 
-#header-btns a, #side-bar a {
+#notification-icon, #header-btns a, #side-bar a {
   text-decoration: none;
   color: inherit;
 }
 
 #trending .trending-item .trending-item-info .trending-item-username, #trending .trending-item .trending-item-info .trending-item-title {
-  text-overflow: ellipsis;
   white-space: nowrap;
-  overflow: hidden;
+}
+
+#projects .project-card, #announcements, #trending {
+  -webkit-box-shadow: 2px 2px 5px #4d4d4d;
+          box-shadow: 2px 2px 5px #4d4d4d;
 }
 
 :root {
@@ -91,16 +94,19 @@ body {
   color: var(--base-black);
   display: -ms-grid;
   display: grid;
-  -ms-grid-columns: 1fr 5fr;
-      grid-template-columns: 1fr 5fr;
+  -ms-grid-columns: minmax(max-content, 1fr) 5fr;
+      grid-template-columns: minmax(-webkit-max-content, 1fr) 5fr;
+      grid-template-columns: minmax(max-content, 1fr) 5fr;
   -ms-grid-rows: auto 1fr;
       grid-template-rows: auto 1fr;
       grid-template-areas: "sidenav header" "sidenav main";
 }
 
 header {
-  border: 2px solid red;
-  padding: 1rem;
+  padding: 1rem 4rem;
+  -webkit-box-shadow: 0 0 5px var(--base-black);
+          box-shadow: 0 0 5px var(--base-black);
+  z-index: 1;
   -ms-grid-row: 1;
   -ms-grid-column: 2;
   grid-area: header;
@@ -117,7 +123,6 @@ header {
 }
 
 #search-bar {
-  border: 2px solid orange;
   display: -ms-grid;
   display: grid;
   -ms-grid-columns: auto 1fr;
@@ -137,7 +142,6 @@ header {
 }
 
 #user-btns {
-  border: 2px solid yellow;
   display: -ms-grid;
   display: grid;
   -ms-grid-columns: min-content 4rem max-content;
@@ -151,11 +155,65 @@ header {
   -webkit-box-pack: end;
       -ms-flex-pack: end;
           justify-content: end;
-  gap: 1.6rem;
+  gap: 2rem;
 }
 
 #notification-icon {
   font-size: 2rem;
+}
+
+#notification-icon i {
+  -webkit-animation-duration: 500ms;
+          animation-duration: 500ms;
+  -webkit-animation-iteration-count: infinite;
+          animation-iteration-count: infinite;
+  -webkit-animation-timing-function: linear;
+          animation-timing-function: linear;
+  -webkit-transform-origin: top;
+          transform-origin: top;
+}
+
+#notification-icon:hover i, #notification-icon:active i, #notification-icon:focus i {
+  -webkit-animation-name: ding-bell;
+          animation-name: ding-bell;
+}
+
+@-webkit-keyframes ding-bell {
+  0% {
+    -webkit-transform: rotate(0deg);
+            transform: rotate(0deg);
+  }
+  20% {
+    -webkit-transform: rotate(-45deg);
+            transform: rotate(-45deg);
+  }
+  80% {
+    -webkit-transform: rotate(45deg);
+            transform: rotate(45deg);
+  }
+  100% {
+    -webkit-transform: rotate(0deg);
+            transform: rotate(0deg);
+  }
+}
+
+@keyframes ding-bell {
+  0% {
+    -webkit-transform: rotate(0deg);
+            transform: rotate(0deg);
+  }
+  20% {
+    -webkit-transform: rotate(-45deg);
+            transform: rotate(-45deg);
+  }
+  80% {
+    -webkit-transform: rotate(45deg);
+            transform: rotate(45deg);
+  }
+  100% {
+    -webkit-transform: rotate(0deg);
+            transform: rotate(0deg);
+  }
 }
 
 #user-icon {
@@ -174,13 +232,13 @@ header {
 }
 
 #user-info {
-  outline: 2px solid green;
   display: -ms-grid;
   display: grid;
   -ms-grid-columns: 6rem 1fr;
       grid-template-columns: 6rem 1fr;
   -ms-grid-rows: 6rem;
       grid-template-rows: 6rem;
+  gap: 1rem;
 }
 
 #user-info-icon {
@@ -195,6 +253,7 @@ header {
 }
 
 #user-details {
+  font-weight: 700;
   display: -ms-grid;
   display: grid;
   -ms-grid-rows: (auto)[2];
@@ -204,20 +263,18 @@ header {
           align-items: center;
   -ms-flex-line-pack: center;
       align-content: center;
+  gap: 0.5rem;
 }
 
 #user-details-message {
   font-size: 1.2rem;
-  font-weight: 600;
 }
 
-#user-deails-name {
-  font-size: 2.2rem;
-  font-weight: 600;
+#user-details-name {
+  font-size: 2rem;
 }
 
 #header-btns {
-  border: 2px solid indigo;
   display: -ms-grid;
   display: grid;
   -ms-grid-columns: (1fr)[3];
@@ -231,17 +288,31 @@ header {
 #header-btns a {
   background-color: var(--primary-color);
   color: var(--base-white);
+  border: 5px solid var(--primary-color);
   border-radius: 100vh;
-  padding: 0.5em 1em;
+  padding: 0.5em 1.2em;
   display: -ms-grid;
   display: grid;
   place-items: center;
+  -webkit-transition: -webkit-transform 500ms ease;
+  transition: -webkit-transform 500ms ease;
+  transition: transform 500ms ease;
+  transition: transform 500ms ease, -webkit-transform 500ms ease;
+}
+
+#header-btns a:hover, #header-btns a:active, #header-btns a:focus {
+  color: var(--primary-color);
+  background-color: var(--base-white);
+  -webkit-transform: scale(1.2);
+          transform: scale(1.2);
 }
 
 #side-bar {
   background-color: var(--primary-color);
   color: var(--base-white);
   padding: 1.6rem;
+  font-weight: 600;
+  z-index: 1;
   -ms-grid-row: 1;
   -ms-grid-row-span: 2;
   -ms-grid-column: 1;
@@ -251,15 +322,7 @@ header {
   -ms-grid-rows: (min-content)[3];
       grid-template-rows: repeat(3, -webkit-min-content);
       grid-template-rows: repeat(3, min-content);
-  gap: 3rem;
-}
-
-#side-bar a {
-  display: block;
-}
-
-#side-bar i {
-  margin-right: 1.6rem;
+  gap: 5rem;
 }
 
 #branding, #nav-1, #nav-2 {
@@ -273,24 +336,47 @@ header {
   display: grid;
   -ms-grid-columns: 3rem 1fr;
       grid-template-columns: 3rem 1fr;
+  gap: 0.3em;
+}
+
+#branding a > *, #nav-1 a > *, #nav-2 a > * {
+  -webkit-transition: -webkit-transform 500ms ease;
+  transition: -webkit-transform 500ms ease;
+  transition: transform 500ms ease;
+  transition: transform 500ms ease, -webkit-transform 500ms ease;
+}
+
+#branding a:hover > i, #branding a:active > i, #branding a:focus > i, #nav-1 a:hover > i, #nav-1 a:active > i, #nav-1 a:focus > i, #nav-2 a:hover > i, #nav-2 a:active > i, #nav-2 a:focus > i {
+  -webkit-transform: scale(1.5);
+          transform: scale(1.5);
+}
+
+#branding a:hover > span, #branding a:active > span, #branding a:focus > span, #nav-1 a:hover > span, #nav-1 a:active > span, #nav-1 a:focus > span, #nav-2 a:hover > span, #nav-2 a:active > span, #nav-2 a:focus > span {
+  -webkit-transform: scale(1.2);
+          transform: scale(1.2);
+}
+
+#branding i, #nav-1 i, #nav-2 i {
+  -ms-grid-column-align: center;
+      justify-self: center;
+}
+
+#branding span, #nav-1 span, #nav-2 span {
+  display: inline-block;
+  -webkit-transform-origin: left;
+          transform-origin: left;
 }
 
 #branding {
-  border: 2px solid red;
   font-size: 2rem;
 }
 
-#nav-1 {
-  border: 2px solid green;
-}
-
-#nav-2 {
-  border: 2px solid blue;
-}
-
 main {
-  border: 2px solid blue;
+  --main-card-radius: 1rem;
+  --main-card-padding: 1.6rem;
   background-color: var(--secondary-color);
+  padding: 1.6rem;
+  padding-bottom: 3rem;
   -ms-grid-row: 2;
   -ms-grid-column: 2;
   grid-area: main;
@@ -307,6 +393,7 @@ main {
 main h2 {
   font-size: 1.8rem;
   font-weight: 600;
+  padding-bottom: 0.5em;
 }
 
 #projects-section, #announcements-section, #trending-section {
@@ -317,7 +404,6 @@ main h2 {
 }
 
 #projects-section {
-  border: 2px solid blue;
   -ms-grid-row: 1;
   -ms-grid-row-span: 2;
   -ms-grid-column: 1;
@@ -325,33 +411,42 @@ main h2 {
 }
 
 #projects-container {
-  border: 2px solid green;
   position: relative;
-  overflow: auto;
 }
 
 #projects {
-  border: 2px solid red;
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
+  bottom: 0;
   display: -ms-grid;
   display: grid;
   -ms-grid-columns: (minmax(25ch, 1fr))[auto-fit];
       grid-template-columns: repeat(auto-fit, minmax(25ch, 1fr));
-  grid-auto-rows: 20rem;
+  grid-auto-rows: 1fr;
   gap: 1.6rem;
 }
 
 #projects .project-card {
-  border-radius: 1rem;
-  border-left: 1rem solid var(--user-color);
+  border-radius: var(--main-card-radius);
+  border-left: var(--main-card-radius) solid var(--user-color);
   background-color: var(--base-white);
+  padding: var(--main-card-padding);
   display: -ms-grid;
   display: grid;
   -ms-grid-rows: auto 1fr auto;
       grid-template-rows: auto 1fr auto;
+  gap: 0.5em;
+}
+
+#projects .project-card .project-title {
+  font-size: 1.8rem;
+  font-weight: 600;
+}
+
+#projects .project-card .project-description {
+  font-size: 1.4rem;
 }
 
 #projects .project-card .project-btns {
@@ -391,7 +486,6 @@ main h2 {
 }
 
 #announcements-section {
-  border: 2px solid red;
   -ms-grid-row: 1;
   -ms-grid-column: 2;
   grid-area: announcements;
@@ -399,10 +493,13 @@ main h2 {
 
 #announcements {
   background-color: var(--base-white);
+  border-radius: var(--main-card-radius);
+  padding: var(--main-card-padding);
   display: -ms-grid;
   display: grid;
   -ms-grid-rows: (1fr)[3];
       grid-template-rows: repeat(3, 1fr);
+  gap: 0.5em;
 }
 
 #announcements .announcement {
@@ -412,18 +509,24 @@ main h2 {
       grid-template-rows: auto 1fr;
 }
 
+#announcements .announcement h3 {
+  font-size: 1.4rem;
+  font-weight: 600;
+}
+
 #announcements .announcement p {
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
+  font-size: 1.2rem;
+  padding: 0.3em 0;
 }
 
 #announcements .announcement:not(:last-child) {
-  border-bottom: 2px solid black;
+  border-bottom: 2px solid #b3b3b3;
 }
 
 #trending-section {
-  border: 2px solid red;
   -ms-grid-row: 2;
   -ms-grid-column: 2;
   grid-area: trending;
@@ -431,18 +534,16 @@ main h2 {
 
 #trending {
   background-color: var(--base-white);
+  border-radius: var(--main-card-radius);
+  padding: var(--main-card-padding);
   display: -ms-grid;
   display: grid;
-  -ms-grid-rows: (1fr)[4];
-      grid-template-rows: repeat(4, 1fr);
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  -ms-flex-line-pack: justify;
+      align-content: space-between;
 }
 
 #trending .trending-item {
   --custom-line-height: 1.8rem;
-  outline: 2px solid red;
   line-height: var(--line-height);
   display: -ms-grid;
   display: grid;
@@ -450,6 +551,8 @@ main h2 {
       grid-template-columns: 4rem 1fr;
   -ms-grid-rows: 4rem;
       grid-template-rows: 4rem;
+  -webkit-column-gap: 1rem;
+          column-gap: 1rem;
 }
 
 #trending .trending-item .trending-item-icon {
@@ -477,9 +580,10 @@ main h2 {
 
 #trending .trending-item .trending-item-info .trending-item-username {
   font-size: 1.2rem;
+  font-weight: 600;
 }
 
 #trending .trending-item .trending-item-info .trending-item-title {
-  font-size: 1.8rem;
+  font-size: 1.4rem;
 }
 /*# sourceMappingURL=style.css.map */
