@@ -2,6 +2,22 @@
 
 <h2 align="center">JavaScript</h2>
 
+<h3 align="center">Project - Restaurant Page</h3>
+
+<p align="center">
+    <img src="https://toddbrentlinger.github.io/odin-project-restaurant-page/favicon/android-chrome-192x192.png" width="10%" alt="Corralitos Pizza logo">
+</p>
+
+<p align="center">
+    <a href="https://toddbrentlinger.github.io/odin-project-restaurant-page/">Click to see it in action</a>
+</p>
+
+<p align="center">
+    <a href="https://github.com/toddbrentlinger/odin-project-restaurant-page">Click to see source files and README</a>
+</p>
+
+<hr/>
+
 <h3 align="center">Project - Tic-Tac-Toe</h3>
 
 <p align="center">
