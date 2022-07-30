@@ -43,18 +43,21 @@
                     <div class="book-btn-top">
                         <button type="button" class="book-inside-cancel" aria-label="cancel"><i class="fas fa-window-close"></i></button>
                     </div>
-                    <form action="" method="post" id="book-">
+                    <form action="" method="post" id="book-" novalidate>
                         <label for="title-">
                             <span>Title</span>
-                            <input type="text" name="title" id="title-" maxlength="100"> 
+                            <input type="text" name="title" id="title-" maxlength="100">
+                            <span class="error" aria-live="polite"></span>
                         </label>
                         <label for="author-">
                             <span>Author</span>
-                            <input type="text" name="author" id="author-" maxlength="100"> 
+                            <input type="text" name="author" id="author-" maxlength="100">
+                            <span class="error" aria-live="polite"></span>
                         </label>
                         <label for="pages-">
                             <span>Pages</span>
-                            <input type="number" name="pages" id="pages-" min="1"> 
+                            <input type="number" name="pages" id="pages-" min="1">
+                            <span class="error" aria-live="polite"></span>
                         </label>
                         <fieldset>
                             <span>Completed</span>
@@ -83,21 +86,24 @@
                     <div class="book-btn-top">
                         <button type="button" class="book-inside-cancel" aria-label="cancel"><i class="fas fa-window-close"></i></button>
                     </div>
-                    <form action="#" method="post" id="book">
+                    <form action="#" method="post" id="book" novalidate>
                         <label for="title">
-                            <span>Title</span>
-                            <input type="text" name="title" id="title" maxlength="100" required> 
+                            <span class="label-title">Title</span>
+                            <input type="text" name="title" id="title" maxlength="100" required>
+                            <span class="error" aria-live="polite"></span>
                         </label>
                         <label for="author">
-                            <span>Author</span>
-                            <input type="text" name="author" id="author" maxlength="100" required> 
+                            <span class="label-title">Author</span>
+                            <input type="text" name="author" id="author" maxlength="100" required>
+                            <span class="error" aria-live="polite"></span>
                         </label>
                         <label for="pages">
-                            <span>Pages</span>
-                            <input type="number" name="pages" id="pages" min="1" required> 
+                            <span class="label-title">Pages</span>
+                            <input type="number" name="pages" id="pages" min="1" required>
+                            <span class="error" aria-live="polite"></span>
                         </label>
                         <fieldset>
-                            <span>Completed</span>
+                            <span class="label-title">Completed</span>
                             <label for="read" class="switch">
                                 <input type="checkbox" name="read" id="read"> 
                                 <span class="slider round"></span>

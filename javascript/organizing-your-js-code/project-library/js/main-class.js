@@ -1,6 +1,45 @@
 'use strict';
 
 (function() {
+    class FormInput {
+        constructor(labelElement) {
+            this.labelTitleElement = labelElement.querySelector('.label-title');
+            this.inputElement = labelElement.querySelector('input');
+            this.errorElement = labelElement.querySelector('.error');
+
+            this.init();
+        }
+
+        init() {
+            this.inputElement.addEventListener('input', (e) => {
+                if (this.inputElement.validity.valid) {
+                    // Hide error
+                    this.errorElement.textContent = '';
+                    this.errorElement.className = 'error';
+                } else {
+                    // Show error
+                    this.showError();
+                }
+            }, false);
+
+            this.inputElement.addEventListener('blur', (e) => {
+                //console.log(`Blur! ${this.inputElement.id}\n: Validity: ${this.inputElement.reportValidity()}`);
+            }, false);
+        }
+
+        showError() {
+            if (this.inputElement.validity.valueMissing) {
+                this.errorElement.textContent = 'Value Missing!';
+            } else if (this.inputElement.validity.typeMismatch) {
+                this.errorElement.textContent = 'Type Mismatch';
+            } else {
+                this.errorElement.textContent = `Validity: ${this.inputElement.validity.valid}`;
+            }
+
+            this.errorElement.className = 'error active';
+        }
+    }
+
     class Book {
         /**
          * @constructor
@@ -18,6 +57,7 @@
             this.id = Book.id++;
             // Initialized to null so event listeners are only added at first creation and NOT every update
             this.bookNode = null;
+            this.formInputs = [];
         }
 
         // Static Properties
@@ -111,7 +151,12 @@
 
                 // Submit/Update Button
                 book.bookNode.querySelector('.book-btn-submit')
-                    .addEventListener('click', book.update.bind(book), false);
+                    .addEventListener('click', (e) => {
+                        debugger;
+                        e.preventDefault();
+                        e.reportValidity();
+                        book.update.bind(book);
+                    }, false);
             }
 
             return book.bookNode;
@@ -185,6 +230,9 @@
             formElement.querySelectorAll('label').forEach(label => {
                 // Label 'for' attribute
                 label.htmlFor = label.htmlFor.match(/.+-/)[0] + this.id;
+
+                // Create FormInput element and add to list
+                this.formInputs.push(new FormInput(label));
             });
 
             // Append Book id to input attributes
@@ -353,6 +401,10 @@
             // Prevent form from actually submitting to 'action' attribute since 
             // there is no external server or database used to handle the books.
             e.preventDefault();
+
+            // Form Constraint Validation
+            debugger;
+            e.target.reportValidity();
 
             // Get all input values in form stored in object
             // TODO: Use e.target.elements instead of querying all input tags

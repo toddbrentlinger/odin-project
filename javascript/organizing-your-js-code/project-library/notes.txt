@@ -10,6 +10,10 @@ inside book.
 
 TO-DO:
 
+- Form validation not working if preventing default on form submission callback.
+Look up built in methods to validate form input based on html attributes 
+for validation (ex. min, maxlength, etc.).
+
 - Add second inner page that asks user to confirm when they want to delete
 a book from the library.
 
