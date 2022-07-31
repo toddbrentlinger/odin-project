@@ -28,15 +28,23 @@
         }
 
         showError() {
-            if (this.inputElement.validity.valueMissing) {
-                this.errorElement.textContent = 'Value Missing!';
-            } else if (this.inputElement.validity.typeMismatch) {
-                this.errorElement.textContent = 'Type Mismatch';
-            } else {
-                this.errorElement.textContent = `Validity: ${this.inputElement.validity.valid}`;
-            }
+            const ERRORS = {
+                badInput: 'Must be a number!',
+                rangeUnderflow: 'Must be greater than 0!',
+                typeMismatch: 'Wrong type!',
+                valueMissing: 'Required!',
+            };
+
+            // Add each lised error if invalid
+            this.errorElement.textContent = Object.entries(ERRORS) // Get [key, value] pairs of ERRORS in array
+                .filter(entry => this.inputElement.validity[entry[0]]) // Filter by invalid errors from input element
+                .map(entry => entry[1]) // Map to array of error messages to display
+                .join('\n'); // Join array of messages with newline separating them
 
             this.errorElement.className = 'error active';
+
+            // TESTING
+            console.log(this.inputElement.validity);
         }
     }
 
@@ -133,7 +141,8 @@
             tempElement = book.bookNode.querySelector('.book-inside');
 
             // Setup form attributes to be unique for a Book instance
-            book.setupForm(tempElement.querySelector('form'));
+            const formElement = tempElement.querySelector('form')
+            book.setupForm(formElement);
 
             // Add event listeners if first time element is created
             if (bFirstCreation) {
@@ -148,15 +157,6 @@
                 // Delete Button
                 book.bookNode.querySelector('.book-btn-delete')
                     .addEventListener('click', () => deleteCallback(book), false);
-
-                // Submit/Update Button
-                book.bookNode.querySelector('.book-btn-submit')
-                    .addEventListener('click', (e) => {
-                        debugger;
-                        e.preventDefault();
-                        e.reportValidity();
-                        book.update.bind(book);
-                    }, false);
             }
 
             return book.bookNode;
@@ -182,6 +182,13 @@
             // Fixes issue with click event listener of book closing running when inside is clicked
             // Stops click event bubbling up to book cover ancestor
             tempElement.addEventListener('click', e => e.stopPropagation(), false);
+
+            addNewBookCardElement.querySelectorAll('label').forEach(label => {
+                // Create FormInput element and add to list (excluding checkbox type)
+                if (!label.querySelector('input[type="checkbox"]')) {
+                    new FormInput(label);
+                }
+            });
 
             // Cancel Button
             tempElement.querySelector('.book-inside-cancel')
@@ -231,8 +238,10 @@
                 // Label 'for' attribute
                 label.htmlFor = label.htmlFor.match(/.+-/)[0] + this.id;
 
-                // Create FormInput element and add to list
-                this.formInputs.push(new FormInput(label));
+                // Create FormInput element and add to list (excluding checkbox type)
+                if (!label.querySelector('input[type="checkbox"]')) {
+                    this.formInputs.push(new FormInput(label));
+                }
             });
 
             // Append Book id to input attributes
@@ -255,13 +264,25 @@
                 // Append Book Id to input id attribute
                 input.id = input.id.match(/.+-/)[0] + this.id;
             });
+
+            // Submit/Update Button
+            formElement.addEventListener('submit', (e) => {
+                debugger;
+                const bIsFormValid = this.formInputs.every((formInput) => formInput.inputElement.checkValidity());
+                if (bIsFormValid) {
+                    e.preventDefault();
+                    this.update();
+                } else {
+                    e.preventDefault();
+                }
+            }, false);
         }
 
         /** Updates Book instance to use values on form inside book element form. */
         update() {
             // Assign each input value in form to corresponding Book instance 
             // properties depending on the type attribute of the input element
-            this.bookNode.querySelectorAll('form input').forEach(input => {
+            this.bookNode.querySelectorAll('form input').forEach((input) => {
                 switch(input.type) {
                     case 'text':
                         this[input.name] = input.value || input.placeholder;

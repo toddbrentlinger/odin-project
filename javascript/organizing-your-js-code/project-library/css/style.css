@@ -420,6 +420,15 @@ footer p {
   outline: #8c3f45 solid 3px;
 }
 
+.book .book-inside form input:not([type="checkbox"]):focus:invalid {
+  outline: none;
+}
+
+.book .book-inside form input:invalid {
+  border-color: #900;
+  background-color: #FDD;
+}
+
 .book .book-inside form fieldset {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -434,6 +443,21 @@ footer p {
 
 .book .book-inside form fieldset span {
   padding-right: 0.5em;
+}
+
+.book .book-inside form .error {
+  width: 100%;
+  padding: 0;
+  font-size: 80%;
+  color: white;
+  background-color: #900;
+  border-radius: 0 0 5px 5px;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+.book .book-inside form .error.active {
+  padding: 0.3em;
 }
 
 .book .book-inside .book-btn-bottom {
