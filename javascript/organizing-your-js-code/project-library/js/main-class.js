@@ -48,6 +48,198 @@
         }
     }
 
+    class BookComponent {
+        constructor(book, deleteCallback) {
+            this.book = book;
+            this.element = null;
+            this.formInputs = [];
+        }
+
+        // Base Book element to be cloned and data replaced with data from each instance 
+        // before adding to DOM. Better than having to script the creation of every element
+        // inside the '.book' class element whenever a new Book instance is added to DOM.
+        static baseElement = document.querySelector('#book-base .book');
+
+        handleUpdateSubmit(e) {
+            const bIsFormValid = this.formInputs.every((formInput) => formInput.inputElement.checkValidity());
+            if (bIsFormValid) {
+                e.preventDefault();
+
+                // Update Book instance with new set of valid values from form
+                this.updateBook();
+            } else {
+                e.preventDefault();
+            }
+        }
+
+        /**
+         * Creates and returns an element that displays the properties in, and provides form to update/delete, 
+         * a Book instance.
+         * @param {Function} deleteCallback Callback function to be called when user deletes book
+         * @returns {Element} HTML Element containing Book instance data
+         */
+        createBookCardElement(deleteCallback) {
+            if (this.element) {
+                console.log('Book card element already created');
+                return this.element;
+            } else if (!BookComponent.baseElement) { // Return if there is NO base element
+                console.error('NO base element to clone and add Book instance to DOM');
+                return;
+            }
+
+            // Create clone of base Book element
+            this.element = BookComponent.baseElement.cloneNode(true);
+
+            // Add Book instance properties to Book cover
+            this.updateCover();
+
+            // Add Book instance properties to Book form
+            this.updateFormFields();
+
+            // Book Cover
+
+            // Add event listener to book cover to toggle open/close transition
+            this.element.addEventListener('click', this.toggleOpenCover.bind(this), false);
+
+            // Book Inside
+
+            // Add id to 'form' attribute in submit button
+            // Submit button reference
+            let tempElement = this.element.querySelector('.book-btn-submit')
+                .setAttribute('form', tempElement.getAttribute('form') + this.book.id.toString());
+
+            // Inside element reference
+            const insideBookElement = this.element.querySelector('.book-inside');
+
+            // Fixes issue with click event listener of book closing running when inside is clicked
+            // Stops click event bubbling up to book cover ancestor
+            insideBookElement.addEventListener('click', e => e.stopPropagation(), false);
+
+            // Cancel/Close Button event listener
+            this.element.querySelector('.book-inside-cancel')
+                .addEventListener('click', this.closeCover.bind(this), false);
+
+            // Delete Button event listener
+            this.element.querySelector('.book-btn-delete')
+                .addEventListener('click', () => deleteCallback(book), false);
+
+            // Form element reference
+            const formElement = this.element.querySelector('form');
+
+            // Append Book id to form element id
+            formElement.id = formElement.id.match(/.+-/)[0] + this.id;
+
+            // Append Book id to label attributes
+            formElement.querySelectorAll('label').forEach(label => {
+                // Label 'for' attribute
+                label.htmlFor = label.htmlFor.match(/.+-/)[0] + this.id;
+
+                // Create FormInput element and add to list (excluding checkbox type)
+                if (!label.querySelector('input[type="checkbox"]')) {
+                    this.formInputs.push(new FormInput(label));
+                }
+            });
+
+            // Append Book id to input attributes
+            formElement.querySelectorAll('input').forEach(input => {
+                input.id = input.id.match(/.+-/)[0] + this.id;
+            });
+
+            // Submit/Update Button
+            formElement.addEventListener('submit', this.handleUpdateSubmit.bind(this), false);
+
+            return this.element;
+        }
+
+        /** Toggle open the cover of the HTML element for the Book instance. */
+        toggleOpenCover(e) {
+            // Add '.open' class to element to trigger cover opening transition
+            this.element.classList.toggle('open');
+        }
+
+        /** Closes the cover of the HTML element for the Book instance. */
+        closeCover() {
+            // Remove '.open' class from element to trigger cover close transition
+            this.element.classList.remove('open');
+        }
+
+        /** Updates Book cover to display current values of Book instance properties with  */
+        updateCover() {
+            // Function to add text content to element with specified selectors
+            let tempElement;
+            const addTextToElement = function(selectors, textContent) {
+                tempElement = this.element.querySelector(selectors);
+                if (tempElement) {
+                    tempElement.textContent = textContent;
+                }
+            }.bind(this);
+
+            // Add Book instance properties to book cover
+            addTextToElement('.book-title', this.book.title);
+            addTextToElement('.book-author', `by ${this.book.author}`);
+            addTextToElement('.book-pages', `${this.book.pages} pages`);
+            addTextToElement('.book-read', this.book.read ? 'Has Read' : 'Has Not Yet Read');
+
+            // Display bookmark only if Book instance property 'read' is false
+            if (this.book.read) {
+                this.element.querySelector('.book-bookmark-icon').classList.add('hide');
+            } else {
+                this.element.querySelector('.book-bookmark-icon').classList.remove('hide');
+            }
+        }
+
+        /** Updates Book form to display current values of Book instance properties with unique element Id fields. */
+        updateFormFields() {
+            // Get form element
+            const formElement = this.bookNode.querySelector('form');
+
+            // Append Book id to input attributes
+            let inputName;
+            formElement.querySelectorAll('input').forEach(input => {
+                // Make sure input value is blank to clear form inputs after update
+                input.value = '';
+
+                // Get name attribute from input that matches the Book property name
+                inputName = input.name.match(/.+(?=-?)/)[0]; // Get name except '-' at the end
+
+                // Input placeholder with existing value of Book instance properties
+                // If input is checkbox, set checked attribute instead.
+                if (inputName === 'read') {
+                    input.checked = this.read;
+                } else {
+                    input.placeholder = this[inputName];
+                }
+            });
+        }
+
+        updateBook() {
+            // Assign each input value in form to corresponding Book instance 
+            // properties depending on the type attribute of the input element
+            this.element.querySelectorAll('form input').forEach((input) => {
+                switch(input.type) {
+                    case 'text':
+                        this.book[input.name] = input.value || input.placeholder;
+                        break;
+                    case 'number':
+                        this.book[input.name] = (input.value === '' ? +input.placeholder : +input.value);
+                        break;
+                    case 'checkbox':
+                        this.book[input.name] = input.checked;
+                        break;
+                    default:
+                        console.error(`Input type "${input.type}" NOT accounted for!`);
+                }
+            });
+
+            // Update Book instance element with updated values of Book instance properties
+            this.updateCover();
+            this.updateFormFields();
+            
+            // Close book cover
+            this.close();
+        }
+    }
+
     class Book {
         /**
          * @constructor
@@ -82,7 +274,8 @@
         // Static Methods
 
         /**
-         * Creates and returns an element to hold the properties in the Book instance.
+         * Creates and returns an element that displays the properties in, and provides form to update/delete, 
+         * a Book instance.
          * @param {Book} book Book instance
          * @param {Function} deleteCallback Callback function to be called when user deletes book
          * @returns {Element} HTML Element containing Book instance data
@@ -106,43 +299,20 @@
             }
             
             // Add Book instance properties to Book cover
-
-            // Function to add text content to element with specified selectors
-            let tempElement;
-            const addTextToElement = function(selectors, textContent) {
-                tempElement = book.bookNode.querySelector(selectors);
-                if (tempElement) {
-                    tempElement.textContent = textContent;
-                }
-            };
-            // Add Book instance properties to book cover
-            addTextToElement('.book-title', book.title);
-            addTextToElement('.book-author', `by ${book.author}`);
-            addTextToElement('.book-pages', `${book.pages} pages`);
-            addTextToElement('.book-read', book.read ? 'Has Read' : 'Has Not Yet Read');
-
-            // Book Cover
-
-            // Display bookmark only if Book instance property 'read' is false
-            if (book.read) {
-                book.bookNode.querySelector('.book-bookmark-icon').classList.add('hide');
-            } else {
-                book.bookNode.querySelector('.book-bookmark-icon').classList.remove('hide');
-            }
+            book.updateCover();
 
             // Book Inside
+            
+            // Add Book instance properties to Book form
+            book.updateFormFields();
 
             // Add id to 'form' attribute in submit button
             // Submit button reference
-            tempElement = book.bookNode.querySelector('.book-btn-submit');
-            tempElement.setAttribute('form', tempElement.getAttribute('form') + book.id.toString());
+            let tempElement = book.bookNode.querySelector('.book-btn-submit')
+                .setAttribute('form', tempElement.getAttribute('form') + book.id.toString());
 
             // Inside element reference
             tempElement = book.bookNode.querySelector('.book-inside');
-
-            // Setup form attributes to be unique for a Book instance
-            const formElement = tempElement.querySelector('form')
-            book.setupForm(formElement);
 
             // Add event listeners if first time element is created
             if (bFirstCreation) {
@@ -157,6 +327,17 @@
                 // Delete Button
                 book.bookNode.querySelector('.book-btn-delete')
                     .addEventListener('click', () => deleteCallback(book), false);
+
+                // Submit/Update Button
+                book.bookNode.querySelector('form').addEventListener('submit', (e) => {
+                    const bIsFormValid = book.formInputs.every((formInput) => formInput.inputElement.checkValidity());
+                    if (bIsFormValid) {
+                        e.preventDefault();
+                        book.update();
+                    } else {
+                        e.preventDefault();
+                    }
+                }, false);
             }
 
             return book.bookNode;
@@ -225,11 +406,36 @@
             this.bookNode.classList.remove('open');
         }
 
-        /**
-         * Updates Book form to display current values of Book instance properties with unique element Id fields.
-         * @param {Element} formElement 
-         */
-        setupForm(formElement) {
+        /** Updates Book cover to display current values of Book instance properties with  */
+        updateCover() {
+            // Function to add text content to element with specified selectors
+            let tempElement;
+            const addTextToElement = function(selectors, textContent) {
+                tempElement = this.bookNode.querySelector(selectors);
+                if (tempElement) {
+                    tempElement.textContent = textContent;
+                }
+            }.bind(this);
+
+            // Add Book instance properties to book cover
+            addTextToElement('.book-title', this.title);
+            addTextToElement('.book-author', `by ${this.author}`);
+            addTextToElement('.book-pages', `${this.pages} pages`);
+            addTextToElement('.book-read', this.read ? 'Has Read' : 'Has Not Yet Read');
+
+            // Display bookmark only if Book instance property 'read' is false
+            if (this.read) {
+                this.bookNode.querySelector('.book-bookmark-icon').classList.add('hide');
+            } else {
+                this.bookNode.querySelector('.book-bookmark-icon').classList.remove('hide');
+            }
+        }
+
+        /** Updates Book form to display current values of Book instance properties with unique element Id fields. */
+        updateFormFields() {
+            // Get form element
+            const formElement = this.bookNode.querySelector('form');
+
             // Append Book id to form element id
             formElement.id = formElement.id.match(/.+-/)[0] + this.id;
 
@@ -264,18 +470,6 @@
                 // Append Book Id to input id attribute
                 input.id = input.id.match(/.+-/)[0] + this.id;
             });
-
-            // Submit/Update Button
-            formElement.addEventListener('submit', (e) => {
-                debugger;
-                const bIsFormValid = this.formInputs.every((formInput) => formInput.inputElement.checkValidity());
-                if (bIsFormValid) {
-                    e.preventDefault();
-                    this.update();
-                } else {
-                    e.preventDefault();
-                }
-            }, false);
         }
 
         /** Updates Book instance to use values on form inside book element form. */
@@ -299,7 +493,9 @@
             });
 
             // Update Book instance element with updated values of Book instance properties
-            Book.createBookCardElement(this);
+            //Book.createBookCardElement(this);
+            this.updateCover();
+            this.updateFormFields();
             
             // Close book cover
             this.close();
@@ -355,8 +551,8 @@
             // Create element for Book instance
             const bookCardElement = Book.createBookCardElement(newBook, this.handleDelete.bind(this));
             
-            // Insert new book element at the top of the list
-            this.listElement.appendChild(bookCardElement);
+            // // Insert new book element at the top of the list
+            // this.listElement.appendChild(bookCardElement);
 
             return true;
         }
@@ -424,13 +620,14 @@
             e.preventDefault();
 
             // Form Constraint Validation
-            debugger;
             e.target.reportValidity();
 
             // Get all input values in form stored in object
             // TODO: Use e.target.elements instead of querying all input tags
             const formInputValues = {}; // Key: input 'name' attribute - Value: input 'value'
-            e.target.querySelectorAll('input').forEach(input => {
+            let input;
+            for (let i = 0; i < e.target.elements.length; i++) {
+                input = e.target.elements.item(i);
                 switch(input.type) {
                     case 'text':
                         formInputValues[input.name] = input.value;
@@ -444,7 +641,7 @@
                     default:
                         console.error(`Input type "${input.type} NOT accounted for in add new book form!"`);
                 }
-            });
+            }
             
             // Create new Book instance with form values AND add to the library
             this.addBook(new Book(formInputValues.title, formInputValues.author, formInputValues.pages, formInputValues.read));
