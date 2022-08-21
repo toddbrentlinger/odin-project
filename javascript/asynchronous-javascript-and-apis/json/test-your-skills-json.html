@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Asynchronous JavaScript and APIs - JSON: Test Your Skills (MDN)</title>
+</head>
+<body>
+    <script>
+        const section = document.querySelector('section');
+
+        let para1 = document.createElement('p');
+        let para2 = document.createElement('p');
+        let motherInfo = 'The mother cats are called ';
+        let kittenInfo;
+        const requestURL = 'https://mdn.github.io/learning-area/javascript/oojs/tasks/json/sample.json';
+
+        fetch(requestURL)
+            .then(response => response.text())
+            .then(text => displayCatInfo(text))
+
+        function displayCatInfo(catString) {
+            let total = 0;
+            let male = 0;
+
+            // Add your code here
+            function pluralize(word, num) {
+                return word + (num ? 's' : '');
+            }
+
+            const catJSON = JSON.parse(catString);
+            catJSON.forEach((cat, index, arr) => {
+                // Mother
+
+                // Comma
+                if (index > 0) {
+                    motherInfo += ', ';
+                }
+                // Optional 'and' and cat name
+                if (index == arr.length - 1) {
+                    motherInfo += `and ${cat.name}.`;
+                } else {
+                    motherInfo += cat.name;
+                }
+                // Kittens
+
+                cat.kittens.forEach((kitten) => {
+                    if (kitten.gender == 'm') {
+                        male += 1;
+                    }
+                    total += 1;
+                });
+            });
+
+            const female = total - male;
+            
+            kittenInfo = `There are ${ total } ${ pluralize('kitten', total) }. ${ male } male ${ pluralize('kitten', male) } and ${ female } female ${ pluralize('kitten', female) }.`;
+            // Don't edit the code below here!
+
+            para1.textContent = motherInfo;
+            para2.textContent = kittenInfo;
+        }
+
+        section.appendChild(para1);
+        section.appendChild(para2);
+            
+    </script>
+    <section></section>
+</body>
+</html>
