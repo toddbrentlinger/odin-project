@@ -111,6 +111,7 @@ footer > p {
     cursor: pointer;
     margin: 2px;
     transition: transform 200ms ease;
+    user-select: none;
     /* Center numbers, letter, operators inside each calculator button. */
     display: flex;
     justify-content: center;
