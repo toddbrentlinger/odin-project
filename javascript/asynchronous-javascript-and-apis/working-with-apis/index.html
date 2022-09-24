@@ -5,20 +5,25 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Odin Project - Working with APIs</title>
+
+    <link rel="stylesheet" href="./styles.css">
+    
     <script defer src="./main.js"></script>
 </head>
 <body>
-    <div id="rand-cat-gif-container">
-        <img id="rand-cat-gif" src="#">
+    <div class="gif-container" id="rand-cat-gif-container">
         <button type="button">Random GIF</button>
+        <p class="loading-msg hidden">Loading</p>
+        <img class="gif-img" id="rand-cat-gif" src="#">
     </div>
 
-    <div id="search-gif-container">
-        <img id="search-gif" src="#">
+    <div class="gif-container" id="search-gif-container">
         <form action="" method="get" name="search-gif">
             <input type="search" name="search">
             <button type="submit">Search</button>
         </form>
+        <p class="loading-msg hidden">Loading</p>
+        <img class="gif-img" id="search-gif" src="#">
     </div>
 </body>
 </html>
