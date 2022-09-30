@@ -71,26 +71,35 @@ body {
     min-height: 100vh;
     color: var(--base-black, black);
     background-color: var(--base-white, white);
+
+    display: grid;
+    align-content: center;
 }
 
-.gif-container {
-    border: 2px solid red;
+#input-container {
+    display: grid;
+    justify-content: center;
+
+    form {
+        display: inline-block;
+    }
+}
+
+#loading-msg {
+    text-align: center;
+
+    &.hidden {
+        display: none;
+    }
+}
+
+#gif-container {
     height: 50vh;
 
-    > * {
+    img {
         display: block;
-    }
-
-    .loading-msg {
-        border: 2px solid green;
-
-        &.hidden {
-            display: none;
-        }
-    }
-    .gif-img {
-        border: 2px solid blue;
         height: 100%;
         width: auto;
+        margin: 0 auto;
     }
 }

@@ -1,15 +1,18 @@
 'use strict';
 
 (function() {
-    const GIPHY_API_KEY = '';
+    const GIPHY_API_KEY = 'M05QHHfe4a3Ofi4Q47FgmiMHmbqJAnqu';
+    const img = document.querySelector('#gif-container img');
+    const loadingMsg = document.getElementById('loading-msg');
 
+    /**
+     * Loads random cat GIF and returns promise.
+     * @returns {Promise}
+     */
     function randomizeGIF() {
-        const img = document.querySelector('#rand-cat-gif-container .gif-img');
-        const loadingMsg = document.querySelector('#rand-cat-gif-container .loading-msg');
-
         loadingMsg.classList.remove('hidden');
 
-        fetch('https://api.giphy.com/v1/gifs/translate?api_key=' + GIPHY_API_KEY + '&s=cats', { mode: 'cors' })
+        return fetch('https://api.giphy.com/v1/gifs/translate?api_key=' + GIPHY_API_KEY + '&s=cats', { mode: 'cors' })
             .then((response) => {
                 if (!response.ok) {
                     throw new Error('Network response was NOT ok');
@@ -24,13 +27,15 @@
             });
     }
 
+    /**
+     * Loads GIF base on searchText and returns promise.
+     * @param {String} searchText 
+     * @returns {Promise}
+     */
     function searchGIF(searchText) {
-        const img = document.querySelector('#search-gif-container .gif-img');
-        const loadingMsg = document.querySelector('#search-gif-container .loading-msg');
-
         loadingMsg.classList.remove('hidden');
 
-        fetch('https://api.giphy.com/v1/gifs/translate?api_key=' + GIPHY_API_KEY + '&s=' + searchText, { mode: 'cors' })
+        return fetch('https://api.giphy.com/v1/gifs/translate?api_key=' + GIPHY_API_KEY + '&s=' + searchText, { mode: 'cors' })
             .then((response) => {
                 if (!response.ok) {
                     throw new Error('Network response was NOT ok');
@@ -45,23 +50,23 @@
             });
     }
 
+    // Call randomizeGIF() when window has loaded
     window.addEventListener('load', randomizeGIF);
-    document.querySelector('#rand-cat-gif-container button')
+
+    // Random cat gif button
+    document.getElementById('rand-cat-gif-btn')
         .addEventListener('click', randomizeGIF);
 
+    // Search GIF form
     document.querySelector('form[name="search-gif"')
         .addEventListener('submit', (e) => {
             e.preventDefault();
             const searchText = e.target.elements.namedItem('search').value;
             searchGIF(searchText);
-            console.log(searchText);
         });
 
-    document.querySelectorAll('.gif-img')
-        .forEach((gifImg) => {
-            gifImg.addEventListener('load', (e) => {
-                e.currentTarget.parentElement.querySelector('.loading-msg')
-                    .classList.add('hidden');
-            });
-        });
+    // When GIF images had finished loading, hide loading message
+    img.addEventListener('load', (e) => {
+        loadingMsg.classList.add('hidden');
+    });
 })();

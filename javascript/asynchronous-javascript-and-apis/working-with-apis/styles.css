@@ -74,23 +74,31 @@ body {
   min-height: 100vh;
   color: var(--base-black, black);
   background-color: var(--base-white, white);
+  display: grid;
+  align-content: center;
 }
 
-.gif-container {
-  border: 2px solid red;
-  height: 50vh;
+#input-container {
+  display: grid;
+  justify-content: center;
 }
-.gif-container > * {
-  display: block;
+#input-container form {
+  display: inline-block;
 }
-.gif-container .loading-msg {
-  border: 2px solid green;
+
+#loading-msg {
+  text-align: center;
 }
-.gif-container .loading-msg.hidden {
+#loading-msg.hidden {
   display: none;
 }
-.gif-container .gif-img {
-  border: 2px solid blue;
+
+#gif-container {
+  height: 50vh;
+}
+#gif-container img {
+  display: block;
   height: 100%;
   width: auto;
+  margin: 0 auto;
 }/*# sourceMappingURL=styles.css.map */
