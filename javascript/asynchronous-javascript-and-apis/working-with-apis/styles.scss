@@ -72,8 +72,7 @@ body {
     color: var(--base-black, black);
     background-color: var(--base-white, white);
 
-    display: grid;
-    align-content: center;
+    margin-top: 20vh;
 }
 
 #input-container {
@@ -88,8 +87,12 @@ body {
 #loading-msg {
     text-align: center;
 
+    a {
+        display: block;
+    }
+
     &.hidden {
-        display: none;
+        //display: none;
     }
 }
 

@@ -6,34 +6,15 @@
     const loadingMsg = document.getElementById('loading-msg');
 
     /**
-     * Loads random cat GIF and returns promise.
-     * @returns {Promise}
-     */
-    function randomizeGIF() {
-        loadingMsg.classList.remove('hidden');
-
-        return fetch('https://api.giphy.com/v1/gifs/translate?api_key=' + GIPHY_API_KEY + '&s=cats', { mode: 'cors' })
-            .then((response) => {
-                if (!response.ok) {
-                    throw new Error('Network response was NOT ok');
-                }
-                return response.json();
-            })
-            .then((responseData) => {
-                img.src = responseData.data.images.original.url;
-            })
-            .catch((err) => {
-                console.error(err);
-            });
-    }
-
-    /**
      * Loads GIF base on searchText and returns promise.
      * @param {String} searchText 
      * @returns {Promise}
      */
     function searchGIF(searchText) {
-        loadingMsg.classList.remove('hidden');
+        // Empty message element
+        emptyElement(loadingMsg);
+
+        loadingMsg.textContent = 'Loading';
 
         return fetch('https://api.giphy.com/v1/gifs/translate?api_key=' + GIPHY_API_KEY + '&s=' + searchText, { mode: 'cors' })
             .then((response) => {
@@ -44,10 +25,69 @@
             })
             .then((responseData) => {
                 img.src = responseData.data.images.original.url;
+                displayImgData(responseData);
             })
             .catch((err) => {
                 console.error(err);
+                loadingMsg.textContent = err;
+                img.src = './Blank_Square.svg';
             });
+    }
+
+    /**
+     * Loads random cat GIF and returns promise.
+     * @returns {Promise}
+     */
+     function randomizeGIF() {
+        return searchGIF('cats');
+    }
+
+    /**
+     * Empties element of any child nodes.
+     * @param {HTMLElement} element 
+     */
+    function emptyElement(element) {
+        while(element.firstChild) {
+            element.removeChild(element.firstChild);
+        }
+    }
+
+    /**
+     * Creates and returns an anchor link HTML element.
+     * @param {String} href URL of anchor link 
+     * @param {String} textContent Display text for anchor link
+     * @returns {HTMLElement}
+     */
+    function createAnchorElement(href, textContent) {
+        const anchorElement = document.createElement('a');
+
+        anchorElement.href = href;
+        anchorElement.textContent = textContent;
+        anchorElement.target = '_blank';
+
+        return anchorElement;
+    }
+
+    /**
+     * Displays title, GIPHY url, and source url from GIPHY API request data.
+     * @param {Object} imgData Response data from GIPHY API request
+     */
+    function displayImgData(imgData) {
+        // Empty message element
+        emptyElement(loadingMsg);
+
+        // Title
+        loadingMsg.textContent = imgData.data.title;
+
+        // GIPHY URL
+        loadingMsg.appendChild(
+            createAnchorElement(imgData.data.url, 'GIPHY URL')
+        );
+
+        // Source
+        loadingMsg.appendChild(
+            createAnchorElement(imgData.data.source, 'Source')
+        );
     }
 
     // Call randomizeGIF() when window has loaded
@@ -64,9 +104,4 @@
             const searchText = e.target.elements.namedItem('search').value;
             searchGIF(searchText);
         });
-
-    // When GIF images had finished loading, hide loading message
-    img.addEventListener('load', (e) => {
-        loadingMsg.classList.add('hidden');
-    });
 })();

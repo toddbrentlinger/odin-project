@@ -74,8 +74,7 @@ body {
   min-height: 100vh;
   color: var(--base-black, black);
   background-color: var(--base-white, white);
-  display: grid;
-  align-content: center;
+  margin-top: 20vh;
 }
 
 #input-container {
@@ -89,10 +88,9 @@ body {
 #loading-msg {
   text-align: center;
 }
-#loading-msg.hidden {
-  display: none;
+#loading-msg a {
+  display: block;
 }
-
 #gif-container {
   height: 50vh;
 }
