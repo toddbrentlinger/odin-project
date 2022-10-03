@@ -6,7 +6,7 @@
     const loadingMsg = document.getElementById('loading-msg');
 
     /**
-     * Loads GIF base on searchText and returns promise.
+     * Loads GIF based on searchText and returns promise.
      * @param {String} searchText 
      * @returns {Promise}
      */
@@ -38,7 +38,7 @@
      * Loads random cat GIF and returns promise.
      * @returns {Promise}
      */
-     function randomizeGIF() {
+    function randomizeGIF() {
         return searchGIF('cats');
     }
 
