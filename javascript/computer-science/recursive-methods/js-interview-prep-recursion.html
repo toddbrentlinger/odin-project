@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript - Computer Science - JavaScript Interview Prep Recursion</title>
+</head>
+<body>
+    <script>
+        // Question 1: Sum all numbers
+
+        function sumRange(n) {
+            if (n == 1) return 1;
+            return n + sumRange(n - 1);
+        }
+
+        // Question 2: Power function
+
+        function power(base, exp) {
+            if (exp == 0) return 1;
+            return base * power(base, exp - 1);
+        }
+
+        // Question 3: Calculate factorial
+
+        function factorial(n) {
+            if (n == 1) return 1;
+            return n * factorial(n - 1);
+        }
+
+        // Question 4: Check all values in an array
+
+        function all(arr, callback) {
+            if (arr.length) {
+                if (callback(arr[0])) {
+                    arr.shift();
+                    return all(arr, callback);
+                }
+                return false;
+            }
+            return true;
+        }
+
+        console.log('Question 4');
+        console.assert(all([1,2,9], (num) => num < 7) == false);
+        console.assert(all([1,2,3], (num) => num < 7) == true);
+
+        // Question 5: Product of an array
+
+        function productOfArray(arr) {
+            if (arr.length)
+                return arr.shift() * productOfArray(arr);
+            return 1;
+        }
+
+        console.log('Question 5');
+        console.assert(productOfArray([1,2,3]) == 6);
+        console.assert(productOfArray([1,2,3,10]) == 60);
+
+        // Question 6: Search JS object
+
+        function contains(obj, valToFind) {
+            if (typeof obj == 'object' && obj !== null) {
+                if (Array.isArray(obj)) {
+                    obj.forEach(val => contains(val, valToFind));
+                } else { // Else obj is an object with key-values
+                    for (let val of Object.values(obj)) {
+                        
+                    }
+                }
+            }
+            if (obj == valToFind) {
+                return true;
+            }
+        }
+
+        var nestedObject = {
+            data: {
+                info: {
+                    stuff: {
+                        thing: {
+                            moreStuff: {
+                                magicNumber: 44,
+                                something: 'foo2'
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        console.log('Question 6');
+        console.assert(contains(nestedObject, 44) == true);
+        console.assert(contains(nestedObject, "foo") == false);
+
+        // Question 7: Parse a multi-dimensional array
+
+        // Question 8
+
+        // Question 9
+
+    </script>
+</body>
+</html>

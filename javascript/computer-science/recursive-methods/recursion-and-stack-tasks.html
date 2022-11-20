@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript - Computer Science - Recursion and Stack Tasks</title>
+</head>
+<body>
+    <script>
+        // Task 1 - Sum all numbers till the given one
+
+        function sumToForLoop(n) {
+            let sum = 0;
+            for (let i = n; i > 0; i--) {
+                sum += i;
+            }
+            return sum;
+        }
+
+        function sumToRecursive(n) {
+            if (n == 1)
+                return 1;
+            return n + sumToRecursive(n - 1);
+        }
+
+        function sumToArithmeticProgression(n) {
+            return n * (1 + n) / 2;
+        }
+
+        /**
+         * 1) Arithmetic Progression is fastest because it finishes in a single calculation every time.
+         * Constant O(1) time complexity.
+         * Forloop and recursive functions loop n times and perform n function calls, respectively.
+         * Linear O(n) time complexity.
+         * 
+         * 2) Since there is a limit to execution context stack, usually around 10,000, using the recursive
+         * function for n=100,000 would result in a stack overflow.
+         */
+
+        // Task 2 - Calculate factorial
+        
+        function factorial(n) {
+            if (n == 1)
+                return 1;
+            return n * factorial(n - 1);
+        }
+
+        // Task 3 - Fibonacci numbers
+        
+        function fibSlow(n) {
+            if (n > 1)
+                return fibSlow(n - 1) + fibSlow(n - 2);
+            else if (n == 1)
+                return 1;
+            else
+                return 0;
+        }
+
+        function fibCache(n, cache = new Map()) {
+            if (n > 1) {
+                if (cache.has(n))
+                    return cache.get(n);
+                let nFib = fibCache(n-1, cache) + fibCache(n-2, cache);
+                cache.set(n, nFib);
+                return nFib;
+            } else if (n == 1)
+                return 1;
+            else
+                return 0;
+        }
+
+        function fib(n) {
+            let nMinus2 = 1;
+            let nMinus1 = 1;
+            let temp;
+            for (let i = 3; i <= n; i++) {
+                temp = nMinus1 + nMinus2;
+                nMinus2 = nMinus1;
+                nMinus1 = temp;
+            }
+
+            return nMinus1;
+        }
+
+        // Task 4 - Output a single-linked list
+
+        let list = {
+            value: 1,
+            next: {
+                value: 2,
+                next: {
+                    value: 3,
+                    next: {
+                        value: 4,
+                        next: null
+                    }
+                }
+            }
+        };
+        
+        function printListLoop(list) {
+            while (list) {
+                console.log(list.value);
+                list = list.next;
+            }
+        }
+        console.log('printListLoop');
+        printListLoop(list);
+
+        function printListRecursive(list) {
+            if (!list)
+                return;
+            console.log(list.value);
+            printListRecursive(list.next);
+        }
+        console.log('printListRecursive');
+        printListRecursive(list);
+
+        /**
+         * Better without recursion to avoid stack overflow possibility from 
+         * exceeding limit of execution context stack.
+         */
+
+        // Task 5 - Output a single-linked list in the reverse order
+        
+        function printListReverseLoop(list) {
+            let arr = [];
+
+            while (list) {
+                arr.push(list.value);
+                list = list.next;
+            }
+
+            for (let i = arr.length - 1; i >= 0; i--)
+                console.log(arr[i]);
+        }
+        console.log('printListReverseLoop');
+        printListReverseLoop(list);
+
+        function printListReverseRecursive(list) {
+            if (list.next)
+                printListReverseRecursive(list.next);
+            console.log(list.value);
+        }
+        console.log('printListReverseRecursive');
+        printListReverseRecursive(list);
+    </script>
+</body>
+</html>
