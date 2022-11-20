@@ -15,6 +15,9 @@
             return n + sumRange(n - 1);
         }
 
+        console.log('Question 1');
+        console.assert(sumRange(3) == 6);
+
         // Question 2: Power function
 
         function power(base, exp) {
@@ -22,12 +25,22 @@
             return base * power(base, exp - 1);
         }
 
+        console.log('Question 2');
+        console.assert(power(2,4) == 16);
+        console.assert(power(2,3) == 8);
+        console.assert(power(2,2) == 4);
+        console.assert(power(2,1) == 2);
+        console.assert(power(2,0) == 1);
+
         // Question 3: Calculate factorial
 
         function factorial(n) {
             if (n == 1) return 1;
             return n * factorial(n - 1);
         }
+
+        console.log('Question 3');
+        console.assert(factorial(5) == 120);
 
         // Question 4: Check all values in an array
 
@@ -61,18 +74,13 @@
         // Question 6: Search JS object
 
         function contains(obj, valToFind) {
-            if (typeof obj == 'object' && obj !== null) {
-                if (Array.isArray(obj)) {
-                    obj.forEach(val => contains(val, valToFind));
-                } else { // Else obj is an object with key-values
-                    for (let val of Object.values(obj)) {
-                        
-                    }
-                }
+            for (let val of Object.values(obj)) {
+                if (typeof val == 'object')
+                    return contains(val, valToFind);
+                if (val == valToFind)
+                    return true;
             }
-            if (obj == valToFind) {
-                return true;
-            }
+            return false;
         }
 
         var nestedObject = {
@@ -93,12 +101,67 @@
         console.log('Question 6');
         console.assert(contains(nestedObject, 44) == true);
         console.assert(contains(nestedObject, "foo") == false);
+        console.assert(contains(nestedObject, "foo2") == true);
 
         // Question 7: Parse a multi-dimensional array
 
+        function totalIntegers(arr) {
+            return arr.reduce((accum, val) => {
+                if (Array.isArray(val))
+                    return accum + totalIntegers(val);
+                if (!isNaN(val))
+                    return accum + 1;
+                return accum;
+            }, 0);
+        }
+
+        console.log('Question 7');
+        console.assert(totalIntegers([[[5], 3], 0, 2, ['foo'], [], [4, [5, 6]]]) == 7);
+        console.assert(totalIntegers([[1, [2, 3, []], 'foo'], [4, [5, [['foo'], 6]]], 7]) == 7);
+
         // Question 8
 
+        function sumSquares(arr) {
+            return arr.reduce((accum, val) => {
+                if (Array.isArray(val))
+                    return accum + sumSquares(val);
+                return accum + val ** 2;
+            }, 0);
+        }
+
+        console.log('Question 8');
+        console.assert(sumSquares([1,2,3]) == 14);
+        console.assert(sumSquares([[1,2],3]) == 14);
+        console.assert(sumSquares([[[[[[[[[1]]]]]]]]]) == 1);
+        console.assert(sumSquares([10,[[10],10],[10]]) == 400);
+
         // Question 9
+
+        function replicate(times, val) {
+            if (times > 0) {
+                return [val].concat(replicate(times - 1, val));
+            }
+            return [];
+        }
+
+        console.log('Question 9');
+        console.assert(areArraysEqual(replicate(3,5), [5,5,5]));
+        console.assert(areArraysEqual(replicate(1,69), [69]));
+        console.assert(areArraysEqual(replicate(-2,6), []));
+
+        // Utilities
+
+        function areArraysEqual(arr1, arr2) {
+            if (arr1.length !== arr2.length)
+                return false;
+
+            for (let i = 0; i < arr1.length; i++) {
+                if (arr1[i] !== arr2[i])
+                    return false;
+            }
+
+            return true;
+        }
 
     </script>
 </body>
