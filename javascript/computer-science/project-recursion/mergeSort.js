@@ -1,9 +1,50 @@
-function mergeSort(arr) {
+function mergeSort(arr)  {
     if (arr.length > 1) {
         // Sort each half sub-array recursively
         let iArr = Math.floor(arr.length / 2);
         let leftArr = mergeSort(arr.slice(0, iArr));
         let rightArr = mergeSort(arr.slice(iArr));
+
+        // Merge sorted arrays into one
+        iArr = 0;
+        let iLeft = 0, iRight = 0;
+
+        /** If left array value less than right array value, assign left array 
+         * index value to final array and increment left index.
+         * Else assign right array index value to final array and increment 
+         * right index.
+         * In both cases, increment final array index after assignment.
+         */
+        while (iLeft < leftArr.length && iRight < rightArr.length) {
+            arr[iArr++] = leftArr[iLeft] < rightArr[iRight] 
+                ? leftArr[iLeft++] 
+                : rightArr[iRight++];
+        }
+
+        /** If any left array values left, add to end of final array. If any 
+         * right array values left, add to end of final array. NOTE: After 
+         * while loop, only left OR right array should have values left, NOT 
+         * both.
+         */
+        if (iLeft < leftArr.length) {
+            while (iLeft < leftArr.length)
+                arr[iArr++] = leftArr[iLeft++]
+        }
+        if (iRight < rightArr.length) {
+            while (iRight < rightArr.length)
+                arr[iArr++] = rightArr[iRight++];
+        }
+    }
+    
+    return arr;
+}
+
+function mergeSortOld(arr) {
+    if (arr.length > 1) {
+        // Sort each half sub-array recursively
+        let iArr = Math.floor(arr.length / 2);
+        let leftArr = mergeSortOld(arr.slice(0, iArr));
+        let rightArr = mergeSortOld(arr.slice(iArr));
 
         // Merge sorted arrays into one
         iArr = 0;
