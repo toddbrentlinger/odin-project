@@ -23,28 +23,25 @@ function mergeSort(arr)  {
 
         /** If any left array values left, add to end of final array. If any 
          * right array values left, add to end of final array. NOTE: After 
-         * while loop, only left OR right array should have values left, NOT 
-         * both.
+         * previous while loop, only left OR right array should have values 
+         * left, NOT both.
          */
-        if (iLeft < leftArr.length) {
-            while (iLeft < leftArr.length)
-                arr[iArr++] = leftArr[iLeft++]
-        }
-        if (iRight < rightArr.length) {
-            while (iRight < rightArr.length)
-                arr[iArr++] = rightArr[iRight++];
-        }
+        while (iLeft < leftArr.length)
+            arr[iArr++] = leftArr[iLeft++]
+
+        while (iRight < rightArr.length)
+            arr[iArr++] = rightArr[iRight++];
     }
     
     return arr;
 }
 
-function mergeSortOld(arr) {
+function mergeSort1(arr) {
     if (arr.length > 1) {
         // Sort each half sub-array recursively
         let iArr = Math.floor(arr.length / 2);
-        let leftArr = mergeSortOld(arr.slice(0, iArr));
-        let rightArr = mergeSortOld(arr.slice(iArr));
+        let leftArr = mergeSort1(arr.slice(0, iArr));
+        let rightArr = mergeSort1(arr.slice(iArr));
 
         // Merge sorted arrays into one
         iArr = 0;
