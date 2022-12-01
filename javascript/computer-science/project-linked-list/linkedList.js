@@ -174,36 +174,63 @@ class LinkedList {
     insertAt(value, index) {
         if (index < 0) return;
 
+        let newNode = new Node(value);
+
         // Check for empty list
         if (!this.head) {
-            this.head = new Node(value);
+            this.head = newNode;
             return;
         }
 
-        let currNode = this.head;
-        while (index > 0 && currNode.next) {
+        // If non-zero index
+        if (index) {
+            let currNode = this.head;
+            while (index > 1 && currNode.next) {
+                currNode = currNode.next;
+                index--;
+            }
 
+            // Once reach this point, currNode is at (index-1) node OR last node
+            newNode.next = currNode.next;
+            currNode.next = newNode;
+        } else { // Else zero index
+            newNode.next = this.head;
+            this.head = newNode;
         }
     }
 
     /**
-     * Removes the node at the given index.
-     * @param {Number} index 
+     * Removes the node at the given index and returns it's value. Returns undefined if index out of bounds.
+     * @param {Number} index
+     * @returns {*}
+     * 
      */
     removeAt(index) {
         // Return if list is empty OR index is less than 0
         if (!this.head || index < 0) return;
 
-        let prevNode = this.head, currNode = this.head.next;
-
-        while (index > 0 && currNode) {
-            prevNode = currNode;
+        let currNode = this.head;
+        // If index is non-zero
+        if (index) {
+            let prevNode = currNode;
             currNode = currNode.next;
-            index--;
-        }
 
-        prevNode.next = currNode ? currNode.next : null;
-        return currNode;
+            while (index > 1 && currNode) {
+                prevNode = currNode;
+                currNode = currNode.next;
+                index--;
+            }
+
+            if (index > 1 || !currNode)
+                return;
+
+            prevNode.next = currNode.next;
+            return currNode.value;
+
+        } else { // Else index is zero
+            this.head = currNode.next;
+            return currNode.value;
+        }
     }
 }
 
@@ -492,11 +519,11 @@ class LinkedList {
         llist.find(3) === null
     );
 
-    // insertAt Inserts a new node with the provided value at the given index.
-
+    // insertAt
+    
     unitTests.add(
         'insertAt() with negative index',
-        llist.insertAt(-1) === undefined
+        llist.insertAt(10, -1) === undefined
     );
 
     llistEmpty.insertAt(0, 0);
@@ -505,37 +532,116 @@ class LinkedList {
         llistEmpty.toString() === '( 0 ) -> null'
     );
 
-    llistSingle.insertAt(-1, 0);
+    llistSingle.insertAt(10, 0);
     unitTests.add(
         'insertAt() first index of single node list',
-        llistSingle.toString() === '( -1 ) -> ( 0 )'
+        llistSingle.toString() === '( 10 ) -> ( 0 ) -> null'
     );
 
+    llistSingle = unitTests.createListFromArgs(0);
+    llistSingle.insertAt(10, 1);
     unitTests.add(
         'insertAt() after last index of single node list',
-        
+        llistSingle.toString() === '( 0 ) -> ( 10 ) -> null'
     );
 
+    llist.insertAt(10, 0);
     unitTests.add(
         'insertAt() first index of list with more than one node',
-        
+        llist.toString() === '( 10 ) -> ( 0 ) -> ( 1 ) -> ( 2 ) -> null'
     );
 
+    llist = unitTests.createListFromArgs(0,1,2);
+    llist.insertAt(10, 1);
     unitTests.add(
         'insertAt() middle index of list with more than one node',
-        
+        llist.toString() === '( 0 ) -> ( 10 ) -> ( 1 ) -> ( 2 ) -> null'
     );
 
+    llist = unitTests.createListFromArgs(0,1,2);
+    llist.insertAt(10, 2);
+    unitTests.add(
+        'insert() at last index of list with more than one node',
+        llist.toString() === '( 0 ) -> ( 1 ) -> ( 10 ) -> ( 2 ) -> null'
+    );
+
+    llist = unitTests.createListFromArgs(0,1,2);
+    llist.insertAt(10, 3);
     unitTests.add(
         'insertAt() after last index of list with more than one node',
-        
+        llist.toString() === '( 0 ) -> ( 1 ) -> ( 2 ) -> ( 10 ) -> null'
     );
 
-    // removeAt Removes the node at the given index.
+    // removeAt
 
     llistEmpty = unitTests.createListFromArgs(); // Always keep as empty list before new test
     llistSingle = unitTests.createListFromArgs(0); // Always keep as single node list before test
     llist = unitTests.createListFromArgs(0,1,2); // Can have any number of nodes before new test
+
+    unitTests.add(
+        'removeAt() on empty list',
+        llistEmpty.removeAt(0) === undefined
+    );
+
+    unitTests.add(
+        'removeAt() on first node of single node list',
+        llistSingle.removeAt(0) === 0
+    );
+
+    unitTests.add(
+        'single node list is empty after first node is removed',
+        llistSingle.toString() === 'null'
+    );
+
+    llistSingle = unitTests.createListFromArgs(0);
+    debugger;
+    unitTests.add(
+        'removeAt() on index past end of single node list',
+        llistSingle.removeAt(1) === undefined
+    );
+
+    unitTests.add(
+        'removeAt() with negative index',
+        llist.removeAt(-1) === undefined
+    );
+
+    unitTests.add(
+        'removeAt() of first index of list with more than one node',
+        llist.removeAt(0) === 0
+    );
+
+    unitTests.add(
+        'list has correct node removed',
+        llist.toString() === '( 1 ) -> ( 2 ) -> null'
+    );
+
+    llist = unitTests.createListFromArgs(0,1,2);
+    unitTests.add(
+        'removeAt() of middle index of list with more than one node',
+        llist.removeAt(1) === 1
+    );
+
+    unitTests.add(
+        'list has correct node removed',
+        llist.toString() === '( 0 ) -> ( 2 ) -> null'
+    );
+
+    llist = unitTests.createListFromArgs(0,1,2);
+    unitTests.add(
+        'removeAt() of last index of list with more than one node',
+        llist.removeAt(2) === 2
+    );
+
+    unitTests.add(
+        'list has correct node removed',
+        llist.toString() === '( 0 ) -> ( 1 ) -> null'
+    );
+
+    llist = unitTests.createListFromArgs(0,1,2);
+    unitTests.add(
+        'removeAt() of index past end of list with more than one node',
+        llist.removeAt(3) === undefined
+    );
 
     unitTests.print();
 })();
