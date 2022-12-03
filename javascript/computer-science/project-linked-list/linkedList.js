@@ -19,12 +19,16 @@ class LinkedList {
      * @param {*} value 
      */
     append(value) {
+        // If list is empty, assign head to new node
         if (!this.head) {
             this.head = new Node(value);
         } else {
             let currNode = this.head;
+            // Get last node
             while (currNode.next)
                 currNode = currNode.next;
+
+            // Assign new node 'next' of last node
             currNode.next = new Node(value);
         }
     }
@@ -35,7 +39,11 @@ class LinkedList {
      */
     prepend(value) {
         const newNode = new Node(value);
+
+        // Assign new node 'next' to initial first node of list
         newNode.next = this.head;
+
+        // Assign head to new node
         this.head = newNode;
     }
 
@@ -46,10 +54,13 @@ class LinkedList {
     size() {
         let count = 0;
         let currNode = this.head;
+
+        // Loop through list ending with null, incrementing counter each time
         while (currNode) {
             count++;
             currNode = currNode.next;
         }
+
         return count;
     }
 
@@ -58,12 +69,17 @@ class LinkedList {
      * @returns {Node|null}
      */
     tail() {
+        // Return null if empty list
         if (!this.head)
             return null;
+
+        // Loop through list ending with last node
         let currNode = this.head;
         while (currNode.next) {
             currNode = currNode.next;
         }
+
+        // Return last node
         return currNode;
     }
  
@@ -73,15 +89,19 @@ class LinkedList {
      * @returns {Node|undefined}
      */
     at(index) {
+        // Return if empty list
         if (!this.head)
             return undefined;
 
         let currNode = this.head;
+
+        // Loop through list until reach index-th node OR last node
         while (index > 0 && currNode.next) {
             currNode = currNode.next;
             index--;
         }
 
+        // Return if reached last node without reaching index-th node
         return index > 0 ? undefined : currNode;
     }
 
@@ -97,13 +117,16 @@ class LinkedList {
         let currNode = this.head;
         // Check if single Node in list
         if (!this.head.next) {
-            this.head = null;
-            return currNode;
+            this.head = null; // Empty list
+            return currNode; // Return first node
         }
         
         // If reach this point, there are 2 or more Nodes in list
+        // Loop through list until reach second to last node
         while (currNode.next.next)
             currNode = currNode.next;
+
+        // Save last node to be returned and set second to last node as last node
         let nextNode = currNode.next;
         currNode.next = null;
         return nextNode;
@@ -117,6 +140,7 @@ class LinkedList {
     contains(value) {
         let currNode = this.head;
 
+        // Loop through list. If find matching value in node, return true.
         while (currNode) {
             if (currNode.value === value)
                 return true;
@@ -133,10 +157,13 @@ class LinkedList {
      * @returns {Number|null}
      */
     find(value) {
+        // Return null is list is empty
         if (!this.head)
             return null;
 
         let i = 0, currNode = this.head;
+        // Loop through list, incrementing index counter each time.
+        // If find matching value, return index.
         while (currNode) {
             if (currNode.value === value)
                 return i;
@@ -144,7 +171,7 @@ class LinkedList {
             currNode = currNode.next;
         }
 
-        // If reach this point, value NOT in LinkedList
+        // If reach this point, value NOT in list. Return null.
         return null;
     }
 
@@ -155,11 +182,13 @@ class LinkedList {
     toString() {
         let str = '', currNode = this.head;
 
+        // Loop through list, adding each node's value to string
         while (currNode) {
             str += `( ${currNode.value} ) -> `;
             currNode = currNode.next;
         }
 
+        // Add 'null' to string to represent end of list
         str += 'null';
 
         return str;
@@ -172,11 +201,12 @@ class LinkedList {
      * @param {Number} index 
      */
     insertAt(value, index) {
+        // Return is index is NOT valid (less than 0)
         if (index < 0) return;
 
         let newNode = new Node(value);
 
-        // Check for empty list
+        // If list is empty, assign head to new node and return
         if (!this.head) {
             this.head = newNode;
             return;
@@ -185,6 +215,8 @@ class LinkedList {
         // If non-zero index
         if (index) {
             let currNode = this.head;
+
+            // Loop through list until reaches node before index-th node OR last node
             while (index > 1 && currNode.next) {
                 currNode = currNode.next;
                 index--;
@@ -194,7 +226,10 @@ class LinkedList {
             newNode.next = currNode.next;
             currNode.next = newNode;
         } else { // Else zero index
+            // Assign first node to new node's 'next' property
             newNode.next = this.head;
+
+            // Assign head to new node
             this.head = newNode;
         }
     }
@@ -208,29 +243,34 @@ class LinkedList {
     removeAt(index) {
         // Return if list is empty OR index is less than 0
         if (!this.head || index < 0) return;
+        
+        let currNode;
 
-        let currNode = this.head;
         // If index is non-zero
         if (index) {
-            let prevNode = currNode;
-            currNode = currNode.next;
-
+            let prevNode = this.head;
+            currNode = this.head.next;
+            
+            // Loop through list, keeping track of previous node
             while (index > 1 && currNode) {
                 prevNode = currNode;
                 currNode = currNode.next;
                 index--;
             }
 
+            // Return if index larger than size of list OR reached the end of the list
             if (index > 1 || !currNode)
                 return;
 
+            // Remove currNode from list
             prevNode.next = currNode.next;
-            return currNode.value;
 
         } else { // Else index is zero
+            currNode = this.head;
             this.head = currNode.next;
-            return currNode.value;
         }
+
+        return currNode.value;
     }
 }
 
@@ -627,6 +667,7 @@ class LinkedList {
     );
 
     llist = unitTests.createListFromArgs(0,1,2);
+    debugger;
     unitTests.add(
         'removeAt() of last index of list with more than one node',
         llist.removeAt(2) === 2
