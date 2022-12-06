@@ -634,7 +634,6 @@ class LinkedList {
     );
 
     llistSingle = unitTests.createListFromArgs(0);
-    debugger;
     unitTests.add(
         'removeAt() on index past end of single node list',
         llistSingle.removeAt(1) === undefined
@@ -667,7 +666,6 @@ class LinkedList {
     );
 
     llist = unitTests.createListFromArgs(0,1,2);
-    debugger;
     unitTests.add(
         'removeAt() of last index of list with more than one node',
         llist.removeAt(2) === 2
