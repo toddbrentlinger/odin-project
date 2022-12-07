@@ -38,6 +38,27 @@ class Tree {
 
     /**
      * 
+     * @param {Node} root 
+     * @param {*} data 
+     * @returns {Node}
+     */
+    static insertRec(root, data) {
+        // Base Case: root is null (leaf node)
+        if (!root)
+            return new Node(data);
+
+        if (data < root.data) {
+            root.left = Tree.insertRec(root.left, data);
+        } else { // Else data > root.data
+            root.right = Tree.insertRec(root.right, data);
+        }
+
+        // return node unchanged
+        return root;
+    }
+
+    /**
+     * 
      * @param {Node} node 
      * @param {String} prefix 
      * @param {Boolean} isLeft 
@@ -65,7 +86,33 @@ class Tree {
      * @param {*} data 
      */
     insert(data) {
-        
+        // If list is empty, add to root node
+        if (!this.root) {
+            this.root = new Node(data);
+            return;
+        }
+
+        let currNode = this.root;
+        while (true) {
+            if (data < currNode.data) {
+                if (currNode.left)
+                    currNode = currNode.left;
+                else {
+                    currNode.left = new Node(data);
+                    return;
+                }
+            } else if (data > currNode.data) {
+                if (currNode.right)
+                    currNode = currNode.right;
+                else {
+                    currNode.right = new Node(data);
+                    return;
+                }
+            } else { // Else data == currNode.data
+                // Return if duplicate value already in tree
+                return;
+            }
+        }
     }
 
     /**
@@ -73,6 +120,8 @@ class Tree {
      * @param {*} data 
      */
     delete(data) {
-
+        
     }
 }
+
+window.tree = new Tree([1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324]);
