@@ -57,6 +57,12 @@ class Tree {
         return root;
     }
 
+    /**
+     * 
+     * @param {Node|null} root 
+     * @param {*} data 
+     * @returns {Node|null}
+     */
     static deleteRec(root, data) {
         // Base Case: Return null if root is null
         if (!root)
@@ -67,28 +73,26 @@ class Tree {
         } else if (data > root.data) {
             root.right = Tree.deleteRec(root.right, data);
         } else { // Else node has matching data (node to delete)
-            // If root has two children
-            if (root.left && root.right) {
-                // Get inorder successor (smallest value in right subtree)
-                let inorderSuccVal = root.right;
-                while (!inorderSuccVal.left) {
-                    inorderSuccVal = inorderSuccVal.left;
-                }
-
-                // Delete inorder successor
-                root.right = Tree.deleteRec(root.right, inorderSuccVal.data);
-            }
-            
-            // If only left child, return left child
-            if (root.left)
+            // If only left child (right child is null), return left child
+            if (!root.right)
                 return root.left;
 
-            // If only right child, return right child
-            if (root.right)
+            // If only right child (left child is null), return right child
+            if (!root.left)
                 return root.right;
 
-            // Else root is a leaf node (no children), return null
-            return null;
+            // If reach this point, root has two children
+            // Get inorder successor (smallest value in right subtree)
+            let inorderSuccVal = root.right;
+            while (inorderSuccVal.left) {
+                inorderSuccVal = inorderSuccVal.left;
+            }
+
+            // Assign root node value to inorder successor value
+            root.data = inorderSuccVal.data;
+
+            // Delete inorder successor
+            root.right = Tree.deleteRec(root.right, inorderSuccVal.data);
         }
 
         return root;
@@ -157,32 +161,7 @@ class Tree {
      * @param {*} data 
      */
     delete(data) {
-        /**
-             5
-           /   \
-          2     7
-         / \   / \
-        1   4 6   8 
-           /       \
-          3         9
-         */
-
-        // Return if empty tree
-        if (!this.root)
-            return;
-
-        let rootNode, leafNode = this.root;
-        // Find matching leaf node, keeping track of root node
-        while (leafNode) {
-            if (leafNode.data == data)
-                break;
-            rootNode = leafNode;
-            if (data < leafNode.data) {
-                leafNode = leafNode.left;
-            } else {
-                leafNode = leafNode.right;
-            }
-        }
+        Tree.deleteRec(this.root, data);
     }
 }
 
