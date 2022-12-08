@@ -57,6 +57,43 @@ class Tree {
         return root;
     }
 
+    static deleteRec(root, data) {
+        // Base Case: Return null if root is null
+        if (!root)
+            return null;
+
+        if (data < root.data) {
+            root.left = Tree.deleteRec(root.left, data);
+        } else if (data > root.data) {
+            root.right = Tree.deleteRec(root.right, data);
+        } else { // Else node has matching data (node to delete)
+            // If root has two children
+            if (root.left && root.right) {
+                // Get inorder successor (smallest value in right subtree)
+                let inorderSuccVal = root.right;
+                while (!inorderSuccVal.left) {
+                    inorderSuccVal = inorderSuccVal.left;
+                }
+
+                // Delete inorder successor
+                root.right = Tree.deleteRec(root.right, inorderSuccVal.data);
+            }
+            
+            // If only left child, return left child
+            if (root.left)
+                return root.left;
+
+            // If only right child, return right child
+            if (root.right)
+                return root.right;
+
+            // Else root is a leaf node (no children), return null
+            return null;
+        }
+
+        return root;
+    }
+
     /**
      * 
      * @param {Node} node 
@@ -120,7 +157,32 @@ class Tree {
      * @param {*} data 
      */
     delete(data) {
-        
+        /**
+             5
+           /   \
+          2     7
+         / \   / \
+        1   4 6   8 
+           /       \
+          3         9
+         */
+
+        // Return if empty tree
+        if (!this.root)
+            return;
+
+        let rootNode, leafNode = this.root;
+        // Find matching leaf node, keeping track of root node
+        while (leafNode) {
+            if (leafNode.data == data)
+                break;
+            rootNode = leafNode;
+            if (data < leafNode.data) {
+                leafNode = leafNode.left;
+            } else {
+                leafNode = leafNode.right;
+            }
+        }
     }
 }
 
