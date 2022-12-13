@@ -163,6 +163,116 @@ class Tree {
     delete(data) {
         Tree.deleteRec(this.root, data);
     }
+
+    /**
+     * Returns node with matching data from tree or undefined if no match.
+     * @param {*} data 
+     * @returns {Node|undefined} Node with matching data OR undefined if not found in tree
+     */
+    find(data) {
+        let currNode = this.root;
+        while (currNode) {
+            if (data < currNode.data)
+                currNode = currNode.left;
+            else if (data > currNode.data)
+                currNode = currNode.right;
+            else // currNode.data == data
+                return currNode;
+        }
+    }
+}
+
+class QueueNode {
+    constructor(data) {
+        this.data = data;
+    }
+}
+
+class Queue {
+    constructor(arr) {
+        this.front = this.back = null;
+        buildQueueFromArray(arr);
+    }
+
+    /**
+     * 
+     * @param {[*]} arr
+     * @returns {[QueueNode]} Reference to front and back QueueNodes of Queue 
+     */
+    buildQueueFromArray(arr) {
+
+    }
+
+    /**
+     * Adds QueueNode with data to back of the Queue.
+     * @param {*} data 
+     */
+    enqueue(data) {
+
+    }
+
+    /**
+     * Removes, and returns, the front QueueNode from the front of the Queue.
+     * @returns {QueueNode|null}
+     */
+    dequeue() {
+
+    }
+}
+
+class StackNode {
+    constructor(data) {
+        this.data = data;
+        this.next = null;
+    }
+}
+
+class Stack {
+    constructor(arr) {
+        this.top = null;
+        this.buildStackFromArray(arr);
+    }
+
+    /**
+     * 
+     * @param {[*]} arr
+     * @returns {[StackNode]} Reference to top StackNode and bottom StackNode in Stack 
+     */
+    buildStackFromArray(arr) {
+        let newNode;
+        for (let i = 0; i < arr.length; i++) {
+            newNode = new StackNode(arr[i]);
+            if (this.top)
+                newNode.next = this.top;
+            this.top = newNode;
+        }
+    }
+
+    /**
+     * Adds StackNode with data to top of the Stack.
+     * @param {*} data 
+     */
+    push(data) {
+        const newNode = new StackNode(data);
+        if (this.top)
+            newNode.next = this.top;
+        this.top = newNode;
+    }
+
+    /**
+     * Removes top QueueNode from the top of the Stack and returns that data it was holding.
+     * Returns null if Queue is empty.
+     * @returns {*}
+     */
+    pop() {
+        if (!this.top)
+            return null;
+        
+        const topNode = this.top;
+        this.top = this.top.next;
+        return topNode.data;
+    }
 }
 
 window.tree = new Tree([1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324]);
+window.stack = new Stack([0,1,2,3,4,5]);
