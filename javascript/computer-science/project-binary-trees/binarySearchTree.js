@@ -180,18 +180,43 @@ class Tree {
                 return currNode;
         }
     }
+
+    levelOrder(func = (data) => data) {
+        // Return if empty tree
+        if (!this.root)
+            return;
+
+        let queue = new Queue([this.root]);
+        let funcReturnsArr = [];
+        let currNode;
+
+        while (!queue.isEmpty()) {
+            currNode = queue.dequeue();
+
+            if (currNode.left)
+                queue.enqueue(currNode.left);
+            if (currNode.right)
+                queue.enqueue(currNode.right)
+            
+            funcReturnsArr.push(func(currNode.data));
+        }
+
+        return funcReturnsArr;
+    }
 }
 
 class QueueNode {
     constructor(data) {
         this.data = data;
+        this.next = null;
     }
 }
 
 class Queue {
     constructor(arr) {
-        this.front = this.back = null;
-        buildQueueFromArray(arr);
+        this.front = null;
+        this.back = null;
+        this.buildQueueFromArray(arr);
     }
 
     /**
@@ -200,7 +225,8 @@ class Queue {
      * @returns {[QueueNode]} Reference to front and back QueueNodes of Queue 
      */
     buildQueueFromArray(arr) {
-
+        for (let i = 0; i < arr.length; i++)
+            this.enqueue(arr[i]);
     }
 
     /**
@@ -208,15 +234,39 @@ class Queue {
      * @param {*} data 
      */
     enqueue(data) {
+        const newNode = new QueueNode(data);
 
+        // If Queue is empty, add node to front and back
+        if (!this.front)
+            this.front = newNode;
+        else // Else set 'back' node 'next' to point to new node
+            this.back.next = newNode;
+
+        // Set 'back' to point to new node at end of the Queue
+        this.back = newNode;
     }
 
     /**
-     * Removes, and returns, the front QueueNode from the front of the Queue.
-     * @returns {QueueNode|null}
+     * Removes the front QueueNode from the front of the Queue and returns the data it was holding.
+     * @returns {*}
      */
     dequeue() {
+        if (!this.front)
+            return null;
+        
+        const frontNode = this.front;
+        this.front = this.front.next;
 
+        /** If front is now null, set back to null, otherwise back would still 
+         * point to node that was just dequeued. */
+        if (!this.front)
+            this.back = null;
+        
+        return frontNode.data;
+    }
+
+    isEmpty() {
+        return this.front === null;
     }
 }
 
@@ -276,3 +326,7 @@ class Stack {
 
 window.tree = new Tree([1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324]);
 window.stack = new Stack([0,1,2,3,4,5]);
+window.queue = new Queue([0,1,2,3,4,5]);
+
+window.Stack = Stack;
+window.Queue = Queue;
