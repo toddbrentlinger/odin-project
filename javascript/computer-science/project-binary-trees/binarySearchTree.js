@@ -114,6 +114,42 @@ class Tree {
         }
     }
 
+    /**
+     * Pre-order traversal of binary search tree node.
+     * @param {Node} node 
+     * @param {Function} func 
+     * @returns {[*]}
+     */
+    static preorderRec(node, func = (data) => data) {
+        if (!node) return [];
+
+        return [func(node.data), ...Tree.preorderRec(node.left, func), ...Tree.preorderRec(node.right, func)];
+    }
+
+    /**
+     * In-order traversal of binary search tree node.
+     * @param {Node} node 
+     * @param {Function} func 
+     * @returns {[*]}
+     */
+    static inorderRec(node, func = (data) => data) {
+        if (!node) return [];
+
+        return [...Tree.inorderRec(node.left, func), func(node.data), ...Tree.inorderRec(node.right, func)];
+    }
+
+    /**
+     * Post-order traversal of binary search tree node.
+     * @param {Node} node 
+     * @param {Function} func 
+     * @returns {[*]}
+     */
+    static postorderRec(node, func = (data) => data) {
+        if (!node) return [];
+
+        return [...Tree.postorderRec(node.left, func), ...Tree.postorderRec(node.right, func), func(node.data)];
+    }
+
     /** Prints tree contents to console. */
     print() {
         if (this.root)
@@ -181,6 +217,11 @@ class Tree {
         }
     }
 
+    /**
+     * 
+     * @param {Function} func 
+     * @returns {[*]}
+     */
     levelOrder(func = (data) => data) {
         // Return if empty tree
         if (!this.root)
@@ -202,6 +243,43 @@ class Tree {
         }
 
         return funcReturnsArr;
+    }
+
+    /**
+     * 
+     * @param {Function} func 
+     * @param {Queue} queue 
+     * @returns {[*]}
+     */
+    levelOrderRec(func = (data) => data, queue = new Queue()) {
+        // TODO
+    }
+
+    /**
+     * 
+     * @param {Function} func 
+     * @returns {[*]}
+     */
+    preorder(func = (data) => data) {
+        return Tree.preorderRec(this.root, func);
+    }
+
+    /**
+     * 
+     * @param {Function} func 
+     * @returns {[*]}
+     */
+    inorder(func = (data) => data) {
+        return Tree.inorderRec(this.root, func);
+    }
+
+    /**
+     * 
+     * @param {Function} func 
+     * @returns {[*]}
+     */
+    postorder(func = (data) => data) {
+        return Tree.postorderRec(this.root, func);
     }
 }
 
@@ -325,6 +403,11 @@ class Stack {
 }
 
 window.tree = new Tree([1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324]);
+tree.print();
+Tree.preorderRec(tree.root);
+Tree.inorderRec(tree.root);
+Tree.postorderRec(tree.root);
+
 window.stack = new Stack([0,1,2,3,4,5]);
 window.queue = new Queue([0,1,2,3,4,5]);
 
