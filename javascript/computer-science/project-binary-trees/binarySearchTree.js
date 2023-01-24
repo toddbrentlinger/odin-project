@@ -150,6 +150,20 @@ class Tree {
         return [...Tree.postorderRec(node.left, func), ...Tree.postorderRec(node.right, func), func(node.data)];
     }
 
+    /**
+     * Get height of binary search tree.
+     * @param {Node} node 
+     * @param {Number} nodeHeight 
+     * @returns {Number}
+     */
+    static heightRec(node, nodeHeight = 0) {
+        if (node) {
+            return Math.max(Tree.heightRec(node.right, nodeHeight + 1), Tree.heightRec(node.left, nodeHeight + 1));
+        } else {
+            return nodeHeight;
+        }
+    }
+
     /** Prints tree contents to console. */
     print() {
         if (this.root)
@@ -247,12 +261,22 @@ class Tree {
 
     /**
      * 
+     * @param {Node|null} node Node of binary search tree 
      * @param {Function} func 
      * @param {Queue} queue 
      * @returns {[*]}
      */
-    levelOrderRec(func = (data) => data, queue = new Queue()) {
-        // TODO
+    levelOrderRec(func = (data) => data, queue = this.root ? new Queue([this.root]) : new Queue()) {
+        if (queue.isEmpty())
+            return [];
+
+        const node = queue.dequeue();
+        if (node.left)
+            queue.enqueue(node.left);
+        if (node.right)
+            queue.enqueue(node.right);
+
+        return [...Tree.levelOrderRec(node.left, func, queue), Tree.levelOrderRec(node.right, func, queue)];
     }
 
     /**
@@ -281,6 +305,11 @@ class Tree {
     postorder(func = (data) => data) {
         return Tree.postorderRec(this.root, func);
     }
+
+    /** Returns the height of the binary search tree. */
+    height() {
+        return Tree.heightRec(this.root);
+    }
 }
 
 class QueueNode {
@@ -294,7 +323,9 @@ class Queue {
     constructor(arr) {
         this.front = null;
         this.back = null;
-        this.buildQueueFromArray(arr);
+
+        if (arr && Array.isArray(arr))
+            this.buildQueueFromArray(arr);
     }
 
     /**
@@ -345,6 +376,17 @@ class Queue {
 
     isEmpty() {
         return this.front === null;
+    }
+
+    /**
+     * Peeks at the data in the front QueueNode of the Queue.
+     * @returns {*} Data inside QueueNode in front of Queue or undefined if Queue is empty
+     */
+    peek() {
+        if (this.isEmpty())
+            return;
+        
+        return this.front.data;
     }
 }
 
@@ -411,5 +453,10 @@ Tree.postorderRec(tree.root);
 window.stack = new Stack([0,1,2,3,4,5]);
 window.queue = new Queue([0,1,2,3,4,5]);
 
+window.Tree = Tree;
 window.Stack = Stack;
 window.Queue = Queue;
+
+tree.levelOrder();
+debugger;
+Tree.levelOrderRec(tree.root);
