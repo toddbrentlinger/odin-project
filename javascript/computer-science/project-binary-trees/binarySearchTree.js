@@ -151,17 +151,26 @@ class Tree {
     }
 
     /**
-     * Get height of binary search tree.
+     * Get height of node in binary search tree. Height is zero for single node tree. Height is -1 for empty tree.
      * @param {Node} node 
      * @param {Number} nodeHeight 
      * @returns {Number}
      */
-    static heightRec(node, nodeHeight = 0) {
+    static heightRec(node, nodeHeight = -1) {
         if (node) {
             return Math.max(Tree.heightRec(node.right, nodeHeight + 1), Tree.heightRec(node.left, nodeHeight + 1));
-        } else {
-            return nodeHeight;
         }
+        return nodeHeight;
+    }
+
+    static depthRec(root, nodeToFind, nodeDepth = -1) {
+        if (!root) {
+            return nodeDepth++;
+        }
+        if (root === nodeToFind) {
+            return nodeDepth;
+        }
+        return Math.max(Tree.depthRec(root.right, nodeToFind, nodeDepth + 1), Tree.depthRec(root.left, nodeToFind, nodeDepth + 1));
     }
 
     /** Prints tree contents to console. */
@@ -458,5 +467,4 @@ window.Stack = Stack;
 window.Queue = Queue;
 
 tree.levelOrder();
-debugger;
 Tree.levelOrderRec(tree.root);
