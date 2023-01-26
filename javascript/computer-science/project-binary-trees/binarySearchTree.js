@@ -319,6 +319,28 @@ class Tree {
     height() {
         return Tree.heightRec(this.root);
     }
+
+    /**
+     * Returns the depth of the node in the binary search tree or -1 if node is NOT in the tree.
+     * @param {Node} nodeToFind 
+     * @returns {Number}
+     */
+    depth(nodeToFind) {
+        let node = this.root;
+        let depth = -1;
+
+        while (node) {
+            depth++;
+
+            if (node === nodeToFind) {
+                return depth;
+            }
+
+            node = (nodeToFind.data < node.data) ? node.left : node.right;
+        }
+
+        return -1;
+    }
 }
 
 class QueueNode {
