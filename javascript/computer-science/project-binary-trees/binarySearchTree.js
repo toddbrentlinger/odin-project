@@ -173,6 +173,27 @@ class Tree {
         return Math.max(Tree.depthRec(root.right, nodeToFind, nodeDepth + 1), Tree.depthRec(root.left, nodeToFind, nodeDepth + 1));
     }
 
+    /**
+     * 
+     * @param {Node} node
+     * @returns {Boolean} 
+     */
+    static isBalancedRec(node) {
+        const leftBranchHeight = Tree.heightRec(node.left); // -1 for empty node, 0 for leaf node, 1 or more for other branches
+        const rightBranchHeight = Tree.heightRec(node.right);
+
+        if (Math.abs(leftBranchHeight - rightBranchHeight) > 1) {
+            return false;
+        }
+
+        if (!Tree.isBalancedRec(node.left) || !Tree.isBalancedRec(node.right)) {
+            return false;
+        }
+
+        // If reach this point, this node and all subsequence branches are balanced
+        return true;
+    }
+
     /** Prints tree contents to console. */
     print() {
         if (this.root)
@@ -340,6 +361,13 @@ class Tree {
         }
 
         return -1;
+    }
+
+    /**
+     * @returns {Boolean}
+     */
+    isBalanced() {
+        return Tree.isBalanced(this.root);
     }
 }
 
