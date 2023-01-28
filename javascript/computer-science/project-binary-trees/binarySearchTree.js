@@ -14,6 +14,7 @@ class Tree {
                 arr.sort((a,b) => a - b)
             )
         );
+
         this.root = Tree.buildTree(sortedUniqueArr);
     }
 
@@ -179,10 +180,11 @@ class Tree {
      * @returns {Boolean} 
      */
     static isBalancedRec(node) {
-        const leftBranchHeight = Tree.heightRec(node.left); // -1 for empty node, 0 for leaf node, 1 or more for other branches
-        const rightBranchHeight = Tree.heightRec(node.right);
+        if (!node) {
+            return true;
+        }
 
-        if (Math.abs(leftBranchHeight - rightBranchHeight) > 1) {
+        if (Math.abs(Tree.heightRec(node.left) - Tree.heightRec(node.right)) > 1) {
             return false;
         }
 
@@ -367,7 +369,15 @@ class Tree {
      * @returns {Boolean}
      */
     isBalanced() {
-        return Tree.isBalanced(this.root);
+        return Tree.isBalancedRec(this.root);
+    }
+
+    rebalance() {
+        // Get sorted array of tree node values using inorder traversal method
+        const sortedArr = this.inorder();
+
+        // Rebuild tree using sorted array
+        this.root = Tree.buildTree(sortedArr);
     }
 }
 
