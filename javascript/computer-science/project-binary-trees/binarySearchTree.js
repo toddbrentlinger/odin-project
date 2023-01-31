@@ -1,4 +1,9 @@
+/** Single node of binary search tree. */
 class Node {
+    /**
+     * @constructor
+     * @param {*} data 
+     */
     constructor(data) {
         this.data = data;
         this.left = null;
@@ -6,22 +11,27 @@ class Node {
     }
 }
 
+/** Binary search tree. */
 class Tree {
+    /**
+     * @constructor
+     * @param {[*]} arr 
+     */
     constructor(arr) {
-        // Create Set from sorted array
+        // Create array from sorted set of numbers
         const sortedUniqueArr = Array.from(
             new Set(
                 arr.sort((a,b) => a - b)
             )
         );
-
+        
         this.root = Tree.buildTree(sortedUniqueArr);
     }
 
     /**
-     * 
-     * @param {*[]} arr
-     * @returns {Node|null} 
+     * Creates binary search tree from sorted array of unique values.
+     * @param {*[]} arr Array of sorted and unique values
+     * @returns {Node|null} Root node of tree or null if tree is empty
      */
     static buildTree(arr, left = 0, right = arr.length - 1) {
         // Base Case: Empty array
@@ -38,7 +48,7 @@ class Tree {
     }
 
     /**
-     * 
+     * Recursive method to insert node with given data into a binary search sub-tree.
      * @param {Node} root 
      * @param {*} data 
      * @returns {Node}
@@ -59,10 +69,10 @@ class Tree {
     }
 
     /**
-     * 
+     * Recursive method to remove node with data inside binary search sub-tree.
      * @param {Node|null} root 
      * @param {*} data 
-     * @returns {Node|null}
+     * @returns {Node|null} Node that was just removed OR null if node not present
      */
     static deleteRec(root, data) {
         // Base Case: Return null if root is null
@@ -100,7 +110,7 @@ class Tree {
     }
 
     /**
-     * 
+     * Display binary search tree inside console.
      * @param {Node} node 
      * @param {String} prefix 
      * @param {Boolean} isLeft 
@@ -118,8 +128,8 @@ class Tree {
     /**
      * Pre-order traversal of binary search tree node.
      * @param {Node} node 
-     * @param {Function} func 
-     * @returns {[*]}
+     * @param {Function} func Callback function
+     * @returns {[*]} Array with each index holding the data of a node
      */
     static preorderRec(node, func = (data) => data) {
         if (!node) return [];
@@ -130,8 +140,8 @@ class Tree {
     /**
      * In-order traversal of binary search tree node.
      * @param {Node} node 
-     * @param {Function} func 
-     * @returns {[*]}
+     * @param {Function} func Callback function
+     * @returns {[*]} Array with each index holding the data of a node
      */
     static inorderRec(node, func = (data) => data) {
         if (!node) return [];
@@ -142,8 +152,8 @@ class Tree {
     /**
      * Post-order traversal of binary search tree node.
      * @param {Node} node 
-     * @param {Function} func 
-     * @returns {[*]}
+     * @param {Function} func Callback function
+     * @returns {[*]} Array with each index holding the data of a node
      */
     static postorderRec(node, func = (data) => data) {
         if (!node) return [];
@@ -155,7 +165,7 @@ class Tree {
      * Get height of node in binary search tree. Height is zero for single node tree. Height is -1 for empty tree.
      * @param {Node} node 
      * @param {Number} nodeHeight 
-     * @returns {Number}
+     * @returns {Number} Height of the binary search tree node, zero for single node tree, or -1 for empty tree
      */
     static heightRec(node, nodeHeight = -1) {
         if (node) {
@@ -164,6 +174,7 @@ class Tree {
         return nodeHeight;
     }
 
+    
     static depthRec(root, nodeToFind, nodeDepth = -1) {
         if (!root) {
             return nodeDepth++;
@@ -513,8 +524,76 @@ class Stack {
     }
 }
 
+function binarySearchTreeDriverTestInit() {
+    // Create binary search tree from array of random numbers with 50-100 nodes
+    let numNodes = Math.floor(Math.random() * 51) + 50;
+    let randArr = new Array(numNodes);
+    while (numNodes > 0) {
+        numNodes--;
+        randArr[numNodes] = Math.floor(Math.random() * 201);
+    }
+    let tree = new Tree(randArr);
+
+    // Print initial tree
+    tree.print();
+
+    // Confirm the tree is balanced
+    if (tree.isBalanced()) {
+        console.log('Tree after construction is balanced');
+    } else {
+        console.error('Tree after construction is NOT balanced');
+    }
+
+    // Print out tree using each order traversal method
+    console.log(tree.levelOrder());
+    console.log(tree.preorder());
+    console.log(tree.inorder());
+    console.log(tree.postorder());
+
+    // Unbalance the tree by adding 50-100 random numbers
+    numNodes = Math.floor(Math.random() * 51) + 50;
+    while (numNodes > 0) {
+        tree.insert(Math.floor(Math.random() * 201));
+        numNodes--;
+    }
+
+    // Print unbalanced tree
+    tree.print();
+
+    // Confirm the tree is NOT balanced
+    if (tree.isBalanced()) {
+        console.error('Tree after random inserting is balanced');
+    } else {
+        console.log('Tree after random inserting is NOT balanced');
+    }
+
+    // Balance the tree
+    tree.rebalance();
+
+    // Print balanced tree
+    tree.print();
+
+    // Confirm the tree is balanced
+    if (tree.isBalanced()) {
+        console.log('Tree after balancing is balanced');
+    } else {
+        console.error('Tree after balancing is NOT balanced');
+    }
+
+    // Print out tree using each order traversal method
+    console.log(tree.levelOrder());
+    console.log(tree.preorder());
+    console.log(tree.inorder());
+    console.log(tree.postorder());
+}
+
+binarySearchTreeDriverTestInit();
+
 window.tree = new Tree([1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324]);
+
 tree.print();
+tree.levelOrder();
+
 Tree.preorderRec(tree.root);
 Tree.inorderRec(tree.root);
 Tree.postorderRec(tree.root);
@@ -525,6 +604,3 @@ window.queue = new Queue([0,1,2,3,4,5]);
 window.Tree = Tree;
 window.Stack = Stack;
 window.Queue = Queue;
-
-tree.levelOrder();
-Tree.levelOrderRec(tree.root);
