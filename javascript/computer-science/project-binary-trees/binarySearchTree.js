@@ -174,19 +174,8 @@ class Tree {
         return nodeHeight;
     }
 
-    
-    static depthRec(root, nodeToFind, nodeDepth = -1) {
-        if (!root) {
-            return nodeDepth++;
-        }
-        if (root === nodeToFind) {
-            return nodeDepth;
-        }
-        return Math.max(Tree.depthRec(root.right, nodeToFind, nodeDepth + 1), Tree.depthRec(root.left, nodeToFind, nodeDepth + 1));
-    }
-
     /**
-     * 
+     * Returns true is binary search tree is balanced, else returns false (Recursive).
      * @param {Node} node
      * @returns {Boolean} 
      */
@@ -275,7 +264,8 @@ class Tree {
     }
 
     /**
-     * 
+     * Returns array of binary tree node data values passed through callback 
+     * function and arranged by level order.
      * @param {Function} func 
      * @returns {[*]}
      */
@@ -303,7 +293,8 @@ class Tree {
     }
 
     /**
-     * 
+     * Returns array of binary tree node data values passed through callback 
+     * function and arranged by level order (Recursive).
      * @param {Node|null} node Node of binary search tree 
      * @param {Function} func 
      * @param {Queue} queue 
@@ -323,7 +314,7 @@ class Tree {
     }
 
     /**
-     * 
+     * Returns array of binary tree node data values passed through callback function and arranged preorder.
      * @param {Function} func 
      * @returns {[*]}
      */
@@ -332,7 +323,7 @@ class Tree {
     }
 
     /**
-     * 
+     * Returns array of binary tree node data values passed through callback function and arranged inorder.
      * @param {Function} func 
      * @returns {[*]}
      */
@@ -341,7 +332,7 @@ class Tree {
     }
 
     /**
-     * 
+     * Returns array of binary tree node data values passed through callback function and arranged postorder.
      * @param {Function} func 
      * @returns {[*]}
      */
@@ -355,7 +346,7 @@ class Tree {
     }
 
     /**
-     * Returns the depth of the node in the binary search tree or -1 if node is NOT in the tree.
+     * Returns the depth of the node in the binary search tree OR -1 if node is NOT in the tree.
      * @param {Node} nodeToFind 
      * @returns {Number}
      */
@@ -377,12 +368,14 @@ class Tree {
     }
 
     /**
+     * Returns true is binary search tree is balanced, else returns false.
      * @returns {Boolean}
      */
     isBalanced() {
         return Tree.isBalancedRec(this.root);
     }
 
+    /** Rebalance the binary search tree. */
     rebalance() {
         // Get sorted array of tree node values using inorder traversal method
         const sortedArr = this.inorder();
@@ -454,6 +447,7 @@ class Queue {
         return frontNode.data;
     }
 
+    /** Returns true if Queue is empty, else returns false. */
     isEmpty() {
         return this.front === null;
     }
@@ -524,7 +518,8 @@ class Stack {
     }
 }
 
-function binarySearchTreeDriverTestInit() {
+// Driver test script as immediately invoked function expression (IIFE)
+(() => {
     // Create binary search tree from array of random numbers with 50-100 nodes
     let numNodes = Math.floor(Math.random() * 51) + 50;
     let randArr = new Array(numNodes);
@@ -585,22 +580,4 @@ function binarySearchTreeDriverTestInit() {
     console.log(tree.preorder());
     console.log(tree.inorder());
     console.log(tree.postorder());
-}
-
-binarySearchTreeDriverTestInit();
-
-window.tree = new Tree([1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324]);
-
-tree.print();
-tree.levelOrder();
-
-Tree.preorderRec(tree.root);
-Tree.inorderRec(tree.root);
-Tree.postorderRec(tree.root);
-
-window.stack = new Stack([0,1,2,3,4,5]);
-window.queue = new Queue([0,1,2,3,4,5]);
-
-window.Tree = Tree;
-window.Stack = Stack;
-window.Queue = Queue;
+})();
