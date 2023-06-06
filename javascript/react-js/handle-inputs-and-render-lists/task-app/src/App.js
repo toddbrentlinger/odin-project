@@ -1,4 +1,5 @@
 import Overview from "./components/Overview";
+import TaskCreateForm from "./components/TaskCreateForm";
 import { useState } from "react";
 import uniqid from "uniqid";
 
@@ -23,21 +24,26 @@ function App() {
     e.target.reset();
   }
 
+  function handleTaskEdit(e, task) {
+    e.preventDefault();
+
+    // Deep copy array of tasks
+    const deepCopyTasks = [...tasks];
+
+    // Update task inside deep copy array of tasks
+
+    setTasks(deepCopyTasks);
+  }
+
+  function handleTaskDelete(task) {
+
+  }
+
   return (
     <>
-      <form
-        onSubmit={handleTaskSubmit}
-      >
-        <input
-          type="text"
-          name={taskInputName}
-          placeholder="Enter task..."
-        ></input>
+      <TaskCreateForm handleTaskSubmit={handleTaskSubmit} />
 
-        <button type="submit">Submit</button>
-      </form>
-
-      <Overview tasks={tasks} />
+      <Overview tasks={tasks} handleTaskEdit={handleTaskEdit} handleTaskDelete={handleTaskDelete} />
     </>
   );
 }

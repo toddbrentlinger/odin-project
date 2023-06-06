@@ -1,11 +1,15 @@
-function Overview({ tasks }) {
-    const taskComponents = tasks.map((task) => {
+import Task from "./Task";
+
+function Overview({ tasks, handleTaskEdit, handleTaskDelete }) {
+    const taskComponents = tasks.map((task, index) => {
         return (
-            <li
+            <Task 
                 key={task.id}
-            >
-                {task.text}
-            </li>
+                number={index + 1} 
+                task={task}
+                handleTaskEdit={handleTaskEdit}
+                handleTaskDelete={handleTaskDelete}
+            />
         );
     });
 
