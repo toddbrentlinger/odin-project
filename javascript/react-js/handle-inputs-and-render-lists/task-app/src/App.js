@@ -24,19 +24,23 @@ function App() {
     e.target.reset();
   }
 
-  function handleTaskEdit(e, task) {
+  function handleTaskEdit(e, taskId) {
     e.preventDefault();
-
+    
     // Deep copy array of tasks
     const deepCopyTasks = [...tasks];
 
     // Update task inside deep copy array of tasks
+    const oldTask = deepCopyTasks.find((task) => task.id === taskId);
+    if (oldTask) {
+      oldTask.text = e.target.elements[taskInputName].value
+    }
 
     setTasks(deepCopyTasks);
   }
 
-  function handleTaskDelete(task) {
-
+  function handleTaskDelete(taskId) {
+    setTasks(tasks.filter((task) => task.id !== taskId));
   }
 
   return (

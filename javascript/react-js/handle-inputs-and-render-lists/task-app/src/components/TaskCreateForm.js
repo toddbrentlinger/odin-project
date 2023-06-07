@@ -7,6 +7,7 @@ function TaskCreateForm({ handleTaskSubmit, taskInputName = 'task' }) {
             type="text"
             name={taskInputName}
             placeholder="Enter task..."
+            autoFocus
             ></input>
 
             <button type="submit">Submit</button>

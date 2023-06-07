@@ -11,7 +11,7 @@ function Task({ task, number, handleTaskEdit, handleTaskDelete }) {
     function handleEditSubmit(e) {
         e.preventDefault();
         setIsEditMode(false);
-        handleTaskEdit(e, task);
+        handleTaskEdit(e, task.id);
     }
 
     function handleEditCancel() {
@@ -19,7 +19,7 @@ function Task({ task, number, handleTaskEdit, handleTaskDelete }) {
     }
 
     function handleDeleteClick() {
-        handleTaskDelete(task);
+        handleTaskDelete(task.id);
     }
 
     return isEditMode ? 

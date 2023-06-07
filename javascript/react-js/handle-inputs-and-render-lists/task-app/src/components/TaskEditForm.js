@@ -8,9 +8,10 @@ function TaskEditForm({ task, handleTaskEditSubmit, handleTaskEditCancel, taskIn
                 name={taskInputName}
                 placeholder="Enter task..."
                 defaultValue={task.text}
+                autoFocus
             ></input>
 
-            <button type="button" onClick={handleTaskEditSubmit} >Update</button>
+            <button type="button" onClick={handleTaskEditSubmit}>Update</button>
             <button type="button" onClick={handleTaskEditCancel}>Cancel</button>
         </form>
     );
