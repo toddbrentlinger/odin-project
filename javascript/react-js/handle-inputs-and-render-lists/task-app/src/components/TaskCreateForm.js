@@ -1,6 +1,7 @@
 function TaskCreateForm({ handleTaskSubmit, taskInputName = 'task' }) {
     return (
         <form
+            id="create-task-form"
             onSubmit={handleTaskSubmit}
         >
             <input

@@ -1,1 +1,109 @@
 @use './meyer_reset';
+
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
+:root {
+    --base-white: hsl(0, 0%, 95%);
+    --base-black: hsl(0, 0%, 10%);
+}
+
+html {
+    font-size: 62.5%; // 1rem = 10px
+    box-sizing: border-box;
+
+    color: var(--base-black, black);
+    background-color: var(--base-white, white);
+}
+
+*, *::before, *::after {
+    box-sizing: inherit;
+}
+
+body {
+    font-size: 1.6rem;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+#root {
+    min-height: 100vh;
+    max-width: 100rem;
+    margin: 0 auto;
+
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    grid-template-areas: 
+        "header"
+        "main"
+        "footer";
+}
+
+header, main, footer {
+    padding: 1.8rem;
+}
+
+header {
+    grid-area: header;
+    display: grid;
+    place-items: center;
+}
+
+main {
+    grid-area: main;
+}
+
+footer {
+    grid-area: footer;
+    font-size: 1.2rem;
+    text-align: center;
+    display: grid;
+    place-items: center;
+}
+
+// Custom Classes
+
+.task, .task-edit-form {
+    display: grid;
+    grid-template-columns: 3em 1fr repeat(2, 4em);
+}
+
+.task {
+    align-items: center;
+
+    .task-number {
+        justify-self: center;
+    }
+}
+
+.task-edit-form {
+    grid-template-areas: 
+        ". input update-btn cancel-btn";
+
+    input {
+        grid-area: input;
+    }
+
+    .update-btn {
+        grid-area: update-btn;
+    }
+
+    .cancel-btn {
+        grid-area: cancel-btn;
+    }
+}
+
+// Custom IDs
+
+#create-task-form {
+    display: grid;
+    grid-template-columns: 3em 1fr 8em;
+    grid-template-areas: 
+        ". input button";
+
+    input {
+        grid-area: input;
+    }
+
+    button {
+        grid-area: button;
+    }
+}

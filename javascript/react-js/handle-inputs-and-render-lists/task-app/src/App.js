@@ -1,3 +1,4 @@
+import Footer from "./components/Footer";
 import Overview from "./components/Overview";
 import TaskCreateForm from "./components/TaskCreateForm";
 import { useState } from "react";
@@ -45,9 +46,15 @@ function App() {
 
   return (
     <>
-      <TaskCreateForm handleTaskSubmit={handleTaskSubmit} />
+      <header><h1>Task App</h1></header>
 
-      <Overview tasks={tasks} handleTaskEdit={handleTaskEdit} handleTaskDelete={handleTaskDelete} />
+      <main>
+        <TaskCreateForm handleTaskSubmit={handleTaskSubmit} />
+
+        <Overview tasks={tasks} handleTaskEdit={handleTaskEdit} handleTaskDelete={handleTaskDelete} />
+      </main>
+
+      <Footer initialYear={2023} />
     </>
   );
 }

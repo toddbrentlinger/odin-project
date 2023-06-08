@@ -33,11 +33,19 @@ function Task({ task, number, handleTaskEdit, handleTaskDelete }) {
             <li className="task">
                 <span className="task-number">{number}</span>
                 <span className="task-text">{task.text}</span>
-                <button onClick={handleEditClick}>
-                    <span className="fa-solid fa-pen-to-square" aria-label="Edit"></span>
+                <button 
+                    onClick={handleEditClick}
+                    aria-label="Edit" 
+                    title="Edit"
+                >
+                    <span className="fa-solid fa-pen-to-square"></span>
                 </button>
-                <button onClick={handleDeleteClick}>
-                    <span className="fa-solid fa-trash-can" aria-label="Delete"></span>
+                <button 
+                    onClick={handleDeleteClick}
+                    aria-label="Delete" 
+                    title="Delete"
+                >
+                    <span className="fa-solid fa-trash-can"></span>
                 </button>
             </li>
         );
