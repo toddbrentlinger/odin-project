@@ -1,6 +1,72 @@
 <h1 align="center">The Odin Project</h1>
 
+<h2 align="center">React</h2>
+
+<h3 align="center">Project - Memory Card</h3>
+
+<p align="center">
+    <img src="https://toddbrentlinger.github.io/odin-project-memory-card/android-chrome-192x192.png" width="10%" alt="Memory card game icon">
+</p>
+
+<p align="center">
+    <a href="https://toddbrentlinger.github.io/odin-project-memory-card/">Click to see it in action</a>
+</p>
+
+<p align="center">
+    <a href="https://github.com/toddbrentlinger/odin-project-memory-card">Click to see source files and README</a>
+</p>
+
+<hr/>
+
+<h3 align="center">Project - CV Application</h3>
+
+<p align="center">
+    <img src="https://toddbrentlinger.github.io/odin-project-cv-application/android-chrome-192x192.png" width="10%" alt="CV application icon">
+</p>
+
+<p align="center">
+    <a href="https://toddbrentlinger.github.io/odin-project-cv-application/">Click to see it in action</a>
+</p>
+
+<p align="center">
+    <a href="https://github.com/toddbrentlinger/odin-project-cv-application">Click to see source files and README</a>
+</p>
+
+<hr/>
+
 <h2 align="center">JavaScript</h2>
+
+<h3 align="center">Project - Weather App <i>(In-Progress)</i></h3>
+
+<p align="center">
+    <img src="https://toddbrentlinger.github.io/odin-project-weather-app/android-chrome-144x144.png" width="10%" alt="Weather app project icon">
+</p>
+
+<p align="center">
+    <a href="https://toddbrentlinger.github.io/odin-project-weather-app/">Click to see it in action</a>
+</p>
+
+<p align="center">
+    <a href="https://github.com/toddbrentlinger/odin-project-weather-app">Click to see source files and README</a>
+</p>
+
+<hr/>
+
+<h3 align="center">Project - Todo List</h3>
+
+<p align="center">
+    <img src="https://toddbrentlinger.github.io/odin-project-todo-list/favicon/android-chrome-192x192.png" width="10%" alt="Todo list project icon">
+</p>
+
+<p align="center">
+    <a href="https://toddbrentlinger.github.io/odin-project-todo-list/">Click to see it in action</a>
+</p>
+
+<p align="center">
+    <a href="https://github.com/toddbrentlinger/odin-project-todo-list">Click to see source files and README</a>
+</p>
+
+<hr/>
 
 <h3 align="center">Project - Restaurant Page</h3>
 
